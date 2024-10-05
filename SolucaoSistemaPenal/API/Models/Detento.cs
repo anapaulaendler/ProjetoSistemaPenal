@@ -1,0 +1,11 @@
+using System;
+
+namespace API.Models;
+
+public class Detento : Pessoa
+{
+  public int TempoPenaInicial { get; set; }
+  public DateTime InicioPena { get; set; }
+  public DateTime FimPena { get; set; }
+  public List<Atividade>? ListaAtividades { get; set; }
+}
