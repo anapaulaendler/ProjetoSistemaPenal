@@ -89,3 +89,59 @@ app.MapDelete("/api/detento/deletar/{cpf}", ([FromRoute] string cpf) =>
 });
 
 // CRUD: atividade
+
+// criar: POST
+app.MapPost("/api/atividade/cadastrar", ([FromBody] Atividade atividade) =>
+{
+    atividades.Add(atividade);
+    return Results.Created("", atividade);
+});
+
+// listar: GET
+app.MapGet("/api/atividade/listar", () =>
+{
+    if (atividades.Count > 0)
+    {
+        return Results.Ok(atividades);
+    }
+    return Results.NotFound();
+});
+
+// buscar (nome): GET
+app.MapGet("/api/atividade/buscar/{nome}", ([FromRoute] string nome) =>
+{
+    Atividade? atividade = atividades.Find(x => x.Nome == nome);
+    if (atividade == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(atividade);
+});
+
+// alterar (nome): PUT
+app.MapPut("/api/atividade/alterar/{nome}", ([FromRoute] string nome, [FromBody] Atividade atividadeAlterada) =>
+{
+    Atividade? atividade = atividades.Find(x => x.Nome == nome);
+    if (atividade == null)
+    {
+        return Results.NotFound();
+    }
+    atividade.Id = atividadeAlterada.Id;
+    atividade.Nome = atividadeAlterada.Nome;
+    atividade.Contador = atividadeAlterada.Contador;
+    atividade.Equivalencia = atividadeAlterada.Equivalencia;
+    atividade.AnoAtual = atividadeAlterada.AnoAtual;
+    atividade.Limite = atividadeAlterada.Limite;
+    return Results.Ok(atividade);
+});
+
+// deletar (nome): DELETE
+app.MapDelete("/api/atividade/deletar/{nome}", ([FromRoute] string nome) =>
+{
+    Atividade? atividade = atividades.Find(x => x.Nome == nome);
+    if (atividade == null) {
+        return Results.NotFound();
+    }
+    atividades.Remove(atividade);
+    return Results.Ok(atividade);
+});
