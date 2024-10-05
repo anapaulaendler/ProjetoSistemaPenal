@@ -1,3 +1,6 @@
+using API.Models;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,39 +9,82 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+List<Atividade> atividades = [];
+List<Detento> detentos = [];
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.MapGet("/", () => "API de Sistema Penitencial");
+
+// CRUD: detento
+
+// criar: POST
+app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento) =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    detentos.Add(detento);
+    return Results.Created("", detento);
+});
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
+// listar: GET
+app.MapGet("/api/detento/listar", () =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    if (detentos.Count > 0)
+    {
+        return Results.Ok(detentos);
+    }
+    return Results.NotFound();
+});
 
-app.MapGet("/weatherforecast", () =>
+// buscar (nome): GET
+app.MapGet("/api/detento/buscar/{nome}", ([FromRoute] string nome) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+    Detento? detento = detentos.Find(x => x.Nome == nome);
+    if (detento == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(detento);
+});
 
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+// buscar (cpf): GET
+app.MapGet("/api/buscar/detento/{cpf}", ([FromRoute] string cpf) =>
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+    Detento? detento = detentos.Find(x => x.CPF == cpf);
+    if (detento == null) 
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(detento);
+});
+
+// alterar (cpf): PUT
+app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Detento detentoAlterado) =>
+{
+    Detento? detento = detentos.Find(x => x.CPF == cpf);
+    if (detento == null)
+    {
+        return Results.NotFound();
+    }
+    detento.Nome = detentoAlterado.Nome;
+    detento.DataNascimento = detentoAlterado.DataNascimento;
+    detento.CPF = detentoAlterado.CPF;
+    detento.Sexo = detentoAlterado.Sexo;
+    detento.Id = detentoAlterado.Id;
+    detento.TempoPenaInicial = detentoAlterado.TempoPenaInicial;
+    detento.PenaRestante = detentoAlterado.PenaRestante;
+    detento.InicioPena = detentoAlterado.InicioPena;
+    detento.FimPena = detentoAlterado.FimPena;
+    detento.ListaAtividades = detentoAlterado.ListaAtividades;
+});
+
+// deletar (cpf): DELETE
+app.MapDelete("/api/detento/deletar/{cpf}", ([FromRoute] string cpf) =>
+{
+    Detento? detento = detentos.Find(x => x.CPF == cpf);
+    if (detento == null)
+    {
+        return Results.NotFound();
+    }
+    detentos.Remove(detento);
+    return Results.Ok(detento);
+});
+
+// CRUD: atividade
