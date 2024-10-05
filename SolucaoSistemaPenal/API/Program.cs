@@ -73,6 +73,7 @@ app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Det
     detento.InicioPena = detentoAlterado.InicioPena;
     detento.FimPena = detentoAlterado.FimPena;
     detento.ListaAtividades = detentoAlterado.ListaAtividades;
+    return Results.Ok(detento);
 });
 
 // deletar (cpf): DELETE
