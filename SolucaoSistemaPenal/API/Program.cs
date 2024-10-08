@@ -149,3 +149,4 @@ app.MapDelete("/api/atividade/deletar/{nome}", ([FromRoute] string nome) =>
 // TODO: adicionar atividade em detento
 
 // TODO: reducao de pena
+
