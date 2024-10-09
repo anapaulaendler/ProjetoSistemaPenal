@@ -2,41 +2,39 @@ using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddDbContext<AppDataContext>();//PEDRO - atribuindo os serviços do banco de dados ao builder
 var app = builder.Build();
-List<Atividade> atividades = [];
-List<Detento> detentos = [];
+
+// PEDRO - tirei pois agora vou implementar o banco
+// List<Atividade> atividades = [];
+// List<Detento> detentos = [];
 
 app.MapGet("/", () => "API de Sistema Penitencial");
 
 // CRUD: detento
 
 // criar: POST
-app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento) =>
+app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices] AppDataContext ctx) =>
 {
-    detentos.Add(detento);
+    ctx.TabelaDetentos.Add(detento);
+    ctx.SaveChanges();
     return Results.Created("", detento);
 });
 
 // listar: GET
-app.MapGet("/api/detento/listar", () =>
+app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
 {
-    if (detentos.Count > 0)
+    if (ctx.TabelaDetentos.Count() > 0)
     {
-        return Results.Ok(detentos);
+        return Results.Ok(ctx.TabelaDetentos.ToList());
     }
     return Results.NotFound();
 });
 
 // buscar (nome): GET
-app.MapGet("/api/detento/buscar/{nome}", ([FromRoute] string nome) =>
+app.MapGet("/api/detento/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) =>
 {
-    Detento? detento = detentos.Find(x => x.Nome == nome);
+    Detento? detento = ctx.TabelaDetentos.Find(nome);
     if (detento == null)
     {
         return Results.NotFound();
@@ -45,9 +43,9 @@ app.MapGet("/api/detento/buscar/{nome}", ([FromRoute] string nome) =>
 });
 
 // buscar (cpf): GET
-app.MapGet("/api/buscar/detento/{cpf}", ([FromRoute] string cpf) =>
+app.MapGet("/api/buscar/detento/{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
 {
-    Detento? detento = detentos.Find(x => x.CPF == cpf);
+    Detento? detento = ctx.TabelaDetentos.Find(cpf);
     if (detento == null) 
     {
         return Results.NotFound();
@@ -56,13 +54,14 @@ app.MapGet("/api/buscar/detento/{cpf}", ([FromRoute] string cpf) =>
 });
 
 // alterar (cpf): PUT
-app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Detento detentoAlterado) =>
+app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Detento detentoAlterado, [FromServices] AppDataContext ctx) =>
 {
-    Detento? detento = detentos.Find(x => x.CPF == cpf);
+    Detento? detento = ctx.TabelaDetentos.Find(cpf);
     if (detento == null)
     {
         return Results.NotFound();
     }
+
     detento.Nome = detentoAlterado.Nome;
     detento.DataNascimento = detentoAlterado.DataNascimento;
     detento.CPF = detentoAlterado.CPF;
@@ -73,76 +72,86 @@ app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Det
     detento.InicioPena = detentoAlterado.InicioPena;
     detento.FimPena = detentoAlterado.FimPena;
     detento.ListaAtividades = detentoAlterado.ListaAtividades;
+    
+    ctx.TabelaDetentos.Update(detento);
+    ctx.SaveChanges();
     return Results.Ok(detento);
 });
 
 // deletar (cpf): DELETE
-app.MapDelete("/api/detento/deletar/{cpf}", ([FromRoute] string cpf) =>
+app.MapDelete("/api/detento/deletar/{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
 {
-    Detento? detento = detentos.Find(x => x.CPF == cpf);
+    Detento? detento = ctx.TabelaDetentos.Find(cpf);
     if (detento == null)
     {
         return Results.NotFound();
     }
-    detentos.Remove(detento);
+    ctx.TabelaDetentos.Remove(detento);
+    ctx.SaveChanges();
     return Results.Ok(detento);
 });
 
 // CRUD: atividade
 
 // criar: POST
-app.MapPost("/api/atividade/cadastrar", ([FromBody] Atividade atividade) =>
+app.MapPost("/api/atividade/cadastrar", ([FromBody] Atividade atividade, [FromServices] AppDataContext ctx) =>
 {
-    atividades.Add(atividade);
+    ctx.TabelaAtividades.Add(atividade);
+    ctx.SaveChanges();
     return Results.Created("", atividade);
 });
 
 // listar: GET
-app.MapGet("/api/atividade/listar", () =>
+app.MapGet("/api/atividade/listar", ([FromServices] AppDataContext ctx) =>
 {
-    if (atividades.Count > 0)
+    if (ctx.TabelaAtividades.Count() > 0)
     {
-        return Results.Ok(atividades);
+        return Results.Ok(ctx.TabelaAtividades.ToList());
     }
     return Results.NotFound();
 });
 
 // buscar (nome): GET
-app.MapGet("/api/atividade/buscar/{nome}", ([FromRoute] string nome) =>
+app.MapGet("/api/atividade/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) =>
 {
-    Atividade? atividade = atividades.Find(x => x.Nome == nome);
+    Atividade? atividade = ctx.TabelaAtividades.Find(nome);
     if (atividade == null)
     {
         return Results.NotFound();
     }
-    return Results.Ok(atividade);
+    return Results.Ok(ctx.TabelaAtividades.ToList());
 });
 
 // alterar (nome): PUT
-app.MapPut("/api/atividade/alterar/{nome}", ([FromRoute] string nome, [FromBody] Atividade atividadeAlterada) =>
+app.MapPut("/api/atividade/alterar/{nome}", ([FromRoute] string nome, [FromBody] Atividade atividadeAlterada, [FromServices] AppDataContext ctx) =>
 {
-    Atividade? atividade = atividades.Find(x => x.Nome == nome);
+    Atividade? atividade = ctx.TabelaAtividades.Find(nome);
     if (atividade == null)
     {
         return Results.NotFound();
     }
+
     atividade.Id = atividadeAlterada.Id;
     atividade.Nome = atividadeAlterada.Nome;
     atividade.Contador = atividadeAlterada.Contador;
     atividade.Equivalencia = atividadeAlterada.Equivalencia;
     atividade.AnoAtual = atividadeAlterada.AnoAtual;
     atividade.Limite = atividadeAlterada.Limite;
+
+    ctx.TabelaAtividades.Update(atividade);
+    ctx.SaveChanges();
     return Results.Ok(atividade);
 });
 
 // deletar (nome): DELETE
-app.MapDelete("/api/atividade/deletar/{nome}", ([FromRoute] string nome) =>
+app.MapDelete("/api/atividade/deletar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) =>
 {
-    Atividade? atividade = atividades.Find(x => x.Nome == nome);
+    Atividade? atividade = ctx.TabelaAtividades.Find(nome);
     if (atividade == null) {
         return Results.NotFound();
     }
-    atividades.Remove(atividade);
+    ctx.TabelaAtividades.Remove(atividade);
+    ctx.SaveChanges();
     return Results.Ok(atividade);
 });
 

@@ -2983,19 +2983,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\caueg\\.nuget\\packages\\": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\caueg\\OneDrive\\Área de Trabalho\\PROGRAMA DETENTOS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Desktop\\CS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\caueg\\OneDrive\\Área de Trabalho\\PROGRAMA DETENTOS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\caueg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\caueg\\OneDrive\\Área de Trabalho\\PROGRAMA DETENTOS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\obj\\",
+      "projectPath": "C:\\Users\\user\\Desktop\\CS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\Desktop\\CS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\caueg\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3062,7 +3062,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
