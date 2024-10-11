@@ -5,11 +5,11 @@ namespace API.Models;
 
 public class AppDataContext : DbContext{
 
-    public DbSet<Atividade> TabelaAtividades {get ; set;}
+    public DbSet<Atividade> TabelaAtividades { get; set; }
 
-    public DbSet<Detento> TabelaDetentos {get ; set;}
+    public DbSet<Detento> TabelaDetentos { get; set; }
 
-    public DbSet<Pessoa> TabelaPessoas {get ; set;}
+    public DbSet<Pessoa> TabelaPessoas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

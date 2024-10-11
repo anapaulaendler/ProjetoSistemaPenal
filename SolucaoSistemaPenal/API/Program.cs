@@ -2,7 +2,8 @@ using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<AppDataContext>();//PEDRO - atribuindo os serviços do banco de dados ao builder
+builder.Services.AddDbContext<AppDataContext>();
+//PEDRO - atribuindo os serviços do banco de dados ao builder
 var app = builder.Build();
 
 // PEDRO - tirei pois agora vou implementar o banco
@@ -71,7 +72,6 @@ app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Det
     detento.PenaRestante = detentoAlterado.PenaRestante;
     detento.InicioPena = detentoAlterado.InicioPena;
     detento.FimPena = detentoAlterado.FimPena;
-    detento.ListaAtividades = detentoAlterado.ListaAtividades;
     
     ctx.TabelaDetentos.Update(detento);
     ctx.SaveChanges();
@@ -154,8 +154,3 @@ app.MapDelete("/api/atividade/deletar/{nome}", ([FromRoute] string nome, [FromSe
     ctx.SaveChanges();
     return Results.Ok(atividade);
 });
-
-// TODO: adicionar atividade em detento
-
-// TODO: reducao de pena
-
