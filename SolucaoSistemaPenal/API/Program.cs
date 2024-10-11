@@ -72,6 +72,10 @@ app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Det
     detento.PenaRestante = detentoAlterado.PenaRestante;
     detento.InicioPena = detentoAlterado.InicioPena;
     detento.FimPena = detentoAlterado.FimPena;
+    /* ana: gente comentando sobre um erro engraçado tava arrancando meus cabelo
+    porque eu tava tratando AtividadeDetento como 1 coisa quando... eu tinha trocado...
+    pra coleção antes... depois dessa eu vou mimir adeus 
+    + !!!!!!!!!!! ver como colocar a coleção aqui */
     
     ctx.TabelaDetentos.Update(detento);
     ctx.SaveChanges();

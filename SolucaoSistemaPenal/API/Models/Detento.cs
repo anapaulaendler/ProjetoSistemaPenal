@@ -8,5 +8,6 @@ public class Detento : Pessoa
   public int PenaRestante { get; set; }
   public DateTime InicioPena { get; set; }
   public DateTime FimPena { get; set; }
-  public AtividadeDetento? AtividadeDetento { get; set; }
+  public ICollection<AtividadeDetento>? AtividadesDetento { get; set; }
+  /* ana: é um teste, depois vemos o que vamos fazer */
 }
