@@ -23,6 +23,9 @@ public class AppDataContext : DbContext{
     3. não aguentava mais os erros de migration tipo eu Precisava corrigir isso
     + !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! lembrar de conversar com o pedro e o cauê */
 
+    /* AVISO SÉRIO (quem sabe): An operation was scaffolded that may result in the loss of data. Please review the migration for accuracy.
+    ver no que isso dá e o que fazer ai jesus */
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Detento>()
