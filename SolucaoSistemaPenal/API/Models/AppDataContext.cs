@@ -30,13 +30,15 @@ public class AppDataContext : DbContext{
     {
         modelBuilder.Entity<Detento>()
             .HasMany(d => d.AtividadesDetento)
-            .WithOne(a => a.Detento)
-            .HasForeignKey(a => a.DetentoId);
+            .WithOne(ad => ad.Detento)
+            .HasForeignKey(ad => ad.DetentoId);
             /* anan: acho que é autoexplicativo
-            um detento pode ter várias atividades (conferir) 
+            um detento pode ter várias AtividadesDetento 
+            (cada uma relacionada a uma atividade: leitura, trabalho, estudo)
             e se refere pela id de detento */
         
         
+        /*
         modelBuilder.Entity<AtividadeDetento>()
             .HasOne(a => a.Leitura) 
             .WithMany();
@@ -51,5 +53,16 @@ public class AppDataContext : DbContext{
             .WithMany();
         
         // ana: de novo, meio autoexplicativo, mas cada uma se refere ao tipo de atividade que existem
+        */
+
+        // ana: resolvi trocar acima, para mais explicações, veja a model de AtividadeDetento
+
+        modelBuilder.Entity<AtividadeDetento>()
+            .HasOne(ad => ad.Atividade)
+            .WithMany();
+
+        // basicamente, uma AtividadeDetento tá relacionada a uma Atividade específica
+
+
     }
 };
