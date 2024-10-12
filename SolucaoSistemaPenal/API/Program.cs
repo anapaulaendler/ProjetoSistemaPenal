@@ -147,3 +147,5 @@ app.MapDelete("/api/atividade/deletar/{nome}", ([FromRoute] string nome, [FromSe
     ctx.SaveChanges();
     return Results.Ok(atividade);
 });
+
+app.Run();
