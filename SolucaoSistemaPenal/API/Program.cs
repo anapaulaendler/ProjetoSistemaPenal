@@ -32,17 +32,6 @@ app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
     return Results.NotFound();
 });
 
-// buscar (nome): GET
-app.MapGet("/api/detento/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) =>
-{
-    Detento? detento = ctx.TabelaDetentos.Find(nome);
-    if (detento == null)
-    {
-        return Results.NotFound();
-    }
-    return Results.Ok(detento);
-});
-
 // buscar (cpf): GET
 app.MapGet("/api/buscar/detento/{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
 {
