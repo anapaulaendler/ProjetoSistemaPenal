@@ -391,3 +391,9 @@ C:\Users\Usuário\OneDrive\Documentos\ProjetoSistemaPenal\ProjetoSistemaPenal\So
 C:\Users\Usuário\OneDrive\Documentos\ProjetoSistemaPenal\ProjetoSistemaPenal\SolucaoSistemaPenal\API\obj\Debug\net8.0\API.pdb
 C:\Users\Usuário\OneDrive\Documentos\ProjetoSistemaPenal\ProjetoSistemaPenal\SolucaoSistemaPenal\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\Usuário\OneDrive\Documentos\ProjetoSistemaPenal\ProjetoSistemaPenal\SolucaoSistemaPenal\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\user\Desktop\CS\ProjetoSistemaPenal\SolucaoSistemaPenal\API\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\user\Desktop\CS\ProjetoSistemaPenal\SolucaoSistemaPenal\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\user\Desktop\CS\ProjetoSistemaPenal\SolucaoSistemaPenal\API\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\user\Desktop\CS\ProjetoSistemaPenal\SolucaoSistemaPenal\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\user\Desktop\CS\ProjetoSistemaPenal\SolucaoSistemaPenal\API\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\user\Desktop\CS\ProjetoSistemaPenal\SolucaoSistemaPenal\API\bin\Debug\net8.0\Microsoft.Extensions.Options.dll

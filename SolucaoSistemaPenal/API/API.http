@@ -1,13 +1,3 @@
 ### Requisação para a raiz da aplicação
 GET http://localhost:5291
 
-### Cadastrar Atividade: Leitura
-POST http://localhost:5291/api/atividade/cadastrar
-Content-Type: application/json
-
-{
-    "nome": "Leitura",
-    "contador": 0,
-    "equivalencia": 1,
-    "limite": 12
-}

@@ -29,5 +29,4 @@ public class AtividadeDetento
 
     public string? AtividadeId { get; set; } // fk: aqui puxa o tipo de atividade (leitura, estudo, trabalho)
     public Atividade? Atividade { get; set; }
-    public int Contador { get; set; } // talvez o contador sirva melhor aqui (se a equipe concordar, lembrar de tirar de Atividade)
 }

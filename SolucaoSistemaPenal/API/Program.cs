@@ -36,7 +36,7 @@ app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
 app.MapGet("/api/buscar/detento/{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(cpf);
-    if (detento == null) 
+    if (detento == null)
     {
         return Results.NotFound();
     }
@@ -65,7 +65,7 @@ app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Det
     porque eu tava tratando AtividadeDetento como 1 coisa quando... eu tinha trocado...
     pra coleção antes... depois dessa eu vou mimir adeus 
     + !!!!!!!!!!! ver como colocar a coleção aqui */
-    
+
     ctx.TabelaDetentos.Update(detento);
     ctx.SaveChanges();
     return Results.Ok(detento);
@@ -87,14 +87,9 @@ app.MapDelete("/api/detento/deletar/{cpf}", ([FromRoute] string cpf, [FromServic
 // CRUD: atividade
 
 // criar: POST
-app.MapPost("/api/atividade/cadastrar", ([FromBody] Atividade atividade, [FromServices] AppDataContext ctx) =>
-{
-    ctx.TabelaAtividades.Add(atividade);
-    ctx.SaveChanges();
-    return Results.Created("", atividade);
-});
 
-// listar: GET
+//PEDRO - Aqui tem que ser listar a atividade de um detento em específico
+// listar: GET 
 app.MapGet("/api/atividade/listar", ([FromServices] AppDataContext ctx) =>
 {
     if (ctx.TabelaAtividades.Count() > 0)
@@ -104,6 +99,8 @@ app.MapGet("/api/atividade/listar", ([FromServices] AppDataContext ctx) =>
     return Results.NotFound();
 });
 
+
+//PEDRO - o certo não seria buscar por ID?
 // buscar (nome): GET
 app.MapGet("/api/atividade/buscar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) =>
 {
@@ -115,8 +112,12 @@ app.MapGet("/api/atividade/buscar/{nome}", ([FromRoute] string nome, [FromServic
     return Results.Ok(ctx.TabelaAtividades.ToList());
 });
 
+//PEDRO - o certo não seria alterar por ID?
 // alterar (nome): PUT
-app.MapPut("/api/atividade/alterar/{nome}", ([FromRoute] string nome, [FromBody] Atividade atividadeAlterada, [FromServices] AppDataContext ctx) =>
+app.MapPut("/api/atividade/alterar/{nome}", (
+    [FromRoute] string nome,
+    [FromBody] Atividade atividadeAlterada,
+    [FromServices] AppDataContext ctx) =>
 {
     Atividade? atividade = ctx.TabelaAtividades.Find(nome);
     if (atividade == null)
@@ -136,11 +137,13 @@ app.MapPut("/api/atividade/alterar/{nome}", ([FromRoute] string nome, [FromBody]
     return Results.Ok(atividade);
 });
 
+//PEDRO - o certo não seria deletar por ID?
 // deletar (nome): DELETE
 app.MapDelete("/api/atividade/deletar/{nome}", ([FromRoute] string nome, [FromServices] AppDataContext ctx) =>
 {
     Atividade? atividade = ctx.TabelaAtividades.Find(nome);
-    if (atividade == null) {
+    if (atividade == null)
+    {
         return Results.NotFound();
     }
     ctx.TabelaAtividades.Remove(atividade);
