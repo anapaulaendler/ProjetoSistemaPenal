@@ -125,12 +125,12 @@ app.MapPut("/api/atividade/alterar/{nome}", (
         return Results.NotFound();
     }
 
-    atividade.Id = atividadeAlterada.Id;
-    atividade.Nome = atividadeAlterada.Nome;
-    atividade.Contador = atividadeAlterada.Contador;
-    atividade.Equivalencia = atividadeAlterada.Equivalencia;
-    atividade.AnoAtual = atividadeAlterada.AnoAtual;
-    atividade.Limite = atividadeAlterada.Limite;
+    // atividade.Id = atividadeAlterada.Id;
+    // atividade.Nome = atividadeAlterada.Nome;
+    // atividade.Contador = atividadeAlterada.Contador;
+    // atividade.Equivalencia = atividadeAlterada.Equivalencia;
+    // atividade.AnoAtual = atividadeAlterada.AnoAtual;
+    // atividade.Limite = atividadeAlterada.Limite;
 
     ctx.TabelaAtividades.Update(atividade);
     ctx.SaveChanges();
