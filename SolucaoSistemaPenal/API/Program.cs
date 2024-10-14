@@ -6,10 +6,6 @@ builder.Services.AddDbContext<AppDataContext>();
 //PEDRO - atribuindo os serviços do banco de dados ao builder
 var app = builder.Build();
 
-// PEDRO - tirei pois agora vou implementar o banco
-// List<Atividade> atividades = [];
-// List<Detento> detentos = [];
-
 app.MapGet("/", () => "API de Sistema Penitencial");
 
 // CRUD: detento
@@ -71,15 +67,15 @@ app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Det
     return Results.Ok(detento);
 });
 
-// deletar (cpf): DELETE
-app.MapDelete("/api/detento/deletar/{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
+// deletar (id): DELETE
+app.MapDelete("/api/detento/deletar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
-    Detento? detento = ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == cpf);
+    Detento? detento = ctx.TabelaDetentos.FirstOrDefault(x => x.Id == id);
     if (detento == null)
     {
         return Results.NotFound();
-    }
-    Atividade? estudo = ctx.TabelaAtividades.Find(detento?.Estudo.Id);
+    } 
+    Atividade estudo = ctx.TabelaAtividades.Find(id);
     Atividade? leitura = ctx.TabelaAtividades.Find(detento?.Leitura.Id);
     Atividade? trabalho = ctx.TabelaAtividades.Find(detento?.Trabalho.Id);
     
