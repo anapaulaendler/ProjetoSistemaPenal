@@ -8,8 +8,10 @@ public class AppDataContext : DbContext{
     public DbSet<Atividade> TabelaAtividades { get; set; }
 
     public DbSet<Detento> TabelaDetentos { get; set; }
-
-    public DbSet<Pessoa> TabelaPessoas { get; set; }
+    
+    public DbSet<Estudo> TabelaEstudo { get; set; }
+    public DbSet<Leitura> TabelaLeitura { get; set; }
+    public DbSet<Trabalho> TabelaTrabalho { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
