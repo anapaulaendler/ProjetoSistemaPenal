@@ -1,5 +1,5 @@
 ### Requisação para a raiz da aplicação
-GET http://localhost:5291/api/detento/cadastrar
+POST http://localhost:5291/api/detento/cadastrar
 Content-Type: application/json
 
 {
@@ -12,4 +12,7 @@ Content-Type: application/json
     "InicioPena" : "13/10/2024",
     "FimPena" : "13/10/2039"
 }
+
+###Deletar detento
+DELETE http://localhost:5291/api/detento/deletar/65725312334
 

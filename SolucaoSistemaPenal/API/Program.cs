@@ -74,11 +74,18 @@ app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Det
 // deletar (cpf): DELETE
 app.MapDelete("/api/detento/deletar/{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
 {
-    Detento? detento = ctx.TabelaDetentos.Find(cpf);
+    Detento? detento = ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == cpf);
     if (detento == null)
     {
         return Results.NotFound();
     }
+    Atividade? estudo = ctx.TabelaAtividades.Find(detento?.Estudo.Id);
+    Atividade? leitura = ctx.TabelaAtividades.Find(detento?.Leitura.Id);
+    Atividade? trabalho = ctx.TabelaAtividades.Find(detento?.Trabalho.Id);
+    
+    ctx.TabelaAtividades.Remove(estudo);
+    ctx.TabelaAtividades.Remove(trabalho);
+    ctx.TabelaAtividades.Remove(leitura);
     ctx.TabelaDetentos.Remove(detento);
     ctx.SaveChanges();
     return Results.Ok(detento);
