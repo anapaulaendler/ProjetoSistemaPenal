@@ -1,10 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace API.Models;
 
-public class Atividade(Detento detento)
+public abstract class Atividade
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
-    public string? DetentoId { get; set; } = detento.Id;
-    public int Contador { get; set; } = 0;
-    public Detento? Detento { get; set; } = detento;
-
+    [Required]
+    public string DetentoId { get; set; } = null!;
+    [Required]
+    public Detento Detento { get; set; } = null!;
+    public int Contador { get; set; }
 }

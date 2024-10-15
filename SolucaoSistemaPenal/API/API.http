@@ -12,6 +12,12 @@ Content-Type: application/json
     "InicioPena" : "13/10/2024",
     "FimPena" : "13/10/2039"
 }
-
+###Cadastrar Atividade
+POST http://localhost:5291/api/cadastrar/atividade/leitura/bf7cb00b-d341-43f7-afcd-f136765709a7
+###Listar Detentos
+GET http://localhost:5291/api/detento/listar
+###Buscar Detento
+GET http://localhost:5291/api/buscar/detento/bf7cb00b-d341-43f7-afcd-f136765709a7
 ###Deletar detento
-DELETE http://localhost:5291/api/detento/deletar/78775737-70ab-4209-b1bc-e70f1769db92
+DELETE http://localhost:5291/api/detento/deletar/bf7cb00b-d341-43f7-afcd-f136765709a7
+

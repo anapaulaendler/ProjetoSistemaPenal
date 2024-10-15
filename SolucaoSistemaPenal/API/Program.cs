@@ -12,11 +12,16 @@ app.MapGet("/", () => "API de Sistema Penitencial");
 
 // criar: POST
 app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices] AppDataContext ctx) =>
-{
-    List<Atividade> atividades = [new Leitura(detento), new Trabalho(detento), new Estudo(detento)];
-    detento.Atividades = atividades;
+{   
+    Atividade leitura = new Leitura{
+        Detento = detento,
+        DetentoId = detento.Id
+    };
+    
+    detento.Atividades.Add(leitura);
     ctx.TabelaDetentos.Add(detento);
     ctx.SaveChanges();
+
     return Results.Created("", detento);
 });
 
@@ -44,8 +49,8 @@ app.MapGet("/api/buscar/detento/{cpf}", ([FromRoute] string cpf, [FromServices] 
 // alterar (cpf): PUT
 app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Detento detentoAlterado, [FromServices] AppDataContext ctx) =>
 {
-    Detento? detento = ctx.TabelaDetentos.Find(cpf);
-    if (detento == null)
+    Detento? detento = ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == cpf);
+    if (detento is null)
     {
         return Results.NotFound();
     }
@@ -73,7 +78,7 @@ app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Det
 app.MapDelete("/api/detento/deletar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
-    if (detento == null)
+    if (detento is null)
     {
         return Results.NotFound();
     }
@@ -97,6 +102,20 @@ app.MapDelete("/api/detento/deletar/{id}", ([FromRoute] string id, [FromServices
 // CRUD: atividade
 
 // criar: POST
+app.MapPost("/api/atividade/cadastrar/leitura/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+{
+    Detento? detento = ctx.TabelaDetentos.Find(id);
+    if (detento is null)
+    {
+        return Results.NotFound();
+    }
+
+    Atividade atividade = new Leitura();
+    // detento.Atividades.Add(atividade);
+
+    ctx.SaveChanges();
+    return Results.Created("", atividade);
+});
 
 //PEDRO - Aqui tem que ser listar a atividade de um detento em específico
 // listar: GET 

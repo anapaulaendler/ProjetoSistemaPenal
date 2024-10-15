@@ -2835,11 +2835,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Desktop\\CS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\user\\Desktop\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\user\\Desktop\\CS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
+      "projectPath": "C:\\Users\\user\\Desktop\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Desktop\\CS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\obj\\",
+      "outputPath": "C:\\Users\\user\\Desktop\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OIX46I977EI=",
+  "dgSpecHash": "6sXadam37E4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\Desktop\\CS\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\user\\Desktop\\ProjetoSistemaPenal\\SolucaoSistemaPenal\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.7\\microsoft.aspnetcore.openapi.8.0.7.nupkg.sha512",

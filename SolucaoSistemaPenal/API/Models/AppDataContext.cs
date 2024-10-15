@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Models;
 
-public class AppDataContext : DbContext{
+public class AppDataContext : DbContext
+{
     public DbSet<Leitura> TabelaLeitura { get; set; }
     public DbSet<Estudo> TabelaEstudo { get; set; }
     public DbSet<Trabalho> TabelaTrabalho { get; set; }
@@ -15,12 +16,12 @@ public class AppDataContext : DbContext{
         optionsBuilder.UseSqlite("Data Source=SistemaPenal.db");
     }
 
-protected override void OnModelCreating(ModelBuilder modelBuilder)
-{
-    modelBuilder.Entity<Detento>()
-        .HasMany(e => e.Atividades)
-        .WithOne(e => e.Detento)
-        .HasForeignKey(e => e.DetentoId)
-        .IsRequired();
-}
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Detento>()
+            .HasMany(d => d.Atividades)
+            .WithOne(a => a.Detento)
+            .HasForeignKey(a => a.DetentoId)
+            .IsRequired();
+    }
 };

@@ -1,5 +1,3 @@
-using System;
-
 namespace API.Models;
 
 public class Detento : Pessoa
@@ -9,5 +7,5 @@ public class Detento : Pessoa
   public int PenaRestante { get; set; }
   public string? InicioPena { get; set; }
   public string? FimPena { get; set; }
-  public ICollection<Atividade> Atividades { get; set; } = new List<Atividade>();
+  public List<Atividade> Atividades { get; set; } = new();
 }
