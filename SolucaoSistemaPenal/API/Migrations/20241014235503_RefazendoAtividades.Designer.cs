@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20241014000704_adicionandoTabelasDeAtividades5")]
-    partial class adicionandoTabelasDeAtividades5
+    [Migration("20241014235503_RefazendoAtividades")]
+    partial class RefazendoAtividades
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,12 +27,18 @@ namespace API.Migrations
                     b.Property<int>("Contador")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("DetentoId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasMaxLength(13)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DetentoId");
 
                     b.ToTable("TabelaAtividades");
 
@@ -52,18 +58,10 @@ namespace API.Migrations
                     b.Property<string>("DataNascimento")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("EstudoId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FimPena")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("InicioPena")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LeituraId")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
@@ -78,17 +76,7 @@ namespace API.Migrations
                     b.Property<int>("TempoPenaInicial")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("TrabalhoId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("EstudoId");
-
-                    b.HasIndex("LeituraId");
-
-                    b.HasIndex("TrabalhoId");
 
                     b.ToTable("TabelaDetentos");
                 });
@@ -120,31 +108,20 @@ namespace API.Migrations
                     b.HasDiscriminator().HasValue("Trabalho");
                 });
 
+            modelBuilder.Entity("API.Models.Atividade", b =>
+                {
+                    b.HasOne("API.Models.Detento", "Detento")
+                        .WithMany("Atividades")
+                        .HasForeignKey("DetentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Detento");
+                });
+
             modelBuilder.Entity("API.Models.Detento", b =>
                 {
-                    b.HasOne("API.Models.Atividade", "Estudo")
-                        .WithMany()
-                        .HasForeignKey("EstudoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("API.Models.Atividade", "Leitura")
-                        .WithMany()
-                        .HasForeignKey("LeituraId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("API.Models.Atividade", "Trabalho")
-                        .WithMany()
-                        .HasForeignKey("TrabalhoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Estudo");
-
-                    b.Navigation("Leitura");
-
-                    b.Navigation("Trabalho");
+                    b.Navigation("Atividades");
                 });
 #pragma warning restore 612, 618
         }

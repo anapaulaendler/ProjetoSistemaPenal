@@ -1,9 +1,6 @@
 namespace API.Models;
 
-public class Trabalho : Atividade
+public class Trabalho(Detento detento) : Atividade(detento)
 {
-  public Trabalho(string detentoId) : base(detentoId)
-  {
-  }
-  public int Equivalencia { get; } = 3;
+    public int Equivalencia { get; } = 3;
 }

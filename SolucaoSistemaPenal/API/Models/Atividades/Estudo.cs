@@ -1,10 +1,6 @@
 namespace API.Models;
 
-public class Estudo : Atividade
+public class Estudo(Detento detento) : Atividade(detento)
 {
-    public Estudo(string detentoId) : base(detentoId)
-    {
-    }
-
     public int Equivalencia { get; } = 3;
 }

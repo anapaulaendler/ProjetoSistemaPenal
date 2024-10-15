@@ -1,13 +1,8 @@
 namespace API.Models;
 
-public class Leitura : Atividade
+public class Leitura(Detento detento) : Atividade(detento)
 {
-
-  public Leitura(string detentoId) : base(detentoId)
-  {
-    AnoAtual = DateTime.Now.Year;
-  }
-  public int Limite { get; set; }
-  public int AnoAtual { get; set; }
+    public int Limite { get; set; }
+  public int AnoAtual { get; set; } = DateTime.Now.Year;
   public double Equivalencia { get; } = 0.25;
 }
