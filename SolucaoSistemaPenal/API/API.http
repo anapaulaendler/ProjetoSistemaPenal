@@ -1,4 +1,7 @@
-### Requisação para a raiz da aplicação
+### Raiz
+GET http://localhost:5291/
+
+### Cadastrar Detento
 POST http://localhost:5291/api/detento/cadastrar
 Content-Type: application/json
 
@@ -13,14 +16,30 @@ Content-Type: application/json
     "FimPena" : "13/10/2039"
 }
 
-###Cadastrar Atividade
-POST http://localhost:5291/api/atividade/cadastrar/leitura/f0ae1e75-99d6-4490-bbe5-f7463fa5c902
-
-###Listar Detentos
+### Listar Detentos
 GET http://localhost:5291/api/detento/listar
 
-###Buscar Detento
-GET http://localhost:5291/api/buscar/detento/6ba03e75-66f4-4b10-b8d4-ffb3abdbd4f9
+### Buscar Detento
+GET http://localhost:5291/api/buscar/detento/95bf28a3-6a4d-4133-9666-14973c80c427
 
-###Deletar detento
+### Alterar Detento
+PUT http://localhost:5291/api/detento/alterar/95bf28a3-6a4d-4133-9666-14973c80c427
+Content-Type: application/json
+
+{
+    "Nome" : "José Arcadio Buendia",
+    "DataNascimento" : "25/12/1950",
+    "CPF" : "72761910524",
+    "Sexo" : "M",
+    "TempoPenaInicial" : 500, 
+    "PenaRestante" : 500,
+    "InicioPena" : "25/12/2024",
+    "FimPena" : "09/05/2026"
+}
+
+### Deletar detento
 DELETE http://localhost:5291/api/detento/deletar/1a7bc3e5-5575-4734-b6ea-5141e8702fff
+
+### Listar atividades de um detento
+GET http://localhost:5291/api/atividade/listar/detento:1a7bc3e5-5575-4734-b6ea-5141e8702fff
+

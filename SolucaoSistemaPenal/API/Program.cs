@@ -9,7 +9,7 @@ var app = builder.Build();
 
 app.MapGet("/", () => "API de Sistema Penitencial");
 
-// !CRUD: detento
+// CRUD: detento
 
 // criar: POST
 app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices] AppDataContext ctx) =>
@@ -17,10 +17,14 @@ app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices
     List<Atividade> atividades = [new Leitura{DetentoId = detento.Id},
         new Estudo{DetentoId = detento.Id},
         new Trabalho{DetentoId = detento.Id}];
+        // modo de passar o id de detento para as atividades
 
     detento.Atividades.AddRange(atividades);
+    // adiciona ao detento primeiro as atividades (esqueleto)
+
     ctx.TabelaDetentos.Add(detento);
     ctx.SaveChanges();
+    // bd
     return Results.Created("", detento);
 });
 
@@ -36,13 +40,15 @@ app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
             detento.Atividades = atividades.ToList();
             detentos.Add(detento);
         }
-
         return Results.Ok(detentos);
+        /* a forma acima funcionou melhor que a de baixo: 
+        List<Detento> detentos = ctx.TabelaDetentos.ToList();
+        porque, na de cima, a lista de atividades não constava em detento */
     }
     return Results.NotFound();
 });
 
-// buscar (cpf): GET
+// buscar (id): GET
 app.MapGet("/api/buscar/detento/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
@@ -55,28 +61,19 @@ app.MapGet("/api/buscar/detento/{id}", ([FromRoute] string id, [FromServices] Ap
     return Results.Ok(detento);
 });
 
-// alterar (cpf): PUT
-app.MapPut("/api/detento/alterar/{cpf}", ([FromRoute] string cpf, [FromBody] Detento detentoAlterado, [FromServices] AppDataContext ctx) =>
+// alterar (id): PUT
+app.MapPut("/api/detento/alterar/{id}", ([FromRoute] string id, [FromBody] Detento detentoAlterado, [FromServices] AppDataContext ctx) =>
 {
-    Detento? detento = ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == cpf);
+    Detento? detento = ctx.TabelaDetentos.FirstOrDefault(x => x.Id == id);
     if (detento is null)
     {
         return Results.NotFound();
     }
 
     detento.Nome = detentoAlterado.Nome;
-    detento.DataNascimento = detentoAlterado.DataNascimento;
-    detento.CPF = detentoAlterado.CPF;
     detento.Sexo = detentoAlterado.Sexo;
-    detento.Id = detentoAlterado.Id;
-    detento.TempoPenaInicial = detentoAlterado.TempoPenaInicial;
     detento.PenaRestante = detentoAlterado.PenaRestante;
-    detento.InicioPena = detentoAlterado.InicioPena;
     detento.FimPena = detentoAlterado.FimPena;
-    /* ana: gente comentando sobre um erro engraçado tava arrancando meus cabelo
-    porque eu tava tratando AtividadeDetento como 1 coisa quando... eu tinha trocado...
-    pra coleção antes... depois dessa eu vou mimir adeus 
-    + !!!!!!!!!!! ver como colocar a coleção aqui */
 
     ctx.TabelaDetentos.Update(detento);
     ctx.SaveChanges();
@@ -91,24 +88,13 @@ app.MapDelete("/api/detento/deletar/{id}", ([FromRoute] string id, [FromServices
     {
         return Results.NotFound();
     }
-    // Atividade? estudo = ctx.TabelaAtividades.Find(id);
-    // Atividade? leitura = ctx.TabelaAtividades.Find(id);
-    // Atividade? trabalho = ctx.TabelaAtividades.Find(id);
-
-    // if (estudo == null || leitura == null || trabalho == null)
-    // {
-    //     return Results.NotFound();
-    // } 
-    // ctx.TabelaAtividades.Remove(estudo);
-    // ctx.TabelaAtividades.Remove(trabalho);
-    // ctx.TabelaAtividades.Remove(leitura);
     ctx.TabelaDetentos.Remove(detento);
     ctx.SaveChanges();
 
     return Results.Ok(detento);
 });
 
-//listar atividades de um detento: GET 
+// listar atividades de um detento: GET 
 app.MapGet("/api/atividade/listar/detento:{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     if (ctx.TabelaAtividades.Count() > 0)
@@ -118,7 +104,7 @@ app.MapGet("/api/atividade/listar/detento:{id}", ([FromRoute] string id, [FromSe
     return Results.NotFound();
 });
 
-//buscar atividade especifica GET
+// buscar atividade especifica: GET
 app.MapGet("/api/atividade/buscar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Atividade? atividade = ctx.TabelaAtividades.Find(id);
@@ -129,7 +115,7 @@ app.MapGet("/api/atividade/buscar/{id}", ([FromRoute] string id, [FromServices] 
     return Results.Ok(atividade);
 });
 
-// alterar atividade PUT
+// alterar atividade: PUT
 app.MapPut("/api/atividade/alterar/{id}", ([FromRoute] string id, [FromBody] Atividade atividadeAlterada, [FromServices] AppDataContext ctx) =>
 {
     Atividade? atividade = ctx.TabelaAtividades.Find(id);
@@ -141,7 +127,12 @@ app.MapPut("/api/atividade/alterar/{id}", ([FromRoute] string id, [FromBody] Ati
     if (atividade is Leitura leitura)
     {
         leitura.Limite = ((Leitura)atividadeAlterada).Limite;
-        leitura.AnoAtual = DateTime.Now.Year;
+        // leitura.AnoAtual = DateTime.Now.Year;
+        if (leitura.AnoAtual != DateTime.Now.Year)
+        {
+            leitura.Contador = 0;
+            leitura.AnoAtual = DateTime.Now.Year;
+        }
     }
 
     atividade.Contador = atividadeAlterada.Contador;
