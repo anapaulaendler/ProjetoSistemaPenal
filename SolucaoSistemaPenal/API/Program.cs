@@ -10,7 +10,7 @@ var app = builder.Build();
 app.MapGet("/", () => "API de Sistema Penitencial");
 
 // CRUD: detento
-
+//teste do caue
 // criar: POST
 app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices] AppDataContext ctx) =>
 {   
