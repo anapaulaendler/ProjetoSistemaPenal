@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20241015224054_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20241016205037_adicionandoTipo")]
+    partial class adicionandoTipo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,10 @@ namespace API.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasMaxLength(13)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -110,13 +114,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Atividade", b =>
                 {
-                    b.HasOne("API.Models.Detento", "Detento")
+                    b.HasOne("API.Models.Detento", null)
                         .WithMany("Atividades")
                         .HasForeignKey("DetentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Detento");
                 });
 
             modelBuilder.Entity("API.Models.Detento", b =>

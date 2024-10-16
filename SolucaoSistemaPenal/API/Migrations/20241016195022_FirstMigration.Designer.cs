@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20241016004919_AtualizacaoAppDataContext")]
-    partial class AtualizacaoAppDataContext
+    [Migration("20241016195022_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,13 +110,11 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Atividade", b =>
                 {
-                    b.HasOne("API.Models.Detento", "Detento")
+                    b.HasOne("API.Models.Detento", null)
                         .WithMany("Atividades")
                         .HasForeignKey("DetentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Detento");
                 });
 
             modelBuilder.Entity("API.Models.Detento", b =>

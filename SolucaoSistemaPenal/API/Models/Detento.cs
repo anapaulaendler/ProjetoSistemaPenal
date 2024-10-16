@@ -7,5 +7,5 @@ public class Detento : Pessoa
   public int PenaRestante { get; set; }
   public string? InicioPena { get; set; }
   public string? FimPena { get; set; }
-  public List<Atividade> Atividades { get; set; } = new();
+  public List<Atividade> Atividades { get; set; } = [];
 }

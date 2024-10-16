@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Models;
@@ -14,14 +13,5 @@ public class AppDataContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source=SistemaPenal.db");
-    }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Detento>()
-            .HasMany(d => d.Atividades)
-            .WithOne(a => a.Detento)
-            .HasForeignKey(a => a.DetentoId)
-            .IsRequired();
     }
 };

@@ -1,5 +1,3 @@
-using System;
-
 namespace API.Models;
 
 public abstract class Pessoa
