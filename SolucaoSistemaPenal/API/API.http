@@ -41,5 +41,12 @@ Content-Type: application/json
 DELETE http://localhost:5291/api/detento/deletar/1a7bc3e5-5575-4734-b6ea-5141e8702fff
 
 ### Listar atividades de um detento
-GET http://localhost:5291/api/atividade/listar/detento:1a7bc3e5-5575-4734-b6ea-5141e8702fff
+GET http://localhost:5291/api/atividade/listar/95bf28a3-6a4d-4133-9666-14973c80c427
 
+### Alterar atividade [rascunho lógica de redução de pena]
+PUT http://localhost:5291/api/atividade/alterar/645e2c0c-08db-4cb6-ad1f-cc5bbbb4a34c
+Content-Type: application/json
+
+{
+    "Contador" : 1
+}

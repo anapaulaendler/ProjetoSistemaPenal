@@ -95,25 +95,29 @@ app.MapDelete("/api/detento/deletar/{id}", ([FromRoute] string id, [FromServices
 });
 
 // listar atividades de um detento: GET 
-app.MapGet("/api/atividade/listar/detento:{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+app.MapGet("/api/atividade/listar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
-    if (ctx.TabelaAtividades.Count() > 0)
-    {
-        return Results.Ok(ctx.TabelaAtividades.Where(x => x.DetentoId == id).ToList());
-    }
-    return Results.NotFound();
-});
-
-// buscar atividade especifica: GET
-app.MapGet("/api/atividade/buscar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
-{
-    Atividade? atividade = ctx.TabelaAtividades.Find(id);
-    if (atividade == null)
+    Detento? detento = ctx.TabelaDetentos.Find(id);
+    var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
+    if (detento is null)
     {
         return Results.NotFound();
     }
-    return Results.Ok(atividade);
+
+    return Results.Ok(atividades);
 });
+
+// // buscar atividade especifica: GET
+// app.MapGet("/api/atividade/buscar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+// {
+//     var atividade = ctx.TabelaAtividades.Find(id);
+//     if (atividade is null)
+//     {
+//         return Results.NotFound();
+//     }
+//     return Results.Ok(atividade);
+// });
+// pra que isso
 
 // alterar atividade: PUT
 app.MapPut("/api/atividade/alterar/{id}", ([FromRoute] string id, [FromBody] Atividade atividadeAlterada, [FromServices] AppDataContext ctx) =>
