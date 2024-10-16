@@ -5,9 +5,7 @@ namespace API.Models;
 public abstract class Atividade
 {
     public string Id { get; set; } = Guid.NewGuid().ToString();
-    [Required]
-    public string DetentoId { get; set; } = null!;
-    [Required]
-    public Detento Detento { get; set; } = null!;
+    public required string DetentoId { get; set; }
+    public required Detento Detento { get; set; }
     public int Contador { get; set; }
 }

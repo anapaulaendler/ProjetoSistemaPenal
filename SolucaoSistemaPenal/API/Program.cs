@@ -6,6 +6,7 @@ builder.Services.AddDbContext<AppDataContext>();
 //PEDRO - atribuindo os serviços do banco de dados ao builder
 var app = builder.Build();
 
+
 app.MapGet("/", () => "API de Sistema Penitencial");
 
 // CRUD: detento
@@ -13,15 +14,12 @@ app.MapGet("/", () => "API de Sistema Penitencial");
 // criar: POST
 app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices] AppDataContext ctx) =>
 {   
-    Atividade leitura = new Leitura{
-        Detento = detento,
-        DetentoId = detento.Id
-    };
-    
-    detento.Atividades.Add(leitura);
+    detento.Atividades.AddRange([
+        new Leitura{ Detento = detento, DetentoId = detento.Id},
+        new Estudo{ Detento = detento, DetentoId = detento.Id}, 
+        new Trabalho{ Detento = detento, DetentoId = detento.Id}]);
     ctx.TabelaDetentos.Add(detento);
     ctx.SaveChanges();
-
     return Results.Created("", detento);
 });
 
@@ -110,9 +108,10 @@ app.MapPost("/api/atividade/cadastrar/leitura/{id}", ([FromRoute] string id, [Fr
         return Results.NotFound();
     }
 
-    Atividade atividade = new Leitura();
+    Atividade atividade = new Leitura { Detento = detento, DetentoId = id };
     // detento.Atividades.Add(atividade);
-
+    detento.Atividades.Add(atividade);
+    ctx.TabelaDetentos.Update(detento);
     ctx.SaveChanges();
     return Results.Created("", atividade);
 });
