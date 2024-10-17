@@ -120,26 +120,44 @@ app.MapGet("/api/atividade/listar/{id}", ([FromRoute] string id, [FromServices] 
 // pra que isso
 
 // alterar atividade: PUT
-app.MapPut("/api/atividade/alterar/{id}", ([FromRoute] string id, [FromBody] Atividade atividadeAlterada, [FromServices] AppDataContext ctx) =>
+app.MapPut("/api/atividade/alterar/{idDetento}/{idAtividade}", ([FromRoute] string idDetento, [FromRoute] string idAtividade, [FromServices] AppDataContext ctx) =>
 {
-    Atividade? atividade = ctx.TabelaAtividades.Find(id);
-    if (atividade == null)
+    Detento? detento = ctx.TabelaDetentos.Find(idDetento);
+    var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == idDetento).ToList();
+    if (detento is null)
     {
-        return Results.NotFound();
+        return Results.NotFound("Detento não encontrado.");
+    }
+
+    Atividade? atividade = null;
+
+    foreach (var atividadeBuscar in atividades)
+    {
+        if (atividadeBuscar.Id == idAtividade)
+        {
+            atividade = atividadeBuscar;
+            break;
+        }
+    }
+
+    if (atividade is null)
+    {
+        return Results.NotFound("Atividade não encontrada.");
     }
 
     if (atividade is Leitura leitura)
     {
-        leitura.Limite = ((Leitura)atividadeAlterada).Limite;
-        // leitura.AnoAtual = DateTime.Now.Year;
         if (leitura.AnoAtual != DateTime.Now.Year)
         {
             leitura.Contador = 0;
             leitura.AnoAtual = DateTime.Now.Year;
         }
+
+        // vai dar erro depois, ver melhor como implementar a lógica
     }
 
-    atividade.Contador = atividadeAlterada.Contador;
+    //unico tipo de alteracao que atividade faz é aumentar o contador, o que permite que façamos:
+    atividade.Contador++;
     ctx.TabelaAtividades.Update(atividade);
     ctx.SaveChanges();
     return Results.Ok(atividade);
