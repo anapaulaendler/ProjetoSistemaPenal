@@ -115,7 +115,7 @@ app.MapGet("/api/atividade/listar/detento/{id}", ([FromRoute] string id, [FromSe
 });
 
 // cadastrar atividades especifica ou todas evitando conflito: GET
-app.MapPost("/api/detento/atividade/cadastrar/{id}/{nomeAtividade}", ([FromRoute] string id, [FromRoute] string nomeAtividade, [FromServices] AppDataContext ctx) =>
+app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute] string id, [FromRoute] string nomeAtividade, [FromServices] AppDataContext ctx) =>
 {
     var detento = ctx.TabelaDetentos.Find(id);
 
