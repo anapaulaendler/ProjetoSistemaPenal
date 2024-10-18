@@ -14,13 +14,6 @@ app.MapGet("/", () => "API de Sistema Penitencial");
 // criar: POST
 app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices] AppDataContext ctx) =>
 {
-    List<Atividade> atividades = [new Leitura{DetentoId = detento.Id},
-        new Estudo{DetentoId = detento.Id},
-        new Trabalho{DetentoId = detento.Id}];
-        // modo de passar o id de detento para as atividades
-
-    detento.Atividades.AddRange(atividades);
-    // adiciona ao detento primeiro as atividades (esqueleto)
 
     ctx.TabelaDetentos.Add(detento);
     ctx.SaveChanges();
@@ -107,17 +100,39 @@ app.MapGet("/api/atividade/listar/{id}", ([FromRoute] string id, [FromServices] 
     return Results.Ok(atividades);
 });
 
-// // buscar atividade especifica: GET
-// app.MapGet("/api/atividade/buscar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
-// {
-//     var atividade = ctx.TabelaAtividades.Find(id);
-//     if (atividade is null)
-//     {
-//         return Results.NotFound();
-//     }
-//     return Results.Ok(atividade);
-// });
-// pra que isso
+// cadastrar atividades especifica: GET
+app.MapPut("/api/atividade/cadastrar/IdDetento:{id}/NomeAtividade:{nomeAtividade}", ([FromRoute] string id,[FromRoute] string nomeAtividade, [FromServices] AppDataContext ctx) =>
+{
+    var detento = ctx.TabelaDetentos.Find(id);
+    if(detento is null)
+    {
+        return Results.NotFound("Detento não encontrado.");
+    }
+
+    string AtividadeSelecionada = nomeAtividade.ToLower();
+
+    switch(AtividadeSelecionada){
+        case "leitura":
+            Atividade atividade = new Leitura();
+            break;
+
+        case "estudo" :
+            Atividade atividade = new Estudo();
+            break;
+        
+        case "trabalho":
+            Atividade atividade = new Trabalho();
+            break;
+
+        default:
+            return Results.NotFound("Tipo de Atividade não encontrada.");
+    }
+    atividade.idDetento = detento.Id;
+
+    ctx.TabelaAtividades.Add(atividade);
+    ctx.SaveChanges();
+    return Results.Created(atividade);
+});
 
 // alterar atividade: PUT
 app.MapPut("/api/atividade/alterar/{idDetento}/{idAtividade}", ([FromRoute] string idDetento, [FromRoute] string idAtividade, [FromServices] AppDataContext ctx) =>
