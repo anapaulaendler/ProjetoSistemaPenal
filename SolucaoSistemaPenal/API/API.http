@@ -1,7 +1,2 @@
 ### Raiz
 GET http://localhost:5291/
-
-### Listar Detentos
-GET http://localhost:5291/api/detento/listar
-
-
