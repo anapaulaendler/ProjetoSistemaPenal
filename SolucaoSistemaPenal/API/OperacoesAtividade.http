@@ -1,0 +1,12 @@
+@base_url = http://localhost:5291/api/atividade
+@DetentoId = 87807d25-f334-4797-a418-ea81e8e616fc
+@AtividadeId = b96d5048-5926-4bbd-b92c-65eabe025cc4
+
+### Listar atividades de Um detento
+{{base_url}}/listar/detento/{id}
+
+### Listar atividades de um detento
+GET {{base_url}}/listar/{{DetentoId}}
+
+### Alterar atividade [rascunho lógica de redução de pena]
+PUT {{base_url}}/alterar/{{DetentoId}}/{{AtividadeId}}

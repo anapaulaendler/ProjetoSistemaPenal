@@ -1,0 +1,43 @@
+@base_url = http://localhost:5291/api/detento
+@detentoId = 87807d25-f334-4797-a418-ea81e8e616fc
+@nomeAtividade = todas
+
+### Cadastrar Detento
+POST {{base_url}}/cadastrar
+Content-Type: application/json
+
+{
+    "Nome" : "Joelson",
+    "DataNascimento" : "14/10/1995",
+    "CPF" : "65725312334",
+    "Sexo" : "M",
+    "TempoPenaInicial" : 5478, 
+    "PenaRestante" : 5478,
+    "InicioPena" : "13/10/2024",
+    "FimPena" : "13/10/2039"
+}
+
+### Buscar Detento
+GET {{base_url}}/buscar/{{detentoId}}
+
+### Alterar Detento
+PUT {{base_url}}/alterar/{{detentoId}}
+Content-Type: application/json
+
+{
+    "Nome" : "Joelson Menedes da Silva",
+    "DataNascimento" : "25/12/1970",
+    "CPF" : "72761910524",
+    "Sexo" : "M",
+    "TempoPenaInicial" : 500, 
+    "PenaRestante" : 200,
+    "InicioPena" : "10/02/2024",
+    "FimPena" : "09/05/2029"
+}
+
+### Criar Atividades e adicionar a Detento
+POST {{base_url}}/atividade/cadastrar/{{detentoId}}/{{nomeAtividade}}
+
+
+### Deletar detento
+DELETE {{base_url}}/deletar/{{detentoId}}

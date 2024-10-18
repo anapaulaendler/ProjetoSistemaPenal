@@ -55,7 +55,7 @@ app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
 });
 
 // buscar (id): GET
-app.MapGet("/api/buscar/detento/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+app.MapGet("/api/detento/buscar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
     var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
@@ -102,7 +102,7 @@ app.MapDelete("/api/detento/deletar/{id}", ([FromRoute] string id, [FromServices
 });
 
 // listar atividades de um detento: GET 
-app.MapGet("/api/atividade/listar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+app.MapGet("/api/atividade/listar/detento/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
     var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
@@ -115,7 +115,7 @@ app.MapGet("/api/atividade/listar/{id}", ([FromRoute] string id, [FromServices] 
 });
 
 // cadastrar atividades especifica ou todas evitando conflito: GET
-app.MapPost("/api/atividade/cadastrar/IdDetento:{id}/NomeAtividade:{nomeAtividade}", ([FromRoute] string id, [FromRoute] string nomeAtividade, [FromServices] AppDataContext ctx) =>
+app.MapPost("/api/detento/atividade/cadastrar/{id}/{nomeAtividade}", ([FromRoute] string id, [FromRoute] string nomeAtividade, [FromServices] AppDataContext ctx) =>
 {
     var detento = ctx.TabelaDetentos.Find(id);
 
@@ -194,7 +194,7 @@ app.MapPost("/api/atividade/cadastrar/IdDetento:{id}/NomeAtividade:{nomeAtividad
 });
 
 // alterar atividade: PUT
-app.MapPut("/api/atividade/alterar/DetentoId:{idDetento}/AtividadeId:{idAtividade}", ([FromRoute] string idDetento, [FromRoute] string idAtividade, [FromServices] AppDataContext ctx) =>
+app.MapPut("/api/atividade/alterar/{idDetento}/{idAtividade}", ([FromRoute] string idDetento, [FromRoute] string idAtividade, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(idDetento);
     var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == idDetento).ToList();
