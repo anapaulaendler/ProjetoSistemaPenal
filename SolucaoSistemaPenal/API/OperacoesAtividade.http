@@ -3,7 +3,7 @@
 @AtividadeId = b96d5048-5926-4bbd-b92c-65eabe025cc4
 
 ### Listar atividades de Um detento
-{{base_url}}/listar/detento/{id}
+GET {{base_url}}/listar/detento/{id}
 
 ### Listar atividades de um detento
 GET {{base_url}}/listar/{{DetentoId}}

@@ -183,6 +183,10 @@ app.MapPost("/api/detento/atividade/cadastrar/{id}/{nomeAtividade}", ([FromRoute
             {
                 atividades.Add(new Trabalho{ DetentoId = detento.DetentoId});
             }
+            if(atividades.Count() == 0)
+            {
+                return Results.Conflict("Nenhuma atividade a ser Registrada");
+            }
             ctx.TabelaAtividades.AddRange(atividades);
             ctx.SaveChanges();
             return Results.Created("", atividades);

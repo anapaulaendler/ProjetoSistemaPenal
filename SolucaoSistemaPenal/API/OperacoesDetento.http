@@ -1,5 +1,5 @@
 @base_url = http://localhost:5291/api/detento
-@detentoId = f359e17e-12cc-4948-ab3b-3ce4dd701c7e
+@detentoId = 332788f7-92d9-4faa-9e6c-3fa402b955df
 @nomeAtividade = todos
 
 ### Cadastrar Detento
@@ -37,7 +37,6 @@ Content-Type: application/json
 
 ### Criar Atividades e adicionar a Detento
 POST {{base_url}}/atividade/cadastrar/{{detentoId}}/{{nomeAtividade}}
-
 
 ### Deletar detento
 DELETE {{base_url}}/deletar/{{detentoId}}
