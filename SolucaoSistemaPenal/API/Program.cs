@@ -113,25 +113,31 @@ app.MapPut("/api/atividade/cadastrar/IdDetento:{id}/NomeAtividade:{nomeAtividade
 
     switch(AtividadeSelecionada){
         case "leitura":
-            Atividade atividade = new Leitura();
-            break;
+            Atividade leitura = new Leitura();
+            leitura.DetentoId = detento.Id;
+            ctx.TabelaAtividades.Add(leitura);
+            ctx.SaveChanges();
+            return Results.Created("", leitura);
+
 
         case "estudo" :
-            Atividade atividade = new Estudo();
-            break;
+            Atividade estudo = new Estudo();
+            estudo.DetentoId = detento.Id;
+            ctx.TabelaAtividades.Add(estudo);
+            ctx.SaveChanges();
+            return Results.Created("", estudo);
+
         
         case "trabalho":
-            Atividade atividade = new Trabalho();
-            break;
+            Atividade trabalho = new Trabalho();
+            trabalho.DetentoId = detento.Id;
+            ctx.TabelaAtividades.Add(trabalho);
+            ctx.SaveChanges();
+            return Results.Created("", trabalho);
 
         default:
             return Results.NotFound("Tipo de Atividade não encontrada.");
     }
-    atividade.idDetento = detento.Id;
-
-    ctx.TabelaAtividades.Add(atividade);
-    ctx.SaveChanges();
-    return Results.Created(atividade);
 });
 
 // alterar atividade: PUT
