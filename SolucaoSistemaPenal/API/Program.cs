@@ -135,8 +135,8 @@ app.MapPost("/api/detento/atividade/cadastrar/{id}/{nomeAtividade}", ([FromRoute
             }
             Atividade leitura = new Leitura();
             leitura.DetentoId = detento.DetentoId;
-            // ctx.TabelaAtividades.Add(leitura);
-            // ctx.SaveChanges();
+            ctx.TabelaAtividades.Add(leitura);
+            ctx.SaveChanges();
             return Results.Created("", leitura);
         }
         else if(nomeAtividade.ToLower() == "estudo")
@@ -166,7 +166,7 @@ app.MapPost("/api/detento/atividade/cadastrar/{id}/{nomeAtividade}", ([FromRoute
             ctx.SaveChanges();
             return Results.Created("", trabalho);
         }
-        else if(nomeAtividade.ToLower() == "todas")
+        else if(nomeAtividade.ToLower() == "todos")
         {
             List<Atividade> atividades = [];
 
