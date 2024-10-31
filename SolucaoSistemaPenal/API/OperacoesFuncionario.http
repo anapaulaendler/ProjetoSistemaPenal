@@ -1,0 +1,35 @@
+@base_url = http://localhost:5291/api/funcionario
+@funcionarioId = 2099fd6f-a6f3-43c6-b1ee-3458fde3314a
+
+### Cadastrar Funcionario
+POST {{base_url}}/cadastrar
+Content-Type: application/json
+
+{
+    "Nome" : "Leonardo DiCaprio",
+    "DataNascimento" : "11/11/1974",
+    "CPF" : "61725312434",
+    "Sexo" : "M",
+    "Cargo": "Cargo Inválido Exemplo"
+}
+
+### Buscar Funcionario
+GET {{base_url}}/buscar/{{funcionarioId}}
+
+### Alterar Funcionario
+PUT {{base_url}}/alterar/{{funcionarioId}}
+Content-Type: application/json
+
+{
+    "Nome" : "Nicole Kidman",
+    "DataNascimento" : "20/06/1967",
+    "CPF" : "05442093033",
+    "Sexo" : "F",
+    "Cargo": "Agente Penitenciário Especializado"
+}
+
+### Listar Funcionarios
+GET http://localhost:5291/api/funcionario/listar
+
+### Deletar Funcionario
+DELETE {{base_url}}/deletar/{{funcionarioId}}
