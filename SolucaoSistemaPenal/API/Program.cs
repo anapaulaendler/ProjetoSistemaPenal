@@ -4,6 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDataContext>();
 //PEDRO - atribuindo os serviços do banco de dados ao builder
+
+//mudando as politicas de CORS
+builder.Services.AddCors(options =>
+options.AddPolicy("Acesso Total",
+    configs => configs
+    .AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    )
+);
+
 var app = builder.Build();
 
 
@@ -305,5 +316,5 @@ app.MapDelete("/api/funcionario/deletar/{id}", ([FromRoute] string id, [FromServ
 
     return Results.Ok(funcionario);
 });
-
+app.UseCors("Acesso Total");
 app.Run();
