@@ -227,4 +227,83 @@ app.MapPut("/api/atividade/alterar/{idAtividade}", ([FromBody] Leitura atividade
     return Results.Ok(atividade);
 });
 
+// CRUD: funcionário 
+
+// criar: POST
+app.MapPost("/api/funcionario/cadastrar", ([FromBody] Funcionario funcionario, [FromServices] AppDataContext ctx) =>
+{
+
+    ctx.TabelaFuncionarios.Add(funcionario);
+    ctx.SaveChanges();
+    return Results.Created("", funcionario);
+});
+
+// cadastrar Lista de funcionarios (facilitar testes): POST
+app.MapPost("/api/funcionario/cadastrar/lista", ([FromBody] List<Funcionario> funcionarios, [FromServices] AppDataContext ctx) =>
+{
+    if (funcionarios == null || funcionarios.Count == 0)
+    {
+        return Results.NotFound("A lista de funcionários está vazia ou é inválida");
+    }
+    ctx.TabelaFuncionarios.AddRange(funcionarios);
+    ctx.SaveChanges();
+
+    return Results.Created("", funcionarios.ToList());
+});
+
+// listar: GET
+app.MapGet("/api/funcionario/listar", ([FromServices] AppDataContext ctx) =>
+{
+    if (ctx.TabelaFuncionarios.Any())
+    {
+        List<Funcionario> funcionarios = ctx.TabelaFuncionarios.ToList();
+        return Results.Ok(funcionarios);
+    }
+    return Results.NotFound();
+});
+
+// buscar (id): GET
+app.MapGet("/api/funcionario/buscar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+{
+    Funcionario? funcionario = ctx.TabelaFuncionarios.Find(id);
+    if (funcionario == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(funcionario);
+});
+
+// alterar (id): PUT
+app.MapPut("/api/funcionario/alterar/{id}", ([FromRoute] string id, [FromBody] Funcionario funcionarioAlterado, [FromServices] AppDataContext ctx) =>
+{
+    var funcionario = ctx.TabelaFuncionarios.Find(id);
+    if (funcionario is null)
+    {
+        return Results.NotFound();
+    }
+
+    funcionario.Nome = funcionarioAlterado.Nome;
+    funcionario.Sexo = funcionarioAlterado.Sexo;
+    funcionario.CPF = funcionarioAlterado.CPF;
+    funcionario.Cargo = funcionarioAlterado.Cargo;
+
+    ctx.TabelaFuncionarios.Update(funcionario);
+    ctx.SaveChanges();
+    return Results.Ok(funcionario);
+});
+
+// deletar (id): DELETE
+app.MapDelete("/api/funcionario/deletar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+{
+    Funcionario? funcionario = ctx.TabelaFuncionarios.Find(id);
+    if (funcionario is null)
+    {
+        return Results.NotFound();
+    }
+    ctx.TabelaFuncionarios.Remove(funcionario);
+    ctx.SaveChanges();
+
+    return Results.Ok(funcionario);
+});
+
 app.Run();
