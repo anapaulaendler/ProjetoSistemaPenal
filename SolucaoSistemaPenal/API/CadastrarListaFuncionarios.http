@@ -1,0 +1,97 @@
+### Cadastrar Lista de detentos
+POST http://localhost:5291/api/funcionario/cadastrar/lista
+Content-Type: application/json
+
+[
+    {
+        "Nome": "José Silva",
+        "DataNascimento": "15/04/1970",
+        "CPF": "12345678901",
+        "Sexo": "M",
+        "Cargo": "Diretor do Presídio"
+    },
+    {
+        "Nome": "Ana Souza",
+        "DataNascimento": "08/12/1982",
+        "CPF": "98765432100",
+        "Sexo": "F",
+        "Cargo": "Agente Penitenciário Especializado"
+    },
+    {
+        "Nome": "Mariana Costa",
+        "DataNascimento": "22/07/1990",
+        "CPF": "45678912301",
+        "Sexo": "F",
+        "Cargo": "Assistente Social"
+    },
+    {
+        "Nome": "Carlos Oliveira",
+        "DataNascimento": "11/03/1985",
+        "CPF": "78945612300",
+        "Sexo": "M",
+        "Cargo": "Agente de Segurança Penitenciária (ASP)"
+    },
+    {
+        "Nome": "Patrícia Lima",
+        "DataNascimento": "03/09/1988",
+        "CPF": "32165498700",
+        "Sexo": "F",
+        "Cargo": "Chefe de Vigilância e Disciplina"
+    },
+    {
+        "Nome": "Rafael Santos",
+        "DataNascimento": "17/02/1991",
+        "CPF": "65498732102",
+        "Sexo": "M",
+        "Cargo": "Inspetor Penitenciário"
+    },
+    {
+        "Nome": "Juliana Alves",
+        "DataNascimento": "05/08/1983",
+        "CPF": "15975348602",
+        "Sexo": "F",
+        "Cargo": "Enfermeira Penitenciária"
+    },
+    {
+        "Nome": "Lucas Martins",
+        "DataNascimento": "29/10/1979",
+        "CPF": "75395148603",
+        "Sexo": "M",
+        "Cargo": "Médico Penitenciário"
+    },
+    {
+        "Nome": "Renata Campos",
+        "DataNascimento": "10/01/1987",
+        "CPF": "85274196300",
+        "Sexo": "F",
+        "Cargo": "Coordenadora de Educação e Trabalho"
+    },
+    {
+        "Nome": "Tiago Fernandes",
+        "DataNascimento": "14/05/1989",
+        "CPF": "96385274100",
+        "Sexo": "M",
+        "Cargo": "Professor de Educação Prisional"
+    },
+    {
+        "Nome": "Carla Ribeiro",
+        "DataNascimento": "25/11/1992",
+        "CPF": "95135748200",
+        "Sexo": "F",
+        "Cargo": "Nutricionista"
+    },
+    {
+        "Nome": "André Moraes",
+        "DataNascimento": "30/06/1985",
+        "CPF": "74185296300",
+        "Sexo": "M",
+        "Cargo": "Cozinheiro"
+    },
+    {
+        "Nome": "Fernanda Teixeira",
+        "DataNascimento": "20/03/1994",
+        "CPF": "25896314700",
+        "Sexo": "F",
+        "Cargo": "Assistente Administrativo"
+    }
+]
