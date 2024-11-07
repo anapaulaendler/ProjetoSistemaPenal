@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDataContext>();
-//PEDRO - atribuindo os serviços do banco de dados ao builder
 
-//mudando as politicas de CORS
 builder.Services.AddCors(options =>
 options.AddPolicy("Acesso Total",
     configs => configs
@@ -28,7 +26,6 @@ app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices
 
     ctx.TabelaDetentos.Add(detento);
     ctx.SaveChanges();
-    // bd
     return Results.Created("", detento);
 });
 
