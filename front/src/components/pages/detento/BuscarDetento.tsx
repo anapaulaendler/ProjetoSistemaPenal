@@ -6,7 +6,7 @@ function BuscarDetento() {
 
     const [detento, setDetento] = useState<Detento>();
     const [id, setId] = useState<string>();
-    const [erro, setErro] = useState("");
+    const [erro, setErro] = useState<string>();
 
     function digitar(e : any){
         setId(e.target.value);
@@ -16,24 +16,25 @@ function BuscarDetento() {
 
         if (!id) {
             setErro("Por favor, insira um ID válido.");
+            console.log(erro);
             return;
         }
 
-        fetch("http://localhost:5291/api/detento/buscar" + id)
+        fetch("http://localhost:5291/api/detento/buscar/" + id)
             .then(resposta => {
                 return resposta.json();
             })
             .then((data) => {
                 if (data) {
                     setDetento(data); 
-                    setErro(""); 
                 } else {
                     setErro("Detento não encontrado.");
+                    console.log(erro);
                 }
             })
             .catch((erro) => {
                 setErro("Erro ao buscar o detento."); 
-                console.error(erro);
+                console.log(erro);
             });
     }
 
