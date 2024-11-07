@@ -6,8 +6,7 @@ import BuscarDetento from "./pages/detento/BuscarDetento";
 function App() {
   return (
     <div>
-      <BuscarDetento/>
-      <ListarDetentos/>
+      <CadastrarDetento></CadastrarDetento>
     </div>
   );
 }
