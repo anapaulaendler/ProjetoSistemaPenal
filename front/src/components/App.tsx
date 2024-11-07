@@ -1,9 +1,10 @@
 import React from "react";
+import CadastrarDetento from "./pages/detento/CadastrarDetento";
 
 function App() {
   return (
     <div>
-      <h1>Projeto base em React com TypeScript</h1>
+      <CadastrarDetento/>
     </div>
   );
 }
