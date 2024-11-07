@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Atividade } from "../../../interfaces/Atividade";
 import { Detento } from "../../../interfaces/Detento";
+import "../../../css/CadastrarDetento.css"
 
 function CadastrarDetento() {
 
@@ -64,56 +65,56 @@ function CadastrarDetento() {
     };
 
   return (
-    <div>
-  <h1>Cadastro de Detento</h1>
+  <div id="form_cadastro_detento">
+    <h1>Cadastro de Detento</h1>
 
-  <form onSubmit={handleSubmit}>
-    <label>
-      Nome:
-      <input type="text" value={nome} onChange={e => setNome(e.target.value)} required />
-    </label>
-    
-    <label>
-      Data de Nascimento:
-      <input type="date" value={dataNascimento} onChange={e => setDataNascimento(e.target.value)} required />
-    </label>
-    
-    <label>
-      CPF:
-      <input type="text" value={cpf} onChange={e => setCpf(e.target.value)} required />
-    </label>
-    
-    <label>
-      Sexo:
-      <select value={sexo} onChange={e => setSexo(e.target.value as 'M' | 'F')} required>
-        <option value="M">Masculino</option>
-        <option value="F">Feminino</option>
-      </select>
-    </label>
-    
-    <label>
-      Tempo de Pena Inicial (anos):
-      <input type="number" value={tempoPenaInicial} onChange={e => setTempoPenaInicial(Number(e.target.value))} required />
-    </label>
-    
-    <label>
-      Pena Restante (anos):
-      <input type="number" value={penaRestante} onChange={e => setPenaRestante(Number(e.target.value))} required />
-    </label>
-    
-    <label>
-      Início da Pena:
-      <input type="date" value={inicioPena} onChange={e => setInicioPena(e.target.value)} required />
-    </label>
-    
-    <label>
-      Fim da Pena:
-      <input type="date" value={fimPena} onChange={e => setFimPena(e.target.value)} required />
-    </label>
-    
-    <button type="submit">Cadastrar</button>
-  </form>
-</div>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Nome:</label>
+          <input type="text" value={nome} onChange={e => setNome(e.target.value)} required />
+      </div>
+      
+      <div>
+        <label>Data de Nascimento:</label>
+          <input type="date" value={dataNascimento} onChange={e => setDataNascimento(e.target.value)} required />
+      </div>
+
+      <div>
+        <label>CPF:</label>
+          <input type="text" value={cpf} onChange={e => setCpf(e.target.value)} required />
+      </div>
+      
+      <div>
+        <label>Sexo:</label>
+          <select value={sexo} onChange={e => setSexo(e.target.value as 'M' | 'F')} required>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+          </select>
+      </div>
+      
+      <div>
+        <label>Tempo de Pena Inicial (anos):</label>
+          <input type="number" value={tempoPenaInicial} onChange={e => setTempoPenaInicial(Number(e.target.value))} required />
+      </div>
+      
+      <div>
+        <label>Pena Restante (anos):</label>
+          <input type="number" value={penaRestante} onChange={e => setPenaRestante(Number(e.target.value))} required />
+      </div>
+
+      <div>
+        <label>Início da Pena:</label>
+          <input type="date" value={inicioPena} onChange={e => setInicioPena(e.target.value)} required />
+      </div>
+      
+      <div>
+        <label>Fim da Pena:</label>
+          <input type="date" value={fimPena} onChange={e => setFimPena(e.target.value)} required />
+      </div>
+
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
 
   );
 }

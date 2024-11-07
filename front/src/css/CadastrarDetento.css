@@ -6,9 +6,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+
   }
-  
+
+  div#form_cadastro_detento {
+    padding: 50px;
+    margin: 10px;
+    background-color:#f4f4f9;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgb(130, 130, 130);
+  }
+
   .container {
     width: 100%;
     max-width: 500px;
@@ -23,6 +31,7 @@ body {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    padding: 10px;
   }
   
   form {
