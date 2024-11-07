@@ -30,7 +30,6 @@ app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices
 });
 
 // cadastrar Lista de detentos : POST
-
 app.MapPost("/api/detento/cadastrar/lista", ([FromBody] List<Detento> detentos, [FromServices] AppDataContext ctx) =>
 {
     if (detentos == null || detentos.Count == 0)
@@ -42,6 +41,7 @@ app.MapPost("/api/detento/cadastrar/lista", ([FromBody] List<Detento> detentos, 
 
     return Results.Created("", detentos.ToList());
 });
+
 // listar: GET
 app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
 {
@@ -122,7 +122,7 @@ app.MapGet("/api/atividade/listar/detento/{id}", ([FromRoute] string id, [FromSe
     return Results.Ok(atividades);
 });
 
-// cadastrar atividades especifica ou todas evitando conflito: GET
+// cadastrar atividades especifica ou todas evitando conflito: POST
 app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute] string id, [FromRoute] string nomeAtividade, [FromServices] AppDataContext ctx) =>
 {
     var detento = ctx.TabelaDetentos.Find(id);
