@@ -4,10 +4,10 @@ import { Detento } from "../../../interfaces/Detento";
 
 function ListarDetentos() {
 
-    const [detentos, setDetentos] = useState<Detento[]>([]);
+    const [detento, setDetento] = useState<Detento>();
 
     useEffect(() => {
-        fetch("http://localhost:5291/api/detento/listar")
+        fetch("http://localhost:5291/api/detento/buscar" + id)
              .then(resposta => {
                  return resposta.json();
              })
