@@ -63,7 +63,7 @@ app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
 });
 
 // buscar (id): GET
-app.MapGet("/api/detento/buscar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+app.MapGet("/api/detento/buscar/id:{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
     var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
@@ -71,6 +71,18 @@ app.MapGet("/api/detento/buscar/{id}", ([FromRoute] string id, [FromServices] Ap
     {
         return Results.NotFound();
     }
+    detento.Atividades = atividades.ToList();
+    return Results.Ok(detento);
+});
+
+app.MapGet("/api/detento/buscar/cpf:{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
+{
+    Detento? detento = ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == cpf);
+    if (detento == null)
+    {
+        return Results.NotFound();
+    }
+    var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == detento.CPF);
     detento.Atividades = atividades.ToList();
     return Results.Ok(detento);
 });
