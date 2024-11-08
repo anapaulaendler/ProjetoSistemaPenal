@@ -5,117 +5,77 @@ import { Detento } from "../../../interfaces/Detento";
 
 function EditarDetento() {
 
-    const [nome, setNome] = useState<string>('');
-    const [dataNascimento, setDataNascimento] = useState<string>('');
-    const [cpf, setCpf] = useState<string>('');
-    const [sexo, setSexo] = useState<'M' | 'F'>('M');
-    const [tempoPenaInicial, setTempoPenaInicial] = useState<number>(0);
-    const [penaRestante, setPenaRestante] = useState<number>(0);
-    const [inicioPena, setInicioPena] = useState<string>('');
-    const [fimPena, setFimPena] = useState<string>('');
+  const [detento, setDetento] = useState<Detento>();
+  const [id, setId] = useState<string>();
+  const [erro, setErro] = useState<string>();
+  const [valorForm, setValorForm] = useState({
+    nome: '',
+    dataNascimento: '',
+    cpf: '',
+    sexo: 'M' as 'M' | 'F',
+    tempoPenaInicial: 0,
+    penaRestante: 0,
+    inicioPena: '',
+    fimPena: '',
+  });
 
-    const [id, setId] = useState<string>();
+  function digitar(e : any){
+      setId(e.target.value);
+  }
 
-    function handleSubmit (e: any) {
-        e.preventDefault();
+  function clicar(){
 
-        const detentoAlterado : Detento = {
-            nome,
-            dataNascimento,
-            tempoPenaInicial: 0,
-            penaRestante: 0,
-            inicioPena: "",
-            fimPena: "",
-            atividades: [],
-            cpf: "",
-            sexo: "M"
-        };
+      if (!id) {
+          setErro("Por favor, insira um ID válido.");
+          console.log(erro);
+          return;
+      }
 
-        fetch("http://localhost:5291/api/detento/alterar/" + id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(detentoAlterado)
-        })
+      fetch("http://localhost:5291/api/detento/buscar/" + id)
+          .then(resposta => {
+              return resposta.json();
+          })
+          .then((data) => {
+              if (data) {
+                  setDetento(data); 
+              } else {
+                  setErro("Detento não encontrado.");
+                  console.log(erro);
+              }
+          })
+          .catch((erro) => {
+              setErro("Erro ao buscar o detento."); 
+              console.log(erro);
+          });
+  }
 
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro na requisição: ' + response.statusText);
-            }
-            return response.json();
-        })
+return (
+  <div>
+  <h1>Buscar Detento</h1>
 
-        .then(data => {
-            setNome('');
-            setDataNascimento('');
-            setCpf('');
-            setSexo('M'); 
-            setTempoPenaInicial(0);
-            setPenaRestante(0);
-            setInicioPena('');
-            setFimPena('');
-        })
+  <input 
+      type="text" 
+      placeholder="Digite o ID do detento"
+      onChange={digitar} 
+  />
 
-        .catch(error => {
-            console.error('Erro:', error);
-        });
+  <button onClick={clicar}>Consultar</button>
 
-    };
-
-  return (
-    <div>
-  <h1>Alteração de Detento</h1>
-
-  <form onSubmit={handleSubmit}>
-    <label>
-      Nome:
-      <input type="text" value={nome} onChange={e => setNome(e.target.value)} required />
-    </label>
-    
-    <label>
-      Data de Nascimento:
-      <input type="date" value={dataNascimento} onChange={e => setDataNascimento(e.target.value)} required />
-    </label>
-    
-    <label>
-      CPF:
-      <input type="text" value={cpf} onChange={e => setCpf(e.target.value)} required />
-    </label>
-    
-    <label>
-      Sexo:
-      <select value={sexo} onChange={e => setSexo(e.target.value as 'M' | 'F')} required>
-        <option value="M">Masculino</option>
-        <option value="F">Feminino</option>
-      </select>
-    </label>
-    
-    <label>
-      Tempo de Pena Inicial (anos):
-      <input type="number" value={tempoPenaInicial} onChange={e => setTempoPenaInicial(Number(e.target.value))} required />
-    </label>
-    
-    <label>
-      Pena Restante (anos):
-      <input type="number" value={penaRestante} onChange={e => setPenaRestante(Number(e.target.value))} required />
-    </label>
-    
-    <label>
-      Início da Pena:
-      <input type="date" value={inicioPena} onChange={e => setInicioPena(e.target.value)} required />
-    </label>
-    
-    <label>
-      Fim da Pena:
-      <input type="date" value={fimPena} onChange={e => setFimPena(e.target.value)} required />
-    </label>
-    
-    <button type="submit">Cadastrar</button>
-  </form>
+  {detento && (
+      <div>
+          <p><strong>DetentoId:</strong> {detento.detentoId}</p>
+          <p><strong>Nome:</strong> {detento.nome}</p>
+          <p><strong>Data Nascimento:</strong> {detento.dataNascimento}</p>
+          <p><strong>CPF: </strong> {detento.cpf}</p>
+          <p><strong>Sexo:</strong> {detento.sexo}</p>
+          <p><strong>Tempo de Pena Inicial:</strong> {detento.tempoPenaInicial}</p>
+          <p><strong>Pena Restante:</strong> {detento.penaRestante}</p>
+          <p><strong>Início Pena:</strong> {detento.inicioPena}</p>
+          <p><strong>Fim da Pena:</strong> {detento.fimPena}</p>
+      </div>
+  )}
 </div>
-
-  );
+);
 }
 
 export default EditarDetento;
