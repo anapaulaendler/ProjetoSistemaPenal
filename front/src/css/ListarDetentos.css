@@ -1,0 +1,52 @@
+/* Estilos para a tabela de listagem de detentos */
+div#form_listar_detento {
+  padding: 50px;
+  margin: 10px;
+  background-color:#f4f4f9;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgb(130, 130, 130);
+}
+
+table {
+  width: 100%;
+  max-width: 900px;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+table th, table td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+table tr:hover {
+  background-color: #f4f4f9;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table td {
+  font-size: 14px;
+  color: #555;
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}

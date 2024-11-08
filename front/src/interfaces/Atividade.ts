@@ -1,6 +1,6 @@
 export interface Atividade {
 
-    atividadeId : string;
+    atividadeId? : string;
     detentoId : string;
     contador : number;
     

@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
+import "../../../css/ListarDetentos.css"
 
 function ListarDetentos() {
 
@@ -16,7 +17,7 @@ function ListarDetentos() {
              })
         });
   return (
-    <div>
+    <div id="form_listar_detento">
     <h1>Listagem de Detentos</h1>
     <table>
     <thead>
