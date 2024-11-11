@@ -1,41 +1,40 @@
 import { useState } from "react";
 import { Atividade } from "../../../interfaces/Atividade";
 import "../../../css/ListarAtividadesDetento.css"
-import { Leitura } from "../../../interfaces/atividades/Leitura";
+import { Detento } from "../../../interfaces/Detento";
+
 function ListarAtividadesDetento(){
   const [respostaClasse, setRespostaClasse] = useState("")
   const [resposta, setResposta] = useState("")
-  const [detentoId, setDetentoId] = useState("")
 
   const [atividades, setAtividades] = useState<Atividade[]>([])
+  const [detento, setDetento] = useState<Detento>();
 
   function EncontrarDentento(e : any){
     
-    fetch("http://localhost:5291/api/detento/buscar/cpf:" + e.target.value).then(resposta => {
+    fetch("http://localhost:5291/api/detento/buscar/cpf:" + e.target.value)
+    .then(resposta => {
       return resposta.json()
-    }).then(detento => {
+    })
+    .then(detento => {
       if(detento == null){
         setRespostaClasse("resposta-erro")
         return setResposta("detento não encontrado")
       }else{
-        setDetentoId(detento.detentoId)
         setRespostaClasse("resposta-sucesso")
-        return setResposta("detento encontrado")
+        setResposta("detento encontrado")
+        return setDetento(detento);
       }
-    }).catch(() => {
+    })
+    .catch(() => {
       setRespostaClasse("resposta-erro")
       setResposta("detento não encontrado")
     });
   }
 
   function BuscarAtividade(){
-    fetch("http://localhost:5291/api/atividade/listar/detento/"+ detentoId)
-    .then(resposta => resposta.json())
-    .then(atividades => setAtividades(atividades))
-    .catch(() => {
-      setRespostaClasse("resposta-erro")
-      setResposta("detento não encontrado")
-    });
+    console.log(detento?.atividades)
+    setAtividades(detento?.atividades || [])
   }
 
   return(
@@ -57,14 +56,15 @@ function ListarAtividadesDetento(){
             <th>Ano Atual</th>
           </thead>
           <tbody>
-            {atividades.map(atividade => (
+            {atividades && 
+            atividades.map(atividade => (
               <tr key={atividade.atividadeId}>
                 <td>{atividade.atividadeId}</td>
                 <td>{atividade.tipo}</td>
                 <td>{atividade.contador}</td>
                 <td>{atividade.detentoId}</td>
-                <td>{(atividade as Leitura).limite || 'N/A'}</td>
-                <td>{(atividade as Leitura).anoAtual || 'N/A'}</td>
+                <td>{atividade.limite || 'N/A'}</td>
+                <td>{atividade.anoAtual || 'N/A'}</td>
               </tr>
             ))}
           </tbody>
