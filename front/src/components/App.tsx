@@ -4,14 +4,13 @@ import ListarDetentos from "./pages/detento/ListarDetentos";
 import BuscarDetento from "./pages/detento/BuscarDetento";
 import CadastrarAtividade from "./pages/atividade/CadastrarAtividade";
 import EditarDetento from "./pages/detento/EditarDetento";
+import ListarAtividadesDetento from "./pages/atividade/ListarAtividadesDetento";
 
 function App() {
   return (
     <div>
-      <CadastrarAtividade/>
-      <CadastrarDetento/>
-      <ListarDetentos/>
-      <EditarDetento/>
+      <ListarAtividadesDetento/>
+      <BuscarDetento/>
     </div>
   );
 }

@@ -125,12 +125,15 @@ app.MapDelete("/api/detento/deletar/{id}", ([FromRoute] string id, [FromServices
 app.MapGet("/api/atividade/listar/detento/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
-    var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
     if (detento is null)
     {
         return Results.NotFound();
     }
-
+    var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
+    if(atividades is null){
+        return Results.NotFound();
+    }
+    
     return Results.Ok(atividades);
 });
 
