@@ -1,5 +1,5 @@
 @base_url = http://localhost:5291/api/detento
-@detentoId = 332788f7-92d9-4faa-9e6c-3fa402b955df
+@detentoId = 95bf28a3-6a4d-4133-9666-14973c80c427
 
 ### Cadastrar Detento
 POST {{base_url}}/cadastrar
@@ -17,7 +17,10 @@ Content-Type: application/json
 }
 
 ### Buscar Detento
-GET {{base_url}}/buscar/{{detentoId}}
+GET {{base_url}}/buscar/id:{{detentoId}}
+
+### Buscar Detento por CPF
+GET {{base_url}}/buscar/cpf:65725312334
 
 ### Alterar Detento
 PUT {{base_url}}/alterar/{{detentoId}}

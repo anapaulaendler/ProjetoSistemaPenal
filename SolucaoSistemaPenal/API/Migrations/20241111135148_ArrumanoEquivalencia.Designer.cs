@@ -2,6 +2,7 @@
 using API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20241111135148_ArrumanoEquivalencia")]
+    partial class ArrumanoEquivalencia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -20,9 +23,6 @@ namespace API.Migrations
                 {
                     b.Property<string>("AtividadeId")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("AnoAtual")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Contador")
                         .HasColumnType("INTEGER");
@@ -38,9 +38,6 @@ namespace API.Migrations
 
                     b.Property<double>("Equivalencia")
                         .HasColumnType("REAL");
-
-                    b.Property<int>("Limite")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Tipo")
                         .IsRequired()
@@ -127,6 +124,12 @@ namespace API.Migrations
             modelBuilder.Entity("API.Models.Leitura", b =>
                 {
                     b.HasBaseType("API.Models.Atividade");
+
+                    b.Property<int>("AnoAtual")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Limite")
+                        .HasColumnType("INTEGER");
 
                     b.HasDiscriminator().HasValue("Leitura");
                 });

@@ -82,7 +82,7 @@ app.MapGet("/api/detento/buscar/cpf:{cpf}", ([FromRoute] string cpf, [FromServic
     {
         return Results.NotFound();
     }
-    var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == detento.CPF);
+    var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == detento.DetentoId);
     detento.Atividades = atividades.ToList();
     return Results.Ok(detento);
 });
@@ -130,6 +130,13 @@ app.MapGet("/api/atividade/listar/detento/{id}", ([FromRoute] string id, [FromSe
         return Results.NotFound();
     }
     var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
+
+    foreach(Atividade atividade in atividades){
+        if(atividade is Leitura){
+
+        }
+    }
+
     if(atividades is null){
         return Results.NotFound();
     }
@@ -156,10 +163,11 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
         {
             return Results.Conflict("Atividade LEITURA já existente nesse detento");
         }
-        Atividade leitura = new Leitura();
-        leitura.Tipo = "Leitura";
-
-        leitura.DetentoId = detento.DetentoId;
+        Atividade leitura = new Leitura
+        {
+            Tipo = "Leitura",
+            DetentoId = detento.DetentoId
+        };
         ctx.TabelaAtividades.Add(leitura);
         ctx.SaveChanges();
         return Results.Created("", leitura);
@@ -171,9 +179,11 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
         {
             return Results.Conflict("Atividade ESTUDO já existente nesse detento");
         }
-        Atividade estudo = new Estudo();
-        estudo.Tipo = "Estudo";
-        estudo.DetentoId = detento.DetentoId;
+        Atividade estudo = new Estudo
+        {
+            Tipo = "Estudo",
+            DetentoId = detento.DetentoId
+        };
         ctx.TabelaAtividades.Add(estudo);
         ctx.SaveChanges();
         return Results.Created("", estudo);
@@ -186,9 +196,11 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
         {
             return Results.Conflict("Atividade TRABALHO já existente nesse detento");
         }
-        Atividade trabalho = new Trabalho();
-        trabalho.Tipo = "Trabalho";
-        trabalho.DetentoId = detento.DetentoId;
+        Atividade trabalho = new Trabalho
+        {
+            DetentoId = detento.DetentoId, 
+            Tipo = "Trabalho"
+            };
         ctx.TabelaAtividades.Add(trabalho);
         ctx.SaveChanges();
         return Results.Created("", trabalho);
@@ -200,15 +212,30 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
         //se o detento tiver uma das atividades já cadastradas ela não será cadastrada novamente
         if (!detento.Atividades.Any(x => x is Leitura))
         {
-            atividades.Add(new Leitura { DetentoId = detento.DetentoId });
+            atividades.Add(new Leitura 
+            { 
+                DetentoId = detento.DetentoId, 
+                Tipo = "Leitura", 
+                Equivalencia = 0.25
+            });
         }
         if (!detento.Atividades.Any(x => x is Estudo))
         {
-            atividades.Add(new Estudo { DetentoId = detento.DetentoId });
+            atividades.Add(new Estudo 
+            { 
+                DetentoId = detento.DetentoId, 
+                Tipo = "Estudo", 
+                Equivalencia = 3
+            });
         }
         if (!detento.Atividades.Any(x => x is Trabalho))
         {
-            atividades.Add(new Trabalho { DetentoId = detento.DetentoId });
+            atividades.Add(new Trabalho 
+            { 
+                DetentoId = detento.DetentoId, 
+                Tipo = "Trabalho", 
+                Equivalencia = 3
+                });
         }
         if (atividades.Count() == 0)
         {
@@ -318,7 +345,6 @@ app.MapPut("/api/funcionario/alterar/{id}", ([FromRoute] string id, [FromBody] F
     ctx.SaveChanges();
     return Results.Ok(funcionario);
 });
-
 // deletar (id): DELETE
 app.MapDelete("/api/funcionario/deletar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
@@ -339,19 +365,23 @@ app.MapPut("/api/arrumarTiposAtividade", ([FromServices] AppDataContext ctx) =>
 
     foreach (Atividade atividade in atividades)
     {
-        if (atividade is Leitura)
+        if (atividade is Leitura )
         {
             atividade.Tipo = "Leitura";
+            atividade.Equivalencia = 0.25;
+            atividade.Limite = 12;
+            atividade.AnoAtual = DateTime.Now.Year;
         }
         else if (atividade is Estudo)
         {
             atividade.Tipo = "Estudo";
+            atividade.Equivalencia = 3;
         }
         else if (atividade is Trabalho)
         {
             atividade.Tipo = "Trabalho";
+            atividade.Equivalencia = 3;
         }
-
     }
     ctx.TabelaAtividades.UpdateRange(atividades);
     ctx.SaveChanges();
