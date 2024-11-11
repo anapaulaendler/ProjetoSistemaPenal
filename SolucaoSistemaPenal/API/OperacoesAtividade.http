@@ -1,5 +1,5 @@
 @base_url = http://localhost:5291/api/atividade
-@DetentoId = ad16bda7-5f39-4d69-ad9a-b0d0a77894f1
+@DetentoId = 08bd3156-4d91-4528-a3e2-5c20a0a5c610
 @AtividadeId = dfd5902f-8417-4ea2-b2d6-46fa1ff6ec70
 @nomeAtividade = todos
 ### Criar Atividades e adicionar a Detento
@@ -15,3 +15,6 @@ Content-Type: application/json
 {
   "Limite" : 14
 }
+
+###Arrumando Tipos
+PUT http://localhost:5291/api/arrumarTiposAtividade

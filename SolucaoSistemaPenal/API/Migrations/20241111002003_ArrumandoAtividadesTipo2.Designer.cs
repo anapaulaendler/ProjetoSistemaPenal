@@ -2,6 +2,7 @@
 using API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20241111002003_ArrumandoAtividadesTipo2")]
+    partial class ArrumandoAtividadesTipo2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -31,10 +34,6 @@ namespace API.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasMaxLength(13)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Tipo")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("AtividadeId");
@@ -112,6 +111,10 @@ namespace API.Migrations
                 {
                     b.HasBaseType("API.Models.Atividade");
 
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasDiscriminator().HasValue("Estudo");
                 });
 
@@ -125,12 +128,32 @@ namespace API.Migrations
                     b.Property<int>("Limite")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.ToTable("TabelaAtividades", t =>
+                        {
+                            t.Property("Tipo")
+                                .HasColumnName("Leitura_Tipo");
+                        });
+
                     b.HasDiscriminator().HasValue("Leitura");
                 });
 
             modelBuilder.Entity("API.Models.Trabalho", b =>
                 {
                     b.HasBaseType("API.Models.Atividade");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.ToTable("TabelaAtividades", t =>
+                        {
+                            t.Property("Tipo")
+                                .HasColumnName("Trabalho_Tipo");
+                        });
 
                     b.HasDiscriminator().HasValue("Trabalho");
                 });
