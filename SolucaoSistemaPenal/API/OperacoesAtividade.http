@@ -17,4 +17,4 @@ Content-Type: application/json
 }
 
 ###Arrumando Tipos
-PUT http://localhost:5291/api/arrumarTiposAtividade
+DELETE http://localhost:5291/api/deletar/detentoDuplicado

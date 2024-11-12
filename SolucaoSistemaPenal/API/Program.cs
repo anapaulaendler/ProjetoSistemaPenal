@@ -395,6 +395,22 @@ app.MapPut("/api/arrumarTiposAtividade", ([FromServices] AppDataContext ctx) =>
     return Results.Ok(atividades);
 });
 
+app.MapDelete("/api/deletar/detentoDuplicado", ([FromServices] AppDataContext ctx) =>
+{
+    var ListaDetentos = ctx.TabelaDetentos
+        .AsEnumerable() // Carrega os dados e realiza o agrupamento na memória
+        .GroupBy(d => d.CPF) // Agrupa por CPF
+        .Where(g => g.Count() > 1) // Filtra grupos com duplicados
+        .SelectMany(g => g.Skip(1)) // Pega todos menos o primeiro de cada grupo
+        .ToList();
 
+    if (ListaDetentos.Any())
+    {
+        ctx.TabelaDetentos.RemoveRange(ListaDetentos);
+        ctx.SaveChanges();
+    }
+
+    return Results.Ok("Detentos duplicados removidos com sucesso.");
+});
 app.UseCors("Acesso Total");
 app.Run();
