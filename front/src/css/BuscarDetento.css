@@ -1,5 +1,5 @@
 /* Estilos para a tabela de listagem de detentos */
-div#form_buscar_detento {
+div#form_buscar_detento , #form_listar_atividades_detento, #detento_encontrado{
   padding: 50px;
   margin: 10px;
   background-color:#f4f4f9;
@@ -51,10 +51,58 @@ table tbody tr:last-child td {
   border-bottom: none;
 }
 
-.resposta-sucesso{
-  color: green;
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.resposta-erro{
-  color: red;
+button:hover {
+  background-color: #0056b3;
 }
+
+/* Mensagens de resposta */
+.resposta-sucesso {
+  color: #28a745;
+  font-weight: bold;
+  font-size: larger;
+  margin-top: 10px;
+}
+
+.resposta-erro {
+  color: #dc3545;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.respostaClasse {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+input[type="text"] {
+  width: calc(30% - 130px);
+  padding: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+#form_buscar_detento p {
+  font-size: 18px;
+  color: #333;
+  margin: 8px 0;
+
+}
+
+#form_buscar_detento strong {
+  color: #007bff;
+  
+}
+

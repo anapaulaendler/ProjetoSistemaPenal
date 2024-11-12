@@ -131,16 +131,19 @@ app.MapGet("/api/atividade/listar/detento/{id}", ([FromRoute] string id, [FromSe
     }
     var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
 
-    foreach(Atividade atividade in atividades){
-        if(atividade is Leitura){
+    foreach (Atividade atividade in atividades)
+    {
+        if (atividade is Leitura)
+        {
 
         }
     }
 
-    if(atividades is null){
+    if (atividades is null)
+    {
         return Results.NotFound();
     }
-    
+
     return Results.Ok(atividades);
 });
 
@@ -198,9 +201,9 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
         }
         Atividade trabalho = new Trabalho
         {
-            DetentoId = detento.DetentoId, 
+            DetentoId = detento.DetentoId,
             Tipo = "Trabalho"
-            };
+        };
         ctx.TabelaAtividades.Add(trabalho);
         ctx.SaveChanges();
         return Results.Created("", trabalho);
@@ -212,30 +215,30 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
         //se o detento tiver uma das atividades já cadastradas ela não será cadastrada novamente
         if (!detento.Atividades.Any(x => x is Leitura))
         {
-            atividades.Add(new Leitura 
-            { 
-                DetentoId = detento.DetentoId, 
-                Tipo = "Leitura", 
+            atividades.Add(new Leitura
+            {
+                DetentoId = detento.DetentoId,
+                Tipo = "Leitura",
                 Equivalencia = 0.25
             });
         }
         if (!detento.Atividades.Any(x => x is Estudo))
         {
-            atividades.Add(new Estudo 
-            { 
-                DetentoId = detento.DetentoId, 
-                Tipo = "Estudo", 
+            atividades.Add(new Estudo
+            {
+                DetentoId = detento.DetentoId,
+                Tipo = "Estudo",
                 Equivalencia = 3
             });
         }
         if (!detento.Atividades.Any(x => x is Trabalho))
         {
-            atividades.Add(new Trabalho 
-            { 
-                DetentoId = detento.DetentoId, 
-                Tipo = "Trabalho", 
+            atividades.Add(new Trabalho
+            {
+                DetentoId = detento.DetentoId,
+                Tipo = "Trabalho",
                 Equivalencia = 3
-                });
+            });
         }
         if (atividades.Count() == 0)
         {
@@ -365,7 +368,7 @@ app.MapPut("/api/arrumarTiposAtividade", ([FromServices] AppDataContext ctx) =>
 
     foreach (Atividade atividade in atividades)
     {
-        if (atividade is Leitura )
+        if (atividade is Leitura)
         {
             atividade.Tipo = "Leitura";
             atividade.Equivalencia = 0.25;
@@ -385,7 +388,7 @@ app.MapPut("/api/arrumarTiposAtividade", ([FromServices] AppDataContext ctx) =>
     }
     ctx.TabelaAtividades.UpdateRange(atividades);
     ctx.SaveChanges();
-    
+
     return Results.Ok(atividades);
 });
 
