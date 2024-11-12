@@ -4,7 +4,7 @@ import { Detento } from "../../../interfaces/Detento";
 import "../../../css/BuscarDetento.css"
 import { Atividade } from "../../../interfaces/Atividade";
 
-function BuscarDetento2() {
+function BuscarDetentoCPF() {
 
     const [cpf, setCpf] = useState<string>();
     const [respostaClasse, setRespostaClasse] = useState("respostaClasse")
@@ -105,4 +105,4 @@ function BuscarDetento2() {
   );
 }
 
-export default BuscarDetento2;
+export default BuscarDetentoCPF;

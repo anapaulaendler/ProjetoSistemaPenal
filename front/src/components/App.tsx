@@ -5,12 +5,13 @@ import BuscarDetento from "./pages/detento/BuscarDetento";
 import CadastrarAtividade from "./pages/atividade/CadastrarAtividade";
 import EditarDetento from "./pages/detento/EditarDetento";
 import ListarAtividadesDetento from "./pages/atividade/ListarAtividadesDetento";
-import BuscarDetento2 from "./pages/detento/BuscarDetento2";
+import BuscarDetentoCPF from "./pages/detento/BuscarDetentoCPF";
 
 function App() {
   return (
     <div>
-      <BuscarDetento2/>
+      <EditarDetento/>
+      <BuscarDetentoCPF/>
     </div>
   );
 }

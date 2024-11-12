@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Atividade } from "../../../interfaces/Atividade";
 import { Detento } from "../../../interfaces/Detento";
 
+// 65725312334
+
 function EditarDetento() {
 
   const [detento, setDetento] = useState<Detento>();
@@ -139,7 +141,7 @@ return (
             <div>
               <label htmlFor="dataNascimento">Data de Nascimento</label>
               <input
-                type="date"
+                type="text"
                 name="dataNascimento"
                 value={valorForm.dataNascimento}
                 onChange={handleChange}
