@@ -23,7 +23,10 @@ app.MapGet("/", () => "API de Sistema Penitencial");
 // criar: POST
 app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices] AppDataContext ctx) =>
 {
-
+    if(ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == detento.CPF) != null)
+    {
+        return Results.Conflict("Detento Com mesmo CPF encontrado no banco!");
+    }
     ctx.TabelaDetentos.Add(detento);
     ctx.SaveChanges();
     return Results.Created("", detento);
@@ -391,6 +394,7 @@ app.MapPut("/api/arrumarTiposAtividade", ([FromServices] AppDataContext ctx) =>
 
     return Results.Ok(atividades);
 });
+
 
 app.UseCors("Acesso Total");
 app.Run();
