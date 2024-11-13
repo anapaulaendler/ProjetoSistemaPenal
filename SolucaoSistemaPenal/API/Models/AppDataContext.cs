@@ -10,6 +10,7 @@ public class AppDataContext : DbContext
     public DbSet<Atividade> TabelaAtividades { get; set; }
     public DbSet<Detento> TabelaDetentos { get; set; }
     public DbSet<Funcionario> TabelaFuncionarios { get; set; }
+    public DbSet<DetentoInativo> TabelaDetentosInativos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

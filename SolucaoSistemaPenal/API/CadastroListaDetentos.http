@@ -4,163 +4,83 @@ Content-Type: application/json
 
 [
     {
-        "Nome": "Carlos Oliveira",
-        "DataNascimento": "23/05/1988",
-        "CPF": "78945612300",
+        "Nome": "João da Silva",
+        "DataNascimento": "1980-05-12",
+        "CPF": "123.456.789-00",
         "Sexo": "M",
-        "TempoPenaInicial": 3650,
-        "PenaRestante": 3650,
-        "InicioPena": "01/01/2024",
-        "FimPena": "31/12/2033"
+        "InicioPena": "2022-01-15T00:00:00",
+        "FimPena": "2032-01-15T00:00:00"
     },
     {
-        "Nome": "Ricardo Santos",
-        "DataNascimento": "15/08/1985",
-        "CPF": "12345678911",
-        "Sexo": "M",
-        "TempoPenaInicial": 1825,
-        "PenaRestante": 1825,
-        "InicioPena": "12/06/2023",
-        "FimPena": "12/06/2028"
+        "Nome": "Maria Oliveira",
+        "DataNascimento": "1992-08-23",
+        "CPF": "987.654.321-00",
+        "Sexo": "F",
+        "InicioPena": "2021-06-10T00:00:00",
+        "FimPena": "2031-06-10T00:00:00"
     },
     {
-        "Nome": "Marcos Silva",
-        "DataNascimento": "10/12/1990",
-        "CPF": "09876543210",
+        "Nome": "Carlos Pereira",
+        "DataNascimento": "1975-11-30",
+        "CPF": "456.789.123-00",
         "Sexo": "M",
-        "TempoPenaInicial": 730,
-        "PenaRestante": 730,
-        "InicioPena": "05/11/2024",
-        "FimPena": "05/11/2026"
+        "InicioPena": "2023-03-25T00:00:00",
+        "FimPena": "2035-03-25T00:00:00"
     },
     {
-        "Nome": "André Pereira",
-        "DataNascimento": "02/03/1983",
-        "CPF": "11223344556",
-        "Sexo": "M",
-        "TempoPenaInicial": 2555,
-        "PenaRestante": 2555,
-        "InicioPena": "20/09/2024",
-        "FimPena": "18/09/2031"
+        "Nome": "Ana Costa",
+        "DataNascimento": "1985-07-19",
+        "CPF": "654.321.987-00",
+        "Sexo": "F",
+        "InicioPena": "2020-11-05T00:00:00",
+        "FimPena": "2028-11-05T00:00:00"
     },
     {
-        "Nome": "Fernando Souza",
-        "DataNascimento": "30/07/1994",
-        "CPF": "22334455667",
+        "Nome": "Roberto Souza",
+        "DataNascimento": "1978-01-09",
+        "CPF": "321.654.987-00",
         "Sexo": "M",
-        "TempoPenaInicial": 1460,
-        "PenaRestante": 1460,
-        "InicioPena": "18/02/2024",
-        "FimPena": "18/02/2028"
+        "InicioPena": "2018-04-10T00:00:00",
+        "FimPena": "2028-04-10T00:00:00"
     },
     {
-        "Nome": "João Ferreira",
-        "DataNascimento": "11/11/1978",
-        "CPF": "33445566778",
-        "Sexo": "M",
-        "TempoPenaInicial": 4380,
-        "PenaRestante": 4380,
-        "InicioPena": "25/05/2025",
-        "FimPena": "25/05/2037"
+        "Nome": "Paula Mendes",
+        "DataNascimento": "1995-02-17",
+        "CPF": "789.123.456-00",
+        "Sexo": "F",
+        "InicioPena": "2023-09-01T00:00:00",
+        "FimPena": "2029-09-01T00:00:00"
     },
     {
-        "Nome": "Pedro Costa",
-        "DataNascimento": "04/04/1987",
-        "CPF": "44556677889",
+        "Nome": "Fernando Rocha",
+        "DataNascimento": "1983-10-30",
+        "CPF": "963.852.741-00",
         "Sexo": "M",
-        "TempoPenaInicial": 1825,
-        "PenaRestante": 1825,
-        "InicioPena": "03/07/2024",
-        "FimPena": "03/07/2029"
+        "InicioPena": "2022-06-15T00:00:00",
+        "FimPena": "2030-06-15T00:00:00"
     },
     {
-        "Nome": "Fábio Almeida",
-        "DataNascimento": "09/02/1993",
-        "CPF": "55667788990",
-        "Sexo": "M",
-        "TempoPenaInicial": 2920,
-        "PenaRestante": 2920,
-        "InicioPena": "17/08/2023",
-        "FimPena": "17/08/2031"
+        "Nome": "Luiza Fernandes",
+        "DataNascimento": "1990-09-24",
+        "CPF": "852.963.741-00",
+        "Sexo": "F",
+        "InicioPena": "2021-08-20T00:00:00",
+        "FimPena": "2031-08-20T00:00:00"
     },
     {
-        "Nome": "Lucas Martins",
-        "DataNascimento": "18/06/1991",
-        "CPF": "66778899001",
+        "Nome": "Diego Moreira",
+        "DataNascimento": "1987-12-05",
+        "CPF": "741.852.963-00",
         "Sexo": "M",
-        "TempoPenaInicial": 1095,
-        "PenaRestante": 1095,
-        "InicioPena": "22/10/2024",
-        "FimPena": "22/10/2027"
+        "InicioPena": "2023-01-18T00:00:00",
+        "FimPena": "2033-01-18T00:00:00"
     },
     {
-        "Nome": "Paulo Lima",
-        "DataNascimento": "07/01/1980",
-        "CPF": "77889900112",
-        "Sexo": "M",
-        "TempoPenaInicial": 3650,
-        "PenaRestante": 3650,
-        "InicioPena": "14/12/2022",
-        "FimPena": "13/12/2032"
-    },
-    {
-        "Nome": "Rafael Barbosa",
-        "DataNascimento": "29/09/1984",
-        "CPF": "88990011223",
-        "Sexo": "M",
-        "TempoPenaInicial": 2190,
-        "PenaRestante": 2190,
-        "InicioPena": "30/11/2023",
-        "FimPena": "29/11/2029"
-    },
-    {
-        "Nome": "Gabriel Mendes",
-        "DataNascimento": "25/12/1992",
-        "CPF": "99001122334",
-        "Sexo": "M",
-        "TempoPenaInicial": 730,
-        "PenaRestante": 730,
-        "InicioPena": "15/03/2025",
-        "FimPena": "15/03/2027"
-    },
-    {
-        "Nome": "Henrique Souza",
-        "DataNascimento": "12/07/1982",
-        "CPF": "10111222334",
-        "Sexo": "M",
-        "TempoPenaInicial": 1460,
-        "PenaRestante": 1460,
-        "InicioPena": "10/05/2024",
-        "FimPena": "10/05/2028"
-    },
-    {
-        "Nome": "Eduardo Rodrigues",
-        "DataNascimento": "01/05/1977",
-        "CPF": "11222333445",
-        "Sexo": "M",
-        "TempoPenaInicial": 5475,
-        "PenaRestante": 5475,
-        "InicioPena": "04/08/2024",
-        "FimPena": "04/08/2039"
-    },
-    {
-        "Nome": "Vitor Gomes",
-        "DataNascimento": "27/03/1996",
-        "CPF": "12233444556",
-        "Sexo": "M",
-        "TempoPenaInicial": 1825,
-        "PenaRestante": 1825,
-        "InicioPena": "06/01/2024",
-        "FimPena": "06/01/2029"
-    },
-    {
-        "Nome": "Thiago Costa",
-        "DataNascimento": "03/10/1989",
-        "CPF": "23344555667",
-        "Sexo": "M",
-        "TempoPenaInicial": 365,
-        "PenaRestante": 365,
-        "InicioPena": "20/04/2024",
-        "FimPena": "20/04/2025"
+        "Nome": "Clara Azevedo",
+        "DataNascimento": "1998-03-14",
+        "CPF": "159.753.486-00",
+        "Sexo": "F",
+        "InicioPena": "2024-02-10T00:00:00",
+        "FimPena": "2032-02-10T00:00:00"
     }
 ]

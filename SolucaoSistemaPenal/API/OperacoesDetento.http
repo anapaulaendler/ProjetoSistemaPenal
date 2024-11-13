@@ -1,40 +1,37 @@
 @base_url = http://localhost:5291/api/detento
-@detentoId = 95bf28a3-6a4d-4133-9666-14973c80c427
+@detentoId = cb581b16-3831-40fc-89b2-13d0b52ba063
+@atividades = todas
 
 ### Cadastrar Detento
 POST {{base_url}}/cadastrar
 Content-Type: application/json
 
 {
-    "Nome" : "Leonardo",
-    "DataNascimento" : "12/10/2000",
-    "CPF" : "2323232323",
-    "Sexo" : "M",
-    "TempoPenaInicial" : 1478, 
-    "PenaRestante" : 1478,
-    "InicioPena" : "13/10/2024",
-    "FimPena" : "13/10/2039"
+    "Nome": "Vinícius Martins",
+    "DataNascimento": "1982-04-28",
+    "CPF": "753.159.486-00",
+    "Sexo": "M",
+    "InicioPena": "2025-07-15T00:00:00",
+    "FimPena": "2035-07-15T00:00:00"
 }
 
 ### Buscar Detento
 GET {{base_url}}/buscar/id:{{detentoId}}
 
 ### Buscar Detento por CPF
-GET {{base_url}}/buscar/cpf:65725312334
+GET {{base_url}}/buscar/cpf:753.159.486-00
 
 ### Alterar Detento
 PUT {{base_url}}/alterar/{{detentoId}}
 Content-Type: application/json
 
 {
-    "Nome" : "Joelson Menedes da Silva",
-    "DataNascimento" : "25/12/1970",
-    "CPF" : "72761910524",
-    "Sexo" : "M",
-    "TempoPenaInicial" : 500, 
-    "PenaRestante" : 200,
-    "InicioPena" : "10/02/2024",
-    "FimPena" : "09/05/2029"
+    "Nome": "Choi Beomgyu",
+    "DataNascimento": "1982-04-28",
+    "CPF": "753.159.486-00",
+    "Sexo": "M",
+    "InicioPena": "2025-07-15T00:00:00",
+    "FimPena": "2035-07-15T00:00:00"
 }
 
 ### Listar Detentos

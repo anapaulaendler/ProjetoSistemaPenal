@@ -3,6 +3,7 @@ using System;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20241113171032_TabelaInativos")]
+    partial class TabelaInativos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -30,9 +33,6 @@ namespace API.Migrations
 
                     b.Property<string>("DetentoId")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DetentoInativoId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Discriminator")
@@ -54,8 +54,6 @@ namespace API.Migrations
 
                     b.HasIndex("DetentoId");
 
-                    b.HasIndex("DetentoInativoId");
-
                     b.ToTable("TabelaAtividades");
 
                     b.HasDiscriminator().HasValue("Atividade");
@@ -74,6 +72,11 @@ namespace API.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("FimPena")
                         .HasColumnType("TEXT");
 
@@ -89,34 +92,10 @@ namespace API.Migrations
                     b.HasKey("DetentoId");
 
                     b.ToTable("TabelaDetentos");
-                });
 
-            modelBuilder.Entity("API.Models.DetentoInativo", b =>
-                {
-                    b.Property<string>("DetentoInativoId")
-                        .HasColumnType("TEXT");
+                    b.HasDiscriminator().HasValue("Detento");
 
-                    b.Property<string>("CPF")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("FimPena")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("InicioPena")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("TEXT");
-
-                    b.Property<char>("Sexo")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("DetentoInativoId");
-
-                    b.ToTable("TabelaDetentosInativos");
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("API.Models.Funcionario", b =>
@@ -169,6 +148,17 @@ namespace API.Migrations
                     b.HasDiscriminator().HasValue("Trabalho");
                 });
 
+            modelBuilder.Entity("API.Models.DetentoInativo", b =>
+                {
+                    b.HasBaseType("API.Models.Detento");
+
+                    b.Property<string>("DetentoInativoId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("DetentoInativo");
+                });
+
             modelBuilder.Entity("API.Models.Atividade", b =>
                 {
                     b.HasOne("API.Models.Detento", null)
@@ -176,18 +166,9 @@ namespace API.Migrations
                         .HasForeignKey("DetentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("API.Models.DetentoInativo", null)
-                        .WithMany("Atividades")
-                        .HasForeignKey("DetentoInativoId");
                 });
 
             modelBuilder.Entity("API.Models.Detento", b =>
-                {
-                    b.Navigation("Atividades");
-                });
-
-            modelBuilder.Entity("API.Models.DetentoInativo", b =>
                 {
                     b.Navigation("Atividades");
                 });

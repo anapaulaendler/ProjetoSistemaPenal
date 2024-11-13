@@ -4,6 +4,7 @@ public class Funcionario : Pessoa
 {
     public string FuncionarioId { get; set; } = Guid.NewGuid().ToString();
     public required string Cargo { get; set; } 
+    public string? Senha { get; set; }
     // o cargo precisa aparecer pra gente definir se o funcionário pode
     // alterar a pena
 

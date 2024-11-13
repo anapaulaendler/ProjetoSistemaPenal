@@ -1,7 +1,8 @@
 @base_url = http://localhost:5291/api/atividade
-@DetentoId = 08bd3156-4d91-4528-a3e2-5c20a0a5c610
-@AtividadeId = dfd5902f-8417-4ea2-b2d6-46fa1ff6ec70
+@DetentoId = 
+@AtividadeId = 
 @nomeAtividade = todos
+
 ### Criar Atividades e adicionar a Detento
 POST {{base_url}}/detento/cadastrar/{{DetentoId}}/{{nomeAtividade}}
 
@@ -16,5 +17,8 @@ Content-Type: application/json
   "Limite" : 14
 }
 
-###Arrumando Tipos
-DELETE http://localhost:5291/api/deletar/detentoDuplicado
+### Adicionar atividades em todos os detentos [facilitar testes]
+POST {{base_url}}/detento/cadastrar/todas
+
+### Arrumar atividade
+PUT http://localhost:5291/api/arrumarTiposAtividade
