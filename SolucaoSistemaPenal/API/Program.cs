@@ -258,7 +258,7 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
 });
 
 // alterar atividade: PUT
-app.MapPut("/api/atividade/alterar/{idAtividade}", ([FromBody] Leitura atividadeAlterada, [FromRoute] string idAtividade, [FromServices] AppDataContext ctx) =>
+app.MapPut("/api/atividade/alterar/{idAtividade}", ([FromBody] Atividade atividadeAlterada, [FromRoute] string idAtividade, [FromServices] AppDataContext ctx) =>
 {
     var atividade = ctx.TabelaAtividades.Find(idAtividade);
 
@@ -271,7 +271,7 @@ app.MapPut("/api/atividade/alterar/{idAtividade}", ([FromBody] Leitura atividade
     {
         if (leitura.AnoAtual != DateTime.Now.Year)
         {
-            atividade.Contador = 0;
+            leitura.Contador = 0;
             leitura.AnoAtual = DateTime.Now.Year;
         }
 
@@ -284,22 +284,32 @@ app.MapPut("/api/atividade/alterar/{idAtividade}", ([FromBody] Leitura atividade
             {
                 return Results.NotFound("Detento não encontrado");
             }
-            detento.FimPena.AddDays(-3);
+
+            detento.FimPena = detento.FimPena.AddDays(-3);
             ctx.TabelaDetentos.Update(detento);
+            ctx.TabelaAtividades.Update(leitura);
             ctx.SaveChanges();
-            return Results.Ok(atividade);
+            return Results.Ok(leitura);
         }
 
-        
-
-        // leitura.Limite = atividadeAlterada.Limite;
-        ctx.TabelaAtividades.Update(atividade);
-        ctx.SaveChanges();
-        return Results.Ok(atividade);
+        return Results.NoContent();
+        // TROCAR DEPOIS
     }
 
-    //unico tipo de alteracao que atividade faz é aumentar o contador, o que permite que façamos:
     atividade.Contador++;
+    
+    if (atividade.Contador % 3 == 0)
+    {
+        Detento? detento = ctx.TabelaDetentos.Find(atividade.DetentoId);
+
+        if (detento is null)
+        {
+            return Results.NotFound("Detento não encontrado");
+        }
+        detento.FimPena = detento.FimPena.AddDays(-1);
+        ctx.TabelaDetentos.Update(detento);
+    }
+
     ctx.TabelaAtividades.Update(atividade);
     ctx.SaveChanges();
     return Results.Ok(atividade);
