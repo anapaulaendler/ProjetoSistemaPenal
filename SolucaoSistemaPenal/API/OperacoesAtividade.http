@@ -1,6 +1,6 @@
 @base_url = http://localhost:5291/api/atividade
-@DetentoId = 
-@AtividadeId = 
+@DetentoId = cb581b16-3831-40fc-89b2-13d0b52ba063
+@AtividadeId = 1e12fee2-69a3-4c80-b29c-676077dd6a3a
 @nomeAtividade = todos
 
 ### Criar Atividades e adicionar a Detento
@@ -11,11 +11,6 @@ GET {{base_url}}/listar/detento/{{DetentoId}}
 
 ### Alterar atividade [rascunho lógica de redução de pena]
 PUT {{base_url}}/alterar/{{AtividadeId}}
-Content-Type: application/json
-
-{
-  "Limite" : 14
-}
 
 ### Adicionar atividades em todos os detentos [facilitar testes]
 POST {{base_url}}/detento/cadastrar/todas

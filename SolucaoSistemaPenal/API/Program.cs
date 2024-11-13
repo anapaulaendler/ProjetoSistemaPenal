@@ -258,7 +258,7 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
 });
 
 // alterar atividade: PUT
-app.MapPut("/api/atividade/alterar/{idAtividade}", ([FromBody] Atividade atividadeAlterada, [FromRoute] string idAtividade, [FromServices] AppDataContext ctx) =>
+app.MapPut("/api/atividade/alterar/{idAtividade}", ([FromRoute] string idAtividade, [FromServices] AppDataContext ctx) =>
 {
     var atividade = ctx.TabelaAtividades.Find(idAtividade);
 
