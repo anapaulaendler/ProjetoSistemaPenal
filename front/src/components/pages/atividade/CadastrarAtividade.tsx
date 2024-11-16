@@ -46,22 +46,19 @@ function CadastrarAtividade() {
     <div id="form_cadastro_atividade">
       <h1>Cadastrar Atividade a Detento</h1>
       <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="detentoId">CPF do Detento</label>
+          <label htmlFor="detentoId">CPF do Detento
             <input type="text" onChange={encontrarDentento} required/>
             <div className={respostaClasse}>{resposta}</div>
-          </div>
+          </label>
 
-          <div>
-            <label htmlFor="nomeAtividade">Nome da Atividade</label>
+          <label htmlFor="nomeAtividade">Nome da Atividade
             <select name="SelecionarAtividade" id="SelecionarAtividade" onChange={(e : any) => setNomeAtividade(e.target.value as "estudo" | "leitura" | "trabalho" | "todos")} required>
               <option value="estudo">Estudo</option>
               <option value="leitura">Leitura</option>
               <option value="trabalho">Trabalho</option>
               <option value="todos">Todos</option>
             </select> 
-          </div>
-
+          </label>
           <button type="submit">Cadastrar</button>
         </form>
       </div>
