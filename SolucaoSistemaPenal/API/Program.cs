@@ -320,7 +320,10 @@ app.MapPut("/api/atividade/alterar/{idAtividade}", ([FromRoute] string idAtivida
 // criar: POST
 app.MapPost("/api/funcionario/cadastrar", ([FromBody] Funcionario funcionario, [FromServices] AppDataContext ctx) =>
 {
-
+    if(ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == funcionario.CPF) != null)
+    {
+        return Results.Conflict("CPF já registrado.");
+    }
     ctx.TabelaFuncionarios.Add(funcionario);
     ctx.SaveChanges();
     return Results.Created("", funcionario);
@@ -351,9 +354,18 @@ app.MapGet("/api/funcionario/listar", ([FromServices] AppDataContext ctx) =>
 });
 
 // buscar (id): GET
-app.MapGet("/api/funcionario/buscar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
+app.MapGet("/api/funcionario/buscar/id:{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Funcionario? funcionario = ctx.TabelaFuncionarios.Find(id);
+    if (funcionario == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(funcionario);
+});
+app.MapGet("/api/funcionario/buscar/cpf:{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
+{
+    Funcionario? funcionario = ctx.TabelaFuncionarios.FirstOrDefault(x => x.CPF == cpf);
     if (funcionario == null)
     {
         return Results.NotFound();
@@ -414,6 +426,23 @@ app.MapDelete("/api/deletar/detentoDuplicado", ([FromServices] AppDataContext ct
     return Results.Ok("Detentos duplicados removidos com sucesso.");
 });
 
+app.MapDelete("/api/deletar/funcionarioDuplicado", ([FromServices] AppDataContext ctx) =>
+{
+    var ListaFuncionarios = ctx.TabelaFuncionarios
+        .AsEnumerable() // Carrega os dados e realiza o agrupamento na memória
+        .GroupBy(d => d.CPF) // Agrupa por CPF
+        .Where(g => g.Count() > 1) // Filtra grupos com duplicados
+        .SelectMany(g => g.Skip(1)) // Pega todos menos o primeiro de cada grupo
+        .ToList();
+
+    if (ListaFuncionarios.Any())
+    {
+        ctx.TabelaFuncionarios.RemoveRange(ListaFuncionarios);
+        ctx.SaveChanges();
+    }
+
+    return Results.Ok("Funcionarios duplicados removidos com sucesso.");
+});
 // cadastrar todas as atividades em todos os detentos [facilitar testes]
 
 app.MapPost("/api/atividade/detento/cadastrar/todas", ([FromServices] AppDataContext ctx) =>

@@ -1,0 +1,4 @@
+@base_url = http://localhost:5291
+
+###deletar CPFs duplicados
+DELETE {{base_url}}/api/deletar/funcionarioDuplicado
