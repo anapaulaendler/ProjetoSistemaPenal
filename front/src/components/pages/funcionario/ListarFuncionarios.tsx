@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Funcionario } from "../../../interfaces/Funcionario";
-import "../../../css/ListarFuncionarios.css"
+import "../../../css/funcionario/ListarFuncionarios.css"
 
 function ListarFuncionarios(){
   const [funcionarios, setFuncionarios] = useState<Funcionario[]>([])

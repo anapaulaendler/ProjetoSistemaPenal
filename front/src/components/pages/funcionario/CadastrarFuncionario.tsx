@@ -1,9 +1,7 @@
 import { useState } from "react";
-import "../../../css/CadastrarFuncionario.css"
-import { NOTFOUND } from "dns";
+import "../../../css/funcionario/CadastrarFuncionario.css"
 import { Funcionario } from "../../../interfaces/Funcionario";
 import axios from "axios";
-import { ok } from "assert";
 function CadastrarFuncionario(){
   
   const [ nome, setNome] = useState<string>('');
@@ -72,7 +70,7 @@ function CadastrarFuncionario(){
           <input type="text" value={cargo} onChange={e => setCargo(e.target.value)} required/>
         </label>
         <label htmlFor="dataNascimento">Data de Nascimento:
-          <input type="date" value={dataNascimento} onChange={e => {setDataNascimento(e.target.value), console.log(e.target.value)}} required/>
+          <input type="date" value={dataNascimento} onChange={e => {setDataNascimento(e.target.value)}} required/>
         </label>
         <label htmlFor="cpf">CPF:
           <input type="text" value={cpf} onChange={x => setCpf(x.target.value)} onBlur={encontrarFuncionario} required/>

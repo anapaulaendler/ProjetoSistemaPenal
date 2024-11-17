@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../../css/AlterarFuncionario.css"
+import "../../../css/funcionario/EditarFuncionario.css"
 import { Funcionario } from "../../../interfaces/Funcionario";
 import axios from "axios";
 
@@ -68,14 +68,17 @@ function EditarFuncionario(){
       }
       }
     return(
-        <div>
+        <div id="form_alterar_funcionario">
             <h1>Alterar Funcionario</h1>
             <div>
+              <form onSubmit={encontrarFuncionario}>
                 <label htmlFor="cpf"> CPF do Funcionário:
-                    <input type="text" onChange={e => setCpf(e.target.value)}/>
+                    <input type="text" onChange={e => setCpf(e.target.value)} required/>
                 </label>
                 <div className={respostaClasse}>{resposta}</div>
-                <button onClick={encontrarFuncionario}>Buscar</button>
+                <button  type="submit">Buscar</button>
+              </form>
+              
             </div>
             {funcionario &&
                 <div>

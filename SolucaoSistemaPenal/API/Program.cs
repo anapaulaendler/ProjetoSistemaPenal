@@ -386,6 +386,7 @@ app.MapPut("/api/funcionario/alterar/{id}", ([FromRoute] string id, [FromBody] F
     funcionario.Sexo = funcionarioAlterado.Sexo;
     funcionario.CPF = funcionarioAlterado.CPF;
     funcionario.Cargo = funcionarioAlterado.Cargo;
+    funcionario.DataNascimento = funcionarioAlterado.DataNascimento;
 
     ctx.TabelaFuncionarios.Update(funcionario);
     ctx.SaveChanges();

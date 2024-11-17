@@ -9,6 +9,7 @@ import BuscarDetentoCPF from "./pages/detento/BuscarDetentoCPF";
 import CadastrarFuncionario from "./pages/funcionario/CadastrarFuncionario";
 import EditarFuncionario from "./pages/funcionario/EditarFuncionario";
 import ListarFuncionarios from "./pages/funcionario/ListarFuncionarios";
+import BuscarFuncionario from "./pages/funcionario/BuscarFuncionario";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <CadastrarFuncionario></CadastrarFuncionario>
         <EditarFuncionario/>
         <ListarFuncionarios></ListarFuncionarios>
+        <BuscarFuncionario></BuscarFuncionario>
     </div>
   );
 }

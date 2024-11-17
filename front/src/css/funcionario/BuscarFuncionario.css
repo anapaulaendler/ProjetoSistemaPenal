@@ -1,0 +1,43 @@
+/* Estilos para a tabela de listagem de detentos */
+div#form_buscar_funcionario {
+  padding: 50px;
+  margin: 10px;
+  background-color:#f4f4f9;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgb(130, 130, 130);
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+#form_buscar_detento p {
+  font-size: 18px;
+  color: #333;
+  margin: 8px 0;
+
+}
+
+#form_buscar_detento strong {
+  color: #007bff;
+  
+}
+
