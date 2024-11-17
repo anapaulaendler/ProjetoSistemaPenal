@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Funcionario } from "../../../interfaces/Funcionario";
 import "../../../css/ListarFuncionarios.css"
 
-function ListarFuncionario(){
+function ListarFuncionarios(){
   const [funcionarios, setFuncionarios] = useState<Funcionario[]>([])
   useEffect(() => {
     fetch("http://localhost:5291/api/funcionario/listar")
@@ -17,6 +17,7 @@ function ListarFuncionario(){
 
   return(
     <div id="form_listar_funcionarios">
+      <h1>Listar Funcionários</h1>
         <table>
           <thead>
               <tr>
@@ -29,7 +30,8 @@ function ListarFuncionario(){
               </tr>
           </thead>
           <tbody>
-              {funcionarios.map(funcionario =>  (
+              {funcionarios.length > 1 && 
+              funcionarios.map(funcionario =>  (
                 <tr key={funcionario.funcionarioId}>
                   <td>{funcionario.funcionarioId}</td>
                   <td>{funcionario.nome}</td>
@@ -45,4 +47,4 @@ function ListarFuncionario(){
     </div>
   )
 }
-export default ListarFuncionario;
+export default ListarFuncionarios;

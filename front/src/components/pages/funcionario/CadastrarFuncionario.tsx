@@ -24,23 +24,30 @@ function CadastrarFuncionario(){
     .then(resposta => {
       if(resposta.ok){
         setResposta("Funcionário com mesmo CPF encontrado no Sistema!")
-        return setRespostaClasse("resposta-erro")
+        setRespostaClasse("resposta-erro")
+        return true
       }else{
-        setResposta("")
-        return setCpf(cpf)
+        setResposta("CPF disponível")
+        setRespostaClasse("resposta-sucesso")
+
+        return false
       }
     }).catch((error) => {
-
+        console.log(error)
+        return true
     })
 
+    return true
   }
+
   function handleSubmit(e : any){
     e.preventDefault();
-    encontrarFuncionario()
+   
 
-    if(resposta == "Funcionário com mesmo CPF encontrado no Sistema!" ){
+    if(encontrarFuncionario()){
       return alert("Funcionário com mesmo CPF encontrado, impossível registrar")
     }
+
     const funcionario : Funcionario = {
       nome: nome,
       cargo: cargo,
@@ -50,8 +57,7 @@ function CadastrarFuncionario(){
     }
 
     axios.post("http://localhost:5291/api/funcionario/cadastrar", funcionario)
-    .then(resposta => alert("Funcionário registrado com sucesso!"))
-
+    .then(() => alert("Funcionário registrado com sucesso!"))
 
   }
 
@@ -66,7 +72,7 @@ function CadastrarFuncionario(){
           <input type="text" value={cargo} onChange={e => setCargo(e.target.value)} required/>
         </label>
         <label htmlFor="dataNascimento">Data de Nascimento:
-          <input type="date" value={dataNascimento} onChange={e => setDataNascimento(e.target.value)} required/>
+          <input type="date" value={dataNascimento} onChange={e => {setDataNascimento(e.target.value), console.log(e.target.value)}} required/>
         </label>
         <label htmlFor="cpf">CPF:
           <input type="text" value={cpf} onChange={x => setCpf(x.target.value)} onBlur={encontrarFuncionario} required/>

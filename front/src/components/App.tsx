@@ -7,13 +7,15 @@ import EditarDetento from "./pages/detento/EditarDetento";
 import ListarAtividadesDetento from "./pages/atividade/ListarAtividadesDetento";
 import BuscarDetentoCPF from "./pages/detento/BuscarDetentoCPF";
 import CadastrarFuncionario from "./pages/funcionario/CadastrarFuncionario";
-import ListarFuncionario from "./pages/funcionario/ListarFuncionario";
+import EditarFuncionario from "./pages/funcionario/EditarFuncionario";
+import ListarFuncionarios from "./pages/funcionario/ListarFuncionarios";
 
 function App() {
   return (
     <div>
-        <CadastrarFuncionario/>
-        <ListarFuncionario/>
+        <CadastrarFuncionario></CadastrarFuncionario>
+        <EditarFuncionario/>
+        <ListarFuncionarios></ListarFuncionarios>
     </div>
   );
 }
