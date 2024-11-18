@@ -10,8 +10,6 @@ function CadastrarDetento() {
     const [dataNascimento, setDataNascimento] = useState<string>('');
     const [cpf, setCpf] = useState<string>('');
     const [sexo, setSexo] = useState<'M' | 'F'>('M');
-    const [tempoPenaInicial, setTempoPenaInicial] = useState<number>(0);
-    const [penaRestante, setPenaRestante] = useState<number>(0);
     const [inicioPena, setInicioPena] = useState<string>('');
     const [fimPena, setFimPena] = useState<string>('');
     const [atividades, setAtividades] = useState<Atividade[]>([]);
@@ -22,8 +20,6 @@ function CadastrarDetento() {
         const novoDetento : Detento = {
             nome,
             dataNascimento,
-            tempoPenaInicial: 0,
-            penaRestante: 0,
             inicioPena: "",
             fimPena: "",
             atividades: [],
@@ -51,8 +47,6 @@ function CadastrarDetento() {
             setDataNascimento('');
             setCpf('');
             setSexo('M'); 
-            setTempoPenaInicial(0);
-            setPenaRestante(0);
             setInicioPena('');
             setFimPena('');
             setAtividades([]);
@@ -90,16 +84,6 @@ function CadastrarDetento() {
               <option value="M">Masculino</option>
               <option value="F">Feminino</option>
           </select>
-      </div>
-      
-      <div>
-        <label>Tempo de Pena Inicial (anos):</label>
-          <input type="number" value={tempoPenaInicial} onChange={e => setTempoPenaInicial(Number(e.target.value))} required />
-      </div>
-      
-      <div>
-        <label>Pena Restante (anos):</label>
-          <input type="number" value={penaRestante} onChange={e => setPenaRestante(Number(e.target.value))} required />
       </div>
 
       <div>

@@ -57,8 +57,6 @@ function BuscarDetento() {
             <p><strong>Data Nascimento:</strong> {detento.dataNascimento}</p>
             <p><strong>CPF: </strong> {detento.cpf}</p>
             <p><strong>Sexo:</strong> {detento.sexo}</p>
-            <p><strong>Tempo de Pena Inicial:</strong> {detento.tempoPenaInicial}</p>
-            <p><strong>Pena Restante:</strong> {detento.penaRestante}</p>
             <p><strong>Início Pena:</strong> {detento.inicioPena}</p>
             <p><strong>Fim da Pena:</strong> {detento.fimPena}</p>
         </div>

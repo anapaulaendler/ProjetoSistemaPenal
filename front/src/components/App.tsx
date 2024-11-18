@@ -14,10 +14,7 @@ import BuscarFuncionario from "./pages/funcionario/BuscarFuncionario";
 function App() {
   return (
     <div>
-        <CadastrarFuncionario></CadastrarFuncionario>
-        <EditarFuncionario/>
-        <ListarFuncionarios></ListarFuncionarios>
-        <BuscarFuncionario></BuscarFuncionario>
+        <EditarDetento/>
     </div>
   );
 }

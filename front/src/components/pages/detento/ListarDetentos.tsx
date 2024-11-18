@@ -41,8 +41,6 @@ function ListarDetentos() {
         <td>{detento.dataNascimento}</td>
         <td>{detento.cpf}</td>
         <td>{detento.sexo}</td>
-        <td>{detento.tempoPenaInicial}</td>
-        <td>{detento.penaRestante}</td>
         <td>{new Date(detento.inicioPena).toLocaleDateString()}</td>
         <td>{new Date(detento.fimPena).toLocaleDateString()}</td>
         </tr>

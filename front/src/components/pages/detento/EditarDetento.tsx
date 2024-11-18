@@ -1,181 +1,151 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { Atividade } from "../../../interfaces/Atividade";
+import React, { useEffect, useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
-
-// 65725312334
 
 function EditarDetento() {
 
   const [detento, setDetento] = useState<Detento>();
-  const [id, setId] = useState<string>();
-  const [erro, setErro] = useState<string>();
-  const [valorForm, setValorForm] = useState({
-    nome: '',
-    dataNascimento: '',
-    cpf: '',
-    sexo: 'M' as 'M' | 'F',
-    tempoPenaInicial: 0,
-    penaRestante: 0,
-    inicioPena: '',
-    fimPena: '',
-  });
-  const [resposta, setResposta] = useState("");
-  const [respostaClasse, setRespostaClasse] = useState("");
-  const [nome, setNome] = useState<string>('');
-  const [dataNascimento, setDataNascimento] = useState<string>('');
-  const [cpf, setCpf] = useState<string>('');
-  const [sexo, setSexo] = useState<'M' | 'F'>('M');
-  const [tempoPenaInicial, setTempoPenaInicial] = useState<number>(0);
-  const [penaRestante, setPenaRestante] = useState<number>(0);
-  const [inicioPena, setInicioPena] = useState<string>('');
-  const [fimPena, setFimPena] = useState<string>('');
+
+  const [nome, setNome] = useState<string>("");
+  const [dataNascimento, setDataNascimento] = useState<string>("");
+  const [cpf, setCpf] = useState<string>("");
+  const [sexo, setSexo] = useState<"M" | "F">("M");
+  const [inicioPena, setInicioPena] = useState<string>("");
+  const [fimPena, setFimPena] = useState<string>("");
   const [detentoId, setDetentoId] = useState<string>("");
 
-  function encontrarDentento(e : any){
-    
-    fetch("http://localhost:5291/api/detento/buscar/cpf:" + e.target.value).then(resposta => {
-      return resposta.json()
-    }).then(detento => {
-      if(detento == null){
-        setRespostaClasse("resposta-erro")
-        setResposta("detento não encontrado")
-      } else {
-        setDetento(detento)
-        setDetentoId(detento.detentoId)
-        setRespostaClasse("resposta-sucesso")
-        setResposta("detento encontrado")
-        setValorForm({
-            nome: detento.nome,
-            dataNascimento: detento.dataNascimento,
-            cpf: detento.cpf,
-            sexo: detento.sexo,
-            tempoPenaInicial: detento.tempoPenaInicial,
-            penaRestante: detento.penaRestante,
-            inicioPena: detento.inicioPena,
-            fimPena: detento.fimPena,
-          });
-        
-      }
-    }).catch(() => {
-      setRespostaClasse("resposta-erro")
-      setResposta("detento não encontrado")
-    });
-  }
+  const [erro, setErro] = useState<string>();
+  const [resposta, setResposta] = useState("");
+  const [respostaClasse, setRespostaClasse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(e : any) {
-    e.preventDefault();
-
-    fetch("http://localhost:5291/api/detento/alterar/" + detentoId, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(valorForm)
-    })
-
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro na requisição: ' + response.statusText);
+  function encontrarDetento(e: any) {
+    fetch("http://localhost:5291/api/detento/buscar/cpf:" + e.target.value)
+      .then((resposta) => {
+        if (resposta.ok) {
+          setResposta("Detento encontrado.");
+          setRespostaClasse("resposta-sucesso");
+          return resposta.json();
+        } else {
+          setResposta("Detento não encontrado.");
+          setRespostaClasse("resposta-erro");
+          return null;
         }
-        return response.json();
-    })
-
-    .then(() => {
-        setRespostaClasse("resposta-sucesso");
-        setResposta("Detento atualizado com sucesso");
-        setValorForm({
-          nome: '',
-          dataNascimento: '',
-          cpf: '',
-          sexo: 'M',
-          tempoPenaInicial: 0,
-          penaRestante: 0,
-          inicioPena: '',
-          fimPena: '',
-        });
       })
-
+      .then((detento) => {
+        if (detento) {
+          setDetento(detento);
+          setCpf(detento.cpf);
+          setDataNascimento(detento.dataNascimento.split("T")[0]);
+          setFimPena(detento.fimPena);
+          setInicioPena(detento.inicioPena);
+          setNome(detento.nome);
+          setSexo(detento.sexo);
+          setDetentoId(detento.detentoId);
+        }
+      })
       .catch((error) => {
-        console.error('Erro:', error);
-        setRespostaClasse("resposta-erro");
-        setResposta("Erro ao atualizar detento");
+        console.error("Erro ao buscar detento:", error);
       });
   }
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    const { name, value } = e.target;
-    setValorForm((prev) => ({
-        ...prev,
-        // o prev são as infos antigas, que estão guardadas
-        [name]: value,
-        // o name é o nome da var e o value é o valor digitado
-    }));
+  function handleSubmit(e: any) {
+    e.preventDefault();
+    setIsLoading(true);
 
-        // o handleChange fica esperando mudanças pra atualizar :>
+    const detentoAlterado: Detento = {
+      nome,
+      dataNascimento: new Date(dataNascimento).toISOString().split("T")[0],
+      sexo,
+      inicioPena,
+      fimPena,
+      cpf,
+      detentoId,
+    };
+
+    fetch("http://localhost:5291/api/detento/alterar/" + detentoId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(detentoAlterado),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro na requisição: " + response.statusText);
+        }
+        return response.json();
+      })
+      .then(() => {
+        setRespostaClasse("resposta-sucesso");
+        setResposta("Detento atualizado com sucesso");
+      })
+      .catch((error) => {
+        console.error("Erro:", error);
+        setRespostaClasse("resposta-erro");
+        setResposta("Erro ao atualizar detento");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
-return (
+  return (
     <div id="form_cadastro_atividade">
       <h1>Alterar Detento</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="detentoId">CPF do Detento</label>
-          <input type="text" onChange={encontrarDentento} required />
+          <input type="text" onChange={encontrarDetento} required />
           <div className={respostaClasse}>{resposta}</div>
         </div>
-
         {detento && (
-            // verifica se detento não é falsy
           <>
             <div>
-              <label htmlFor="nome">Nome</label>
+              <label htmlFor="nome">Nome:</label>
               <input
                 type="text"
-                name="nome"
-                value={valorForm.nome}
-                onChange={handleChange}
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
                 required
               />
             </div>
             <div>
-              <label htmlFor="dataNascimento">Data de Nascimento</label>
+              <label htmlFor="dataNascimento">Data de Nascimento:</label>
               <input
-                type="text"
-                name="dataNascimento"
-                value={valorForm.dataNascimento}
-                onChange={handleChange}
+                type="date"
+                value={dataNascimento.split("T")[0]}
+                onChange={(e) => setDataNascimento(e.target.value)}
                 required
               />
             </div>
             <div>
-              <label htmlFor="cpf">CPF</label>
+              <label htmlFor="cpf">CPF:</label>
               <input
                 type="text"
-                name="cpf"
-                value={valorForm.cpf}
-                onChange={handleChange}
+                value={cpf}
+                onChange={(x) => setCpf(x.target.value)}
                 required
               />
             </div>
             <div>
-            <label htmlFor="sexo">Sexo</label>
-            <select
-                name="sexo"
-                value={valorForm.sexo}
-                onChange={handleChange}
+              <label htmlFor="sexo">Sexo:</label>
+              <select
+                value={sexo}
+                onChange={(e) => setSexo(e.target.value as "M" | "F")}
                 required
-                >
+              >
                 <option value="M">Masculino</option>
                 <option value="F">Feminino</option>
-            </select>
+              </select>
             </div>
-            <button type="submit">Editar</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Salvando..." : "Editar"}
+            </button>
           </>
         )}
       </form>
     </div>
-);
+  );
 }
 
 export default EditarDetento;
