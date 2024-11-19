@@ -102,6 +102,7 @@ app.MapPut("/api/detento/alterar/{id}", ([FromRoute] string id, [FromBody] Deten
     detento.Nome = detentoAlterado.Nome;
     detento.Sexo = detentoAlterado.Sexo;
     detento.CPF = detentoAlterado.CPF;
+    detento.DataNascimento = detentoAlterado.DataNascimento;
     // detento.PenaRestante = detentoAlterado.PenaRestante;
     detento.FimPena = detentoAlterado.FimPena;
 
