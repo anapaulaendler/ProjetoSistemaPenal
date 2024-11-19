@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
-import "../../../css/BuscarDetento.css"
+import "../../../css/detento/Detento.css"
 
 function BuscarDetento() {
 
@@ -43,12 +43,15 @@ function BuscarDetento() {
     <div>
     <div id="form_buscar_detento">
         <h1>Buscar Detento</h1>
+        <form onSubmit={clicar}>
             <input 
                 type="text" 
                 placeholder="Digite o ID do detento"
                 onChange={digitar} 
+                required
             />
-            <button onClick={clicar}>Consultar</button>
+            <button type="submit">Consultar</button>
+        </form>
     </div>
     {detento && (
         <div>

@@ -1,15 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-  }
-
-  div#form_cadastro_detento {
+  div #form_cadastro_detento, #form_listar_detento, #form_buscar_detento, #form_editar_detento, #form_cadastro_atividade{
     padding: 50px;
     margin: 10px;
     background-color:#f4f4f9;
@@ -19,7 +8,7 @@ body {
 
   .container {
     width: 100%;
-    max-width: 500px;
+
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -47,10 +36,7 @@ body {
     color: #333;
   }
   
-  input[type="text"],
-  input[type="date"],
-  input[type="number"],
-  select {
+  input, select {
     padding: 10px;
     margin-top: 5px;
     font-size: 14px;
@@ -58,10 +44,7 @@ body {
     border-radius: 4px;
   }
   
-  input[type="text"]:focus,
-  input[type="date"]:focus,
-  input[type="number"]:focus,
-  select:focus {
+  input, select:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
@@ -82,4 +65,48 @@ body {
   button[type="submit"]:hover {
     background-color: #0056b3;
   }
+  /* Estilos para a tabela de listagem de detentos */
   
+  table {
+    width: 100%;
+  
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+  
+  table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  table th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 15px;
+  }
+  
+  table tr:hover {
+    background-color: #f4f4f9;
+  }
+  
+  table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  table td {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  table tbody tr:last-child td {
+    border-bottom: none;
+  }

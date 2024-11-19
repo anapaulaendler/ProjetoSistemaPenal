@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
-
+import "../../../css/detento/Detento.css"
 function EditarDetento() {
 
   const [detento, setDetento] = useState<Detento>();
@@ -90,14 +90,12 @@ function EditarDetento() {
   }
 
   return (
-    <div id="form_cadastro_atividade">
+    <div id="form_editar_detento">
       <h1>Alterar Detento</h1>
       <form onSubmit={handleSubmit}>
-        <div>
           <label htmlFor="detentoId">CPF do Detento</label>
           <input type="text" onChange={encontrarDetento} required />
           <div className={respostaClasse}>{resposta}</div>
-        </div>
         {detento && (
           <>
             <div>

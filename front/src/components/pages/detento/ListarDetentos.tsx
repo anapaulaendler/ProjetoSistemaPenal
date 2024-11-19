@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
-import "../../../css/ListarDetentos.css"
+import "../../../css/detento/Detento.css"
 
 function ListarDetentos() {
 
@@ -15,6 +15,8 @@ function ListarDetentos() {
              .then(detentos => {
                  setDetentos(detentos);
              })
+
+        
         });
   return (
     <div id="form_listar_detento">
@@ -27,8 +29,8 @@ function ListarDetentos() {
         <th>Data de Nascimento</th>
         <th>CPF</th>
         <th>Sexo</th>
-        <th>Tempo de Pena Inicial</th>
-        <th>Pena Restante</th>
+        {/* <th>Tempo de Pena Inicial</th> */}
+        {/* <th>Pena Restante</th> */}
         <th>Início da Pena</th>
         <th>Fim da Pena</th>
       </tr>
@@ -38,7 +40,7 @@ function ListarDetentos() {
         <tr key={detento.detentoId}>
         <td>{detento.detentoId}</td>
         <td>{detento.nome}</td>
-        <td>{detento.dataNascimento}</td>
+        <td>{new Date(detento.dataNascimento).toLocaleDateString()}</td>
         <td>{detento.cpf}</td>
         <td>{detento.sexo}</td>
         <td>{new Date(detento.inicioPena).toLocaleDateString()}</td>

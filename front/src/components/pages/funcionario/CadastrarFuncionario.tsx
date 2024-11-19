@@ -1,7 +1,9 @@
 import { useState } from "react";
-import "../../../css/funcionario/CadastrarFuncionario.css"
 import { Funcionario } from "../../../interfaces/Funcionario";
 import axios from "axios";
+
+import "../../../css/funcionario/Funcionario.css"
+
 function CadastrarFuncionario(){
   
   const [ nome, setNome] = useState<string>('');

@@ -1,21 +1,29 @@
-import React from "react";
-import CadastrarDetento from "./pages/detento/CadastrarDetento";
-import ListarDetentos from "./pages/detento/ListarDetentos";
-import BuscarDetento from "./pages/detento/BuscarDetento";
-import CadastrarAtividade from "./pages/atividade/CadastrarAtividade";
-import EditarDetento from "./pages/detento/EditarDetento";
-import ListarAtividadesDetento from "./pages/atividade/ListarAtividadesDetento";
-import BuscarDetentoCPF from "./pages/detento/BuscarDetentoCPF";
-import CadastrarFuncionario from "./pages/funcionario/CadastrarFuncionario";
-import EditarFuncionario from "./pages/funcionario/EditarFuncionario";
-import ListarFuncionarios from "./pages/funcionario/ListarFuncionarios";
-import BuscarFuncionario from "./pages/funcionario/BuscarFuncionario";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
+import "../css/nav/App.css"
+import DetentoNav from "./pages/nav/DetentoNav";
+import FuncionarioNav from "./pages/nav/FuncionarioNav";
 function App() {
   return (
-    <div>
-        <EditarDetento/>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <nav>
+          <ul>
+            <li>
+              <Link to="/operacoesDetento">Operações Detento</Link>
+            </li>
+            <li>
+              <Link to="/operacoesFuncionario">Operações Funcionário</Link>
+            </li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/operacoesDetento" element={<DetentoNav/>}/>
+          <Route path="/operacoesFuncionario" element={<FuncionarioNav/>}/>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

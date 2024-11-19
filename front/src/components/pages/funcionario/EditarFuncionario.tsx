@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../../css/funcionario/EditarFuncionario.css"
+import "../../../css/funcionario/Funcionario.css"
 import { Funcionario } from "../../../interfaces/Funcionario";
 import axios from "axios";
 

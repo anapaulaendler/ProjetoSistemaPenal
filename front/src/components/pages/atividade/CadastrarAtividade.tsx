@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../../../css/CadastrarAtividade.css"
+import "../../../css/detento/Detento.css"
 
 function CadastrarAtividade() {
   const [detentoId, setDetentoId] = useState<string>("");

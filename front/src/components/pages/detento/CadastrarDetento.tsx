@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Atividade } from "../../../interfaces/Atividade";
 import { Detento } from "../../../interfaces/Detento";
-import "../../../css/CadastrarDetento.css"
+import "../../../css/detento/Detento.css"
 
 function CadastrarDetento() {
 

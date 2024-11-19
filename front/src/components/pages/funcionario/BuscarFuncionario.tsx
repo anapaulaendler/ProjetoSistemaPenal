@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Funcionario } from "../../../interfaces/Funcionario";
-import "../../../css/funcionario/BuscarFuncionario.css"
+import "../../../css/funcionario/Funcionario.css"
 
 function BuscarFuncionario(){
 
@@ -29,13 +29,13 @@ function BuscarFuncionario(){
     return(
         <div id="form_buscar_funcionario">
             <h1>Buscar Funcionario</h1>
-            <div>
+            <form onSubmit={encontrarFuncionario}>
                 <label htmlFor="cpf"> CPF do Funcionário:
                     <input type="text" onChange={e => setCpf(e.target.value)} required/>
                 </label>
                 <div>{resposta}</div>
-                <button onClick={encontrarFuncionario}>Buscar</button>
-            </div>
+                <button type="submit">Buscar</button>
+            </form>
             {funcionario &&
                 <div>
                     <p><strong>FuncionarioId:</strong> {funcionario.funcionarioId}</p>

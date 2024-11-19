@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
-import "../../../css/BuscarDetento.css"
+import "../../../css/detento/Detento.css"
 import { Atividade } from "../../../interfaces/Atividade";
 
 function BuscarDetentoCPF() {
@@ -48,16 +48,18 @@ function BuscarDetentoCPF() {
 
   return (
     <div id="form_buscar_detento">
-    <div>
+    <form onSubmit={clicar}>
         <h1>Buscar Detento</h1>
+            <label htmlFor="detetoCpf">Digite o CPF do detento
             <input 
                 type="text" 
-                placeholder="Digite o CPF do detento"
                 onChange={digitar} 
             />
-            <button onClick={clicar}>Consultar</button>
+            </label>
+            <button type="submit">Consultar</button>
             <div className={respostaClasse}>{resposta}</div>
-    </div>
+            
+    </form>
     {detento && (
         <div id="detento_encontrado">
             <p><strong>DetentoId:</strong> {detento.detentoId}</p>
