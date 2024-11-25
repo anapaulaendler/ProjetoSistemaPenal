@@ -15,12 +15,11 @@ options.AddPolicy("Acesso Total",
 
 var app = builder.Build();
 
-
 app.MapGet("/", () => "API de Sistema Penitencial");
 
 // CRUD: detento
 
-// criar: POST
+// criar detento
 app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices] AppDataContext ctx) =>
 {
     if(ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == detento.CPF) != null)
@@ -32,7 +31,7 @@ app.MapPost("/api/detento/cadastrar", ([FromBody] Detento detento, [FromServices
     return Results.Created("", detento);
 });
 
-// cadastrar Lista de detentos : POST
+// criar lista de detentos
 app.MapPost("/api/detento/cadastrar/lista", ([FromBody] List<Detento> detentos, [FromServices] AppDataContext ctx) =>
 {
     if (detentos == null || detentos.Count == 0)
@@ -45,7 +44,7 @@ app.MapPost("/api/detento/cadastrar/lista", ([FromBody] List<Detento> detentos, 
     return Results.Created("", detentos.ToList());
 });
 
-// listar: GET
+// listar detentos
 app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
 {
     if (ctx.TabelaDetentos.Any())
@@ -65,7 +64,7 @@ app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
     return Results.NotFound();
 });
 
-// buscar (id): GET
+// buscar detento (id e cpf embaixo)
 app.MapGet("/api/detento/buscar/id:{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
@@ -90,7 +89,7 @@ app.MapGet("/api/detento/buscar/cpf:{cpf}", ([FromRoute] string cpf, [FromServic
     return Results.Ok(detento);
 });
 
-// alterar (id): PUT
+// alterar detento
 app.MapPut("/api/detento/alterar/{id}", ([FromRoute] string id, [FromBody] Detento detentoAlterado, [FromServices] AppDataContext ctx) =>
 {
     var detento = ctx.TabelaDetentos.Find(id);
@@ -111,7 +110,7 @@ app.MapPut("/api/detento/alterar/{id}", ([FromRoute] string id, [FromBody] Deten
     return Results.Ok(detento);
 });
 
-// deletar (id): DELETE
+// deletar detento
 app.MapDelete("/api/detento/deletar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
@@ -119,6 +118,18 @@ app.MapDelete("/api/detento/deletar/{id}", ([FromRoute] string id, [FromServices
     {
         return Results.NotFound();
     }
+    
+    DetentoInativo dInativo = new DetentoInativo();
+
+    dInativo.DetentoInativoId = detento.DetentoId;
+    dInativo.CPF = detento.CPF;
+    dInativo.DataNascimento = detento.DataNascimento;
+    dInativo.FimPena = detento.FimPena;
+    dInativo.InicioPena = detento.InicioPena;
+    dInativo.Nome = detento.Nome;
+    dInativo.Sexo = detento.Sexo;
+
+    ctx.TabelaDetentosInativos.Add(dInativo);
     ctx.TabelaDetentos.Remove(detento);
     ctx.SaveChanges();
 
@@ -318,7 +329,7 @@ app.MapPut("/api/atividade/alterar/{idAtividade}", ([FromRoute] string idAtivida
 
 // CRUD: funcionário 
 
-// criar: POST
+// criar funcionário
 app.MapPost("/api/funcionario/cadastrar", ([FromBody] Funcionario funcionario, [FromServices] AppDataContext ctx) =>
 {
     if(ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == funcionario.CPF) != null)
@@ -343,7 +354,7 @@ app.MapPost("/api/funcionario/cadastrar/lista", ([FromBody] List<Funcionario> fu
     return Results.Created("", funcionarios.ToList());
 });
 
-// listar: GET
+// listar funcionários
 app.MapGet("/api/funcionario/listar", ([FromServices] AppDataContext ctx) =>
 {
     if (ctx.TabelaFuncionarios.Any())
@@ -354,7 +365,7 @@ app.MapGet("/api/funcionario/listar", ([FromServices] AppDataContext ctx) =>
     return Results.NotFound();
 });
 
-// buscar (id): GET
+// buscar funcionário
 app.MapGet("/api/funcionario/buscar/id:{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Funcionario? funcionario = ctx.TabelaFuncionarios.Find(id);
@@ -364,6 +375,7 @@ app.MapGet("/api/funcionario/buscar/id:{id}", ([FromRoute] string id, [FromServi
     }
     return Results.Ok(funcionario);
 });
+
 app.MapGet("/api/funcionario/buscar/cpf:{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
 {
     Funcionario? funcionario = ctx.TabelaFuncionarios.FirstOrDefault(x => x.CPF == cpf);
@@ -374,7 +386,7 @@ app.MapGet("/api/funcionario/buscar/cpf:{cpf}", ([FromRoute] string cpf, [FromSe
     return Results.Ok(funcionario);
 });
 
-// alterar (id): PUT
+// alterar funcionário
 app.MapPut("/api/funcionario/alterar/{id}", ([FromRoute] string id, [FromBody] Funcionario funcionarioAlterado, [FromServices] AppDataContext ctx) =>
 {
     var funcionario = ctx.TabelaFuncionarios.Find(id);
@@ -394,7 +406,7 @@ app.MapPut("/api/funcionario/alterar/{id}", ([FromRoute] string id, [FromBody] F
     return Results.Ok(funcionario);
 });
 
-// deletar (id): DELETE
+// deletar funcionário
 app.MapDelete("/api/funcionario/deletar/{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Funcionario? funcionario = ctx.TabelaFuncionarios.Find(id);
@@ -405,130 +417,144 @@ app.MapDelete("/api/funcionario/deletar/{id}", ([FromRoute] string id, [FromServ
     ctx.TabelaFuncionarios.Remove(funcionario);
     ctx.SaveChanges();
 
-    return Results.Ok(funcionario);
+    return Results.NoContent();
 });
 
 // OUTRAS FUNCIONALIDADES!!
 
-app.MapDelete("/api/deletar/detentoDuplicado", ([FromServices] AppDataContext ctx) =>
-{
-    var ListaDetentos = ctx.TabelaDetentos
-        .AsEnumerable() // Carrega os dados e realiza o agrupamento na memória
-        .GroupBy(d => d.CPF) // Agrupa por CPF
-        .Where(g => g.Count() > 1) // Filtra grupos com duplicados
-        .SelectMany(g => g.Skip(1)) // Pega todos menos o primeiro de cada grupo
-        .ToList();
+// // deletar detento duplicado
+// app.MapDelete("/api/deletar/detentoDuplicado", ([FromServices] AppDataContext ctx) =>
+// {
+//     var ListaDetentos = ctx.TabelaDetentos
+//         .AsEnumerable() // Carrega os dados e realiza o agrupamento na memória
+//         .GroupBy(d => d.CPF) // Agrupa por CPF
+//         .Where(g => g.Count() > 1) // Filtra grupos com duplicados
+//         .SelectMany(g => g.Skip(1)) // Pega todos menos o primeiro de cada grupo
+//         .ToList();
 
-    if (ListaDetentos.Any())
-    {
-        ctx.TabelaDetentos.RemoveRange(ListaDetentos);
-        ctx.SaveChanges();
-    }
+//     if (ListaDetentos.Any())
+//     {
+//         ctx.TabelaDetentos.RemoveRange(ListaDetentos);
+//         ctx.SaveChanges();
+//     }
 
-    return Results.Ok("Detentos duplicados removidos com sucesso.");
-});
+//     return Results.Ok("Detentos duplicados removidos com sucesso.");
+// });
 
-app.MapDelete("/api/deletar/funcionarioDuplicado", ([FromServices] AppDataContext ctx) =>
-{
-    var ListaFuncionarios = ctx.TabelaFuncionarios
-        .AsEnumerable() // Carrega os dados e realiza o agrupamento na memória
-        .GroupBy(d => d.CPF) // Agrupa por CPF
-        .Where(g => g.Count() > 1) // Filtra grupos com duplicados
-        .SelectMany(g => g.Skip(1)) // Pega todos menos o primeiro de cada grupo
-        .ToList();
+// // deletar funcionário duplicado
+// app.MapDelete("/api/deletar/funcionarioDuplicado", ([FromServices] AppDataContext ctx) =>
+// {
+//     var ListaFuncionarios = ctx.TabelaFuncionarios
+//         .AsEnumerable() // Carrega os dados e realiza o agrupamento na memória
+//         .GroupBy(d => d.CPF) // Agrupa por CPF
+//         .Where(g => g.Count() > 1) // Filtra grupos com duplicados
+//         .SelectMany(g => g.Skip(1)) // Pega todos menos o primeiro de cada grupo
+//         .ToList();
 
-    if (ListaFuncionarios.Any())
-    {
-        ctx.TabelaFuncionarios.RemoveRange(ListaFuncionarios);
-        ctx.SaveChanges();
-    }
+//     if (ListaFuncionarios.Any())
+//     {
+//         ctx.TabelaFuncionarios.RemoveRange(ListaFuncionarios);
+//         ctx.SaveChanges();
+//     }
 
-    return Results.Ok("Funcionarios duplicados removidos com sucesso.");
-});
-// cadastrar todas as atividades em todos os detentos [facilitar testes]
+//     return Results.Ok("Funcionarios duplicados removidos com sucesso.");
+// });
 
-app.MapPost("/api/atividade/detento/cadastrar/todas", ([FromServices] AppDataContext ctx) =>
-{
-    bool hasActivities = false;
+// // cadastrar todas as atividades em todos os detentos [facilitar testes]
 
-    foreach (Detento detento in ctx.TabelaDetentos.ToList())
-    {
-        List<Atividade> atividades = new List<Atividade>();
+// app.MapPost("/api/atividade/detento/cadastrar/todas", ([FromServices] AppDataContext ctx) =>
+// {
+//     bool hasActivities = false;
 
-        if (!detento.Atividades.Any(x => x is Leitura))
-        {
-            atividades.Add(new Leitura
-            {
-                DetentoId = detento.DetentoId,
-                Tipo = "Leitura",
-                Equivalencia = 0.25
-            });
-        }
-        if (!detento.Atividades.Any(x => x is Estudo))
-        {
-            atividades.Add(new Estudo
-            {
-                DetentoId = detento.DetentoId,
-                Tipo = "Estudo",
-                Equivalencia = 3
-            });
-        }
-        if (!detento.Atividades.Any(x => x is Trabalho))
-        {
-            atividades.Add(new Trabalho
-            {
-                DetentoId = detento.DetentoId,
-                Tipo = "Trabalho",
-                Equivalencia = 3
-            });
-        }
+//     foreach (Detento detento in ctx.TabelaDetentos.ToList())
+//     {
+//         List<Atividade> atividades = new List<Atividade>();
 
-        if (atividades.Any())
-        {
-            ctx.TabelaAtividades.AddRange(atividades);
-            hasActivities = true;
-        }
-    }
+//         if (!detento.Atividades.Any(x => x is Leitura))
+//         {
+//             atividades.Add(new Leitura
+//             {
+//                 DetentoId = detento.DetentoId,
+//                 Tipo = "Leitura",
+//                 Equivalencia = 0.25
+//             });
+//         }
+//         if (!detento.Atividades.Any(x => x is Estudo))
+//         {
+//             atividades.Add(new Estudo
+//             {
+//                 DetentoId = detento.DetentoId,
+//                 Tipo = "Estudo",
+//                 Equivalencia = 3
+//             });
+//         }
+//         if (!detento.Atividades.Any(x => x is Trabalho))
+//         {
+//             atividades.Add(new Trabalho
+//             {
+//                 DetentoId = detento.DetentoId,
+//                 Tipo = "Trabalho",
+//                 Equivalencia = 3
+//             });
+//         }
 
-    if (!hasActivities)
-    {
-        return Results.Conflict("Nenhuma atividade a ser registrada para qualquer detento.");
-    }
+//         if (atividades.Any())
+//         {
+//             ctx.TabelaAtividades.AddRange(atividades);
+//             hasActivities = true;
+//         }
+//     }
 
-    ctx.SaveChanges();
-    return Results.Created("/api/atividade/detento/cadastrar/todas", "Atividades cadastradas com sucesso.");
-});
+//     if (!hasActivities)
+//     {
+//         return Results.Conflict("Nenhuma atividade a ser registrada para qualquer detento.");
+//     }
 
-app.MapPut("/api/arrumarTiposAtividade", ([FromServices] AppDataContext ctx) =>
-{
-    var atividades = ctx.TabelaAtividades.ToList();
+//     ctx.SaveChanges();
+//     return Results.Created("/api/atividade/detento/cadastrar/todas", "Atividades cadastradas com sucesso.");
+// });
 
-    foreach (Atividade atividade in atividades)
-    {
-        if (atividade is Leitura)
-        {
-            atividade.Tipo = "Leitura";
-            atividade.Equivalencia = 0.25;
-            atividade.Limite = 12;
-            atividade.AnoAtual = DateTime.Now.Year;
-        }
-        else if (atividade is Estudo)
-        {
-            atividade.Tipo = "Estudo";
-            atividade.Equivalencia = 3;
-        }
-        else if (atividade is Trabalho)
-        {
-            atividade.Tipo = "Trabalho";
-            atividade.Equivalencia = 3;
-        }
-    }
-    ctx.TabelaAtividades.UpdateRange(atividades);
-    ctx.SaveChanges();
+// // arrumar tipos de atividade
+// app.MapPut("/api/arrumarTiposAtividade", ([FromServices] AppDataContext ctx) =>
+// {
+//     var atividades = ctx.TabelaAtividades.ToList();
 
-    return Results.Ok(atividades);
-});
+//     foreach (Atividade atividade in atividades)
+//     {
+//         if (atividade is Leitura)
+//         {
+//             atividade.Tipo = "Leitura";
+//             atividade.Equivalencia = 0.25;
+//             atividade.Limite = 12;
+//             atividade.AnoAtual = DateTime.Now.Year;
+//         }
+//         else if (atividade is Estudo)
+//         {
+//             atividade.Tipo = "Estudo";
+//             atividade.Equivalencia = 3;
+//         }
+//         else if (atividade is Trabalho)
+//         {
+//             atividade.Tipo = "Trabalho";
+//             atividade.Equivalencia = 3;
+//         }
+//     }
+//     ctx.TabelaAtividades.UpdateRange(atividades);
+//     ctx.SaveChanges();
 
+//     return Results.Ok(atividades);
+// });
+
+// // deletar todos os funcionários
+// app.MapDelete("/api/funcionario/deletar/todos", ([FromServices] AppDataContext ctx) =>
+// {
+//     ctx.TabelaFuncionarios.RemoveRange(ctx.TabelaFuncionarios);
+//     ctx.SaveChanges();
+
+//     return Results.NoContent();
+// });
+
+// tudo acima foi comentado porque essas funcionalidades foram úteis em testes, mas não devem ficar no código
 
 app.UseCors("Acesso Total");
 app.Run();

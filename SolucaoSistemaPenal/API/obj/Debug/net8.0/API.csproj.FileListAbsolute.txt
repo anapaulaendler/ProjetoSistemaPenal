@@ -802,3 +802,6 @@ C:\Users\user\Desktop\ProjetoSistemaPenal\ProjetoSistemaPenal\SolucaoSistemaPena
 C:\Users\user\Desktop\ProjetoSistemaPenal\ProjetoSistemaPenal\SolucaoSistemaPenal\API\obj\Debug\net8.0\API.pdb
 C:\Users\user\Desktop\ProjetoSistemaPenal\ProjetoSistemaPenal\SolucaoSistemaPenal\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\user\Desktop\ProjetoSistemaPenal\ProjetoSistemaPenal\SolucaoSistemaPenal\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\Usuário\OneDrive\Documentos\ProjetoSistemaPenal\SolucaoSistemaPenal\API\bin\Debug\net8.0\API.staticwebassets.endpoints.json
+C:\Users\Usuário\OneDrive\Documentos\ProjetoSistemaPenal\SolucaoSistemaPenal\API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Usuário\OneDrive\Documentos\ProjetoSistemaPenal\SolucaoSistemaPenal\API\obj\Debug\net8.0\staticwebassets\msbuild.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props

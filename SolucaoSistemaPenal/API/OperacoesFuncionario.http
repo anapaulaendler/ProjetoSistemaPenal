@@ -32,4 +32,7 @@ Content-Type: application/json
 GET http://localhost:5291/api/funcionario/listar
 
 ### Deletar Funcionario
-DELETE {{base_url}}/deletar/{{funcionarioId}}
+DELETE {{base_url}}/deletar/6e7ab920-c646-4b73-9b6c-ed37f7e098b8
+
+### Deletar todos funcionarios
+DELETE {{base_url}}/deletar/todos

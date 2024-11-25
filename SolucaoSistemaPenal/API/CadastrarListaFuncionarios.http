@@ -1,97 +1,86 @@
-### Cadastrar Lista de detentos
+### Cadastrar Lista de funcionários
 POST http://localhost:5291/api/funcionario/cadastrar/lista
 Content-Type: application/json
 
 [
-    {
-        "Nome": "José Silva",
-        "DataNascimento": "15/04/1970",
-        "CPF": "12345678901",
-        "Sexo": "M",
-        "Cargo": "Diretor do Presídio"
-    },
-    {
-        "Nome": "Ana Souza",
-        "DataNascimento": "08/12/1982",
-        "CPF": "98765432100",
-        "Sexo": "F",
-        "Cargo": "Agente Penitenciário Especializado"
-    },
-    {
-        "Nome": "Mariana Costa",
-        "DataNascimento": "22/07/1990",
-        "CPF": "45678912301",
-        "Sexo": "F",
-        "Cargo": "Assistente Social"
-    },
-    {
-        "Nome": "Carlos Oliveira",
-        "DataNascimento": "11/03/1985",
-        "CPF": "78945612300",
-        "Sexo": "M",
-        "Cargo": "Agente de Segurança Penitenciária (ASP)"
-    },
-    {
-        "Nome": "Patrícia Lima",
-        "DataNascimento": "03/09/1988",
-        "CPF": "32165498700",
-        "Sexo": "F",
-        "Cargo": "Chefe de Vigilância e Disciplina"
-    },
-    {
-        "Nome": "Rafael Santos",
-        "DataNascimento": "17/02/1991",
-        "CPF": "65498732102",
-        "Sexo": "M",
-        "Cargo": "Inspetor Penitenciário"
-    },
-    {
-        "Nome": "Juliana Alves",
-        "DataNascimento": "05/08/1983",
-        "CPF": "15975348602",
-        "Sexo": "F",
-        "Cargo": "Enfermeira Penitenciária"
-    },
-    {
-        "Nome": "Lucas Martins",
-        "DataNascimento": "29/10/1979",
-        "CPF": "75395148603",
-        "Sexo": "M",
-        "Cargo": "Médico Penitenciário"
-    },
-    {
-        "Nome": "Renata Campos",
-        "DataNascimento": "10/01/1987",
-        "CPF": "85274196300",
-        "Sexo": "F",
-        "Cargo": "Coordenadora de Educação e Trabalho"
-    },
-    {
-        "Nome": "Tiago Fernandes",
-        "DataNascimento": "14/05/1989",
-        "CPF": "96385274100",
-        "Sexo": "M",
-        "Cargo": "Professor de Educação Prisional"
-    },
-    {
-        "Nome": "Carla Ribeiro",
-        "DataNascimento": "25/11/1992",
-        "CPF": "95135748200",
-        "Sexo": "F",
-        "Cargo": "Nutricionista"
-    },
-    {
-        "Nome": "André Moraes",
-        "DataNascimento": "30/06/1985",
-        "CPF": "74185296300",
-        "Sexo": "M",
-        "Cargo": "Cozinheiro"
-    },
-    {
-        "Nome": "Fernanda Teixeira",
-        "DataNascimento": "20/03/1994",
-        "CPF": "25896314700",
-        "Sexo": "F",
-        "Cargo": "Assistente Administrativo"
-    }
+  {
+    "Nome": "Ana Maria Silva",
+    "DataNascimento": "1985-03-12T00:00:00",
+    "CPF": "12345678901",
+    "Sexo": "F",
+    "Cargo": "Diretor(a) do Presídio",
+    "Senha": "senha123"
+  },
+  {
+    "Nome": "Carlos Eduardo Oliveira",
+    "DataNascimento": "1990-07-25T00:00:00",
+    "CPF": "23456789012",
+    "Sexo": "M",
+    "Cargo": "Agente de Segurança Penitenciária (ASP)",
+    "Senha": "senha456"
+  },
+  {
+    "Nome": "Juliana Pereira",
+    "DataNascimento": "1992-05-10T00:00:00",
+    "CPF": "34567890123",
+    "Sexo": "F",
+    "Cargo": "Assistente Social",
+    "Senha": "senha789"
+  },
+  {
+    "Nome": "Marcelo Fernandes",
+    "DataNascimento": "1988-01-18T00:00:00",
+    "CPF": "45678901234",
+    "Sexo": "M",
+    "Cargo": "Chefe de Vigilância e Disciplina",
+    "Senha": "senha1234"
+  },
+  {
+    "Nome": "Beatriz Souza",
+    "DataNascimento": "1995-09-14T00:00:00",
+    "CPF": "56789012345",
+    "Sexo": "F",
+    "Cargo": "Enfermeiro(a) Penitenciário(a)",
+    "Senha": "senha5678"
+  },
+  {
+    "Nome": "Rafael dos Santos",
+    "DataNascimento": "1983-06-30T00:00:00",
+    "CPF": "67890123456",
+    "Sexo": "M",
+    "Cargo": "Agente Penitenciário Especializado",
+    "Senha": "senha9012"
+  },
+  {
+    "Nome": "Paula Azevedo",
+    "DataNascimento": "1978-12-01T00:00:00",
+    "CPF": "78901234567",
+    "Sexo": "F",
+    "Cargo": "Nutricionista",
+    "Senha": "senha3456"
+  },
+  {
+    "Nome": "Lucas Moura",
+    "DataNascimento": "1998-04-15T00:00:00",
+    "CPF": "89012345678",
+    "Sexo": "M",
+    "Cargo": "Professor(a) de Educação Prisional",
+    "Senha": "senha6789"
+  },
+  {
+    "Nome": "Fernanda Ribeiro",
+    "DataNascimento": "1987-11-22T00:00:00",
+    "CPF": "90123456789",
+    "Sexo": "F",
+    "Cargo": "Coordenador(a) de Educação e Trabalho",
+    "Senha": "senha2345"
+  },
+  {
+    "Nome": "João Vitor Almeida",
+    "DataNascimento": "1993-03-08T00:00:00",
+    "CPF": "01234567890",
+    "Sexo": "M",
+    "Cargo": "Médico(a) Penitenciário(a)",
+    "Senha": "senha9876"
+  }
 ]
