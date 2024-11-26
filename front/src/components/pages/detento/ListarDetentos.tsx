@@ -15,7 +15,7 @@ function ListarDetentos() {
              })
              .then(detentos => {
                  setDetentos(detentos);
-             })
+             }).catch((e) => console.log("erro ao listar detentos, erro:" + e))
 
         
         });
