@@ -1,0 +1,135 @@
+/* Estilo global para layout e tipografia */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9; /* Fundo claro */
+  color: #333; /* Texto primário */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #007bff; /* Azul para títulos */
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Barra lateral */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #1f2937; /* Fundo escuro */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  margin: 10px 0;
+}
+
+.sidebar nav ul li a {
+  display: block;
+  padding: 12px 20px;
+  color: #fff;
+  background-color: transparent;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #374151; /* Hover escuro */
+  transform: translateX(5px); /* Leve deslocamento para a direita */
+}
+
+.sidebar nav ul li a.active {
+  background-color: #2563eb; /* Destaque para link ativo */
+  font-weight: bold;
+}
+
+/* Estilo para o conteúdo principal */
+.main-content {
+  margin-left: 250px; /* Espaço para a barra lateral */
+  padding: 20px;
+  background-color: #fff; /* Fundo do conteúdo */
+  min-height: 100vh;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para tabelas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #007bff;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f4f4f9;
+}
+
+table tbody tr:hover {
+  background-color: #e2e8f0;
+}
+
+/* Botão genérico */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:active {
+  background-color: #003d82;
+}
+
+/* Estilo para mensagens de resposta */
+.resposta-sucesso {
+  color: #28a745;
+}
+
+.resposta-erro {
+  color: #dc3545;
+}

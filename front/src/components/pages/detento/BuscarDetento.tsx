@@ -1,7 +1,7 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
-import "../../../css/detento/Detento.css"
+import DetentoNav from "../nav/DetentoNav";
 
 function BuscarDetento() {
 
@@ -41,7 +41,8 @@ function BuscarDetento() {
 
   return (
     <div>
-    <div id="form_buscar_detento">
+    <DetentoNav/>
+    <div >
         <h1>Buscar Detento</h1>
         <form onSubmit={clicar}>
             <input 

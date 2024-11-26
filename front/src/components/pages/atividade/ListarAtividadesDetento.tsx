@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Atividade } from "../../../interfaces/Atividade";
-import "../../../css/ListarAtividadesDetento.css"
 import { Detento } from "../../../interfaces/Detento";
 
 function ListarAtividadesDetento(){
@@ -38,7 +37,7 @@ function ListarAtividadesDetento(){
   }
 
   return(
-    <div id="form_listar_atividades_detento">
+    <div id="form">
       <h1>Listar atividades de Detento</h1>
       <div>
         <input type="text" placeholder="CPF do Detento" onChange={EncontrarDentento}/>

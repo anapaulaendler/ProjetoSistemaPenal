@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Funcionario } from "../../../interfaces/Funcionario";
 import axios from "axios";
-
-import "../../../css/funcionario/Funcionario.css"
+import FuncionarioNav from "../nav/FuncionarioNav";
 
 function CadastrarFuncionario(){
   
@@ -62,7 +61,9 @@ function CadastrarFuncionario(){
   }
 
   return(
-    <div id="form_cadastro_funcionario">
+    <div className="main-content">
+            <FuncionarioNav/>
+    <div id="form">
       <h1>Cadastrar Funcionarios</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="nome">Nome:
@@ -86,6 +87,7 @@ function CadastrarFuncionario(){
         </label>
           <button type="submit">Cadastrar</button>
       </form>
+    </div>
     </div>
   )
 }

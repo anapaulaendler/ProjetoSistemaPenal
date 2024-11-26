@@ -1,16 +1,25 @@
-import CadastrarAtividade from "../atividade/CadastrarAtividade";
-import BuscarDetentoCPF from "../detento/BuscarDetentoCPF";
-import EditarDetento from "../detento/EditarDetento";
-import ListarDetentos from "../detento/ListarDetentos";
+import { Link } from "react-router-dom";
 
 function DetentoNav(){
     return(
-        <div>
-            <BuscarDetentoCPF/>
-            <CadastrarAtividade/>
-            <EditarDetento/>
-            <ListarDetentos/>
-        </div>
+           <div className="sidebar">
+             <nav>
+               <ul>
+                <li>
+                   <Link to="/operacoesDetento/cadastrar">Cadastrar Detento</Link>
+                </li>
+                <li>
+                   <Link to="/operacoesDetento/cadastrar/atividade">Cadastrar Atividade em Detento</Link>
+                </li>
+                 <li>
+                   <Link to="/operacoesDetento/buscar">Buscar Detento</Link>
+                 </li>
+                 <li>
+                   <Link to="/operacoesDetento/listar">Listar Detentos</Link>
+                 </li>
+               </ul>
+             </nav>
+           </div>
     )
 }
 export default DetentoNav;

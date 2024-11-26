@@ -51,10 +51,3 @@ table tbody tr:last-child td {
   border-bottom: none;
 }
 
-.resposta-sucesso{
-  color: green;
-}
-
-.resposta-erro{
-  color: red;
-}

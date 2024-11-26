@@ -1,14 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import "../css/nav/App.css"
-import DetentoNav from "./pages/nav/DetentoNav";
-import FuncionarioNav from "./pages/nav/FuncionarioNav";
+import ListarDetentos from "./pages/detento/ListarDetentos";
+import EditarDetento from "./pages/detento/EditarDetento";
+import CadastrarAtividade from "./pages/atividade/CadastrarAtividade";
+import BuscarDetentoCPF from "./pages/detento/BuscarDetentoCPF";
+import CadastrarDetento from "./pages/detento/CadastrarDetento";
+import ListarFuncionarios from "./pages/funcionario/ListarFuncionarios";
+import CadastrarFuncionario from "./pages/funcionario/CadastrarFuncionario";
+import BuscarFuncionario from "./pages/funcionario/BuscarFuncionario";
+import EditarFuncionario from "./pages/funcionario/EditarFuncionario";
 function App() {
-  return (
+  return  (
     <BrowserRouter>
       <div className="App">
-        <nav>
+        <nav className="barra-superior">
           <ul>
             <li>
               <Link to="/operacoesDetento">Operações Detento</Link>
@@ -19,8 +25,19 @@ function App() {
           </ul>
         </nav>
         <Routes>
-          <Route path="/operacoesDetento" element={<DetentoNav/>}/>
-          <Route path="/operacoesFuncionario" element={<FuncionarioNav/>}/>
+          <Route path="/operacoesDetento" element={<ListarDetentos />} />
+          <Route path="/operacoesFuncionario" element={<ListarFuncionarios />} />
+          {/* DETENTO */}
+          <Route path="/operacoesDetento/cadastrar" element={<CadastrarDetento />} />
+          <Route path="/operacoesDetento/cadastrar/atividade" element={<CadastrarAtividade />} />
+          <Route path="/operacoesDetento/buscar" element={<BuscarDetentoCPF />} />
+          <Route path="/operacoesDetento/listar" element={<ListarDetentos />} />
+          <Route path="/operacoesDetento/editar/:id" element={<EditarDetento />} />
+          {/* FUNCIONARIO */}
+          <Route path="/operacoesFuncionario/cadastrar" element={<CadastrarFuncionario />} />
+          <Route path="/operacoesFuncionario/buscar" element={<BuscarFuncionario />} />
+          <Route path="/operacoesFuncionario/listar" element={<ListarFuncionarios />} />
+          <Route path="/operacoesFuncionario/editar/:id" element={<EditarFuncionario />} />
         </Routes>
       </div>
     </BrowserRouter>

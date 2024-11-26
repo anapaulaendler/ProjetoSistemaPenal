@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Funcionario } from "../../../interfaces/Funcionario";
 import axios from "axios";
 import FuncionarioNav from "../nav/FuncionarioNav";
-import { useParams } from "react-router-dom";
 
 function EditarFuncionario(){
 
@@ -16,19 +15,26 @@ function EditarFuncionario(){
     const [ cpf, setCpf  ] = useState<string>('');
     const [ sexo, setSexo  ] = useState<'M' | 'F'>('M');
 
-    const { id } = useParams()
-
     const [resposta2, setResposta2] = useState("");
 
-    useEffect(() => {
+    function encontrarFuncionario(){
     
-        fetch("http://localhost:5291/api/funcionario/buscar/id:" + id)
+        if(cpf.length != 11){
+          setResposta("O cpf deve conter 11 dígitos")
+          return setRespostaClasse("")
+        }
+        fetch("http://localhost:5291/api/funcionario/buscar/cpf:" + cpf)
         .then(resposta => {
+          if(resposta.ok){
+            setResposta("Funcionário encontrado!")
+            setRespostaClasse("resposta-sucesso")
             return resposta.json()
-          })
-          .then( funcionario => {
+          }else{
+            setResposta("Funcionário não encontrado!")
+            return setRespostaClasse("resposta-erro")
+          }
+        }).then( funcionario => {
           setFuncionario(funcionario)
-          setCpf(funcionario.cpf)
           setNome(funcionario.nome)
           setCargo(funcionario.cargo)
           setDataNascimento(funcionario.dataNascimento)
@@ -40,7 +46,7 @@ function EditarFuncionario(){
 
         })
     
-      }, [])
+      }
 
       function handleSubmit(e: any){
         e.preventDefault();
@@ -66,6 +72,16 @@ function EditarFuncionario(){
             <FuncionarioNav/>
         <div id="form">
             <h1>Alterar Funcionario</h1>
+            <div>
+              <form onSubmit={encontrarFuncionario}>
+                <label htmlFor="cpf"> CPF do Funcionário:
+                    <input type="text" onChange={e => setCpf(e.target.value)} required/>
+                </label>
+                <div className={respostaClasse}>{resposta}</div>
+                <button  type="submit">Buscar</button>
+              </form>
+              
+            </div>
             {funcionario &&
                 <div>
                   <form onSubmit={handleSubmit}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
-import "../../../css/detento/Detento.css"
+import DetentoNav from "../nav/DetentoNav";
+import { useParams } from "react-router-dom";
 function EditarDetento() {
 
   const [detento, setDetento] = useState<Detento>();
@@ -12,41 +13,37 @@ function EditarDetento() {
   const [inicioPena, setInicioPena] = useState<string>("");
   const [fimPena, setFimPena] = useState<string>("");
   const [detentoId, setDetentoId] = useState<string>("");
-
+  
+  const [resposta, setResposta] = useState<string>();
+  const [respostaClasse, setRespostaClasse] = useState<string>();
   const [erro, setErro] = useState<string>();
-  const [resposta, setResposta] = useState("");
-  const [respostaClasse, setRespostaClasse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  function encontrarDetento(e: any) {
-    fetch("http://localhost:5291/api/detento/buscar/cpf:" + e.target.value)
-      .then((resposta) => {
-        if (resposta.ok) {
-          setResposta("Detento encontrado.");
-          setRespostaClasse("resposta-sucesso");
-          return resposta.json();
-        } else {
-          setResposta("Detento não encontrado.");
-          setRespostaClasse("resposta-erro");
-          return null;
-        }
-      })
-      .then((detento) => {
-        if (detento) {
-          setDetento(detento);
-          setCpf(detento.cpf);
-          setDataNascimento(detento.dataNascimento.split("T")[0]);
-          setFimPena(detento.fimPena);
-          setInicioPena(detento.inicioPena);
-          setNome(detento.nome);
-          setSexo(detento.sexo);
-          setDetentoId(detento.detentoId);
-        }
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar detento:", error);
-      });
+  const { id } = useParams();
+
+  useEffect(() => {
+    if(id){
+    fetch("http://localhost:5291/api/detento/buscar/id:" + id)
+    .then((resposta) => {
+        return resposta.json();
+    })
+    .then((detento) => {
+      if (detento) {
+        setDetento(detento);
+        setCpf(detento.cpf);
+        setDataNascimento(detento.dataNascimento.split("T")[0]);
+        setFimPena(detento.fimPena);
+        setInicioPena(detento.inicioPena);
+        setNome(detento.nome);
+        setSexo(detento.sexo);
+        setDetentoId(detento.detentoId);
+      }
+    })
+    .catch((error) => {
+      console.error("Erro ao buscar detento:", error);
+    });
   }
+  },[])
 
   function handleSubmit(e: any) {
     e.preventDefault();
@@ -90,58 +87,58 @@ function EditarDetento() {
   }
 
   return (
-    <div id="form_editar_detento">
-      <h1>Alterar Detento</h1>
-      <form onSubmit={handleSubmit}>
-          <label htmlFor="detentoId">CPF do Detento</label>
-          <input type="text" onChange={encontrarDetento} required />
-          <div className={respostaClasse}>{resposta}</div>
-        {detento && (
-          <>
-            <div>
-              <label htmlFor="nome">Nome:</label>
-              <input
-                type="text"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="dataNascimento">Data de Nascimento:</label>
-              <input
-                type="date"
-                value={dataNascimento.split("T")[0]}
-                onChange={(e) => setDataNascimento(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="cpf">CPF:</label>
-              <input
-                type="text"
-                value={cpf}
-                onChange={(x) => setCpf(x.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="sexo">Sexo:</label>
-              <select
-                value={sexo}
-                onChange={(e) => setSexo(e.target.value as "M" | "F")}
-                required
-              >
-                <option value="M">Masculino</option>
-                <option value="F">Feminino</option>
-              </select>
-            </div>
-            <button type="submit" disabled={isLoading}>
-              {isLoading ? "Salvando..." : "Editar"}
-            </button>
-          </>
-        )}
-      </form>
+    <div className="main-content">
+    <DetentoNav/>
+      <div id="form">
+        <h1>Alterar Detento</h1>
+        <form onSubmit={handleSubmit}>
+          {detento && (
+            <>
+              <div>
+                <label htmlFor="nome">Nome:</label>
+                <input
+                  type="text"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="dataNascimento">Data de Nascimento:</label>
+                <input
+                  type="date"
+                  value={dataNascimento.split("T")[0]}
+                  onChange={(e) => setDataNascimento(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="cpf">CPF:</label>
+                <input
+                  type="text"
+                  value={cpf}
+                  onChange={(x) => setCpf(x.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="sexo">Sexo:</label>
+                <select
+                  value={sexo}
+                  onChange={(e) => setSexo(e.target.value as "M" | "F")}
+                  required
+                >
+                  <option value="M">Masculino</option>
+                  <option value="F">Feminino</option>
+                </select>
+              </div>
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Salvando..." : "Editar"}
+              </button>
+            </>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
