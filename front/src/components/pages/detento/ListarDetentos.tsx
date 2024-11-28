@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
 import DetentoNav from "../nav/DetentoNav";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function ListarDetentos() {
 
@@ -19,6 +20,15 @@ function ListarDetentos() {
 
         
         });
+
+        function deletar(id: string) {
+          axios
+            .delete(`http://localhost:5000/api/detento/deletar/${id}`)
+            .then((resposta) => {
+              console.log(resposta.data);
+            });
+        }
+
   return (
     <div className="main-content">
       <DetentoNav/>
@@ -38,6 +48,7 @@ function ListarDetentos() {
           <th>Início da Pena</th>
           <th>Fim da Pena</th>
           <th>Atividades</th>
+          <th>Deletar</th>
           <th>Alterar</th>
         </tr>
       </thead>
@@ -58,6 +69,11 @@ function ListarDetentos() {
               )) || "N/A"}
             </select>
           </td>
+          <td>
+                <button onClick={() => deletar(detento.detentoId!)}>
+                  Deletar
+                </button>
+              </td>
           <td>
             <Link to={`/operacoesDetento/editar/${detento.detentoId}`}>Alterar</Link>
           </td>
