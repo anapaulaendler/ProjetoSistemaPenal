@@ -84,3 +84,50 @@ Content-Type: application/json
         "FimPena": "2032-02-10T00:00:00"
     }
 ]
+
+### cadastro lista de detentos inativos
+POST http://localhost:5291/api/detentoinativo/cadastrar/lista
+Content-Type: application/json
+
+[
+  {
+    "Nome": "Carlos da Silva",
+    "DataNascimento": "1980-05-15T00:00:00",
+    "CPF": "123.456.789-01",
+    "Sexo": "M",
+    "InicioPena": "2010-03-01T00:00:00",
+    "FimPena": "2020-03-01T00:00:00"
+  },
+  {
+    "Nome": "Maria Oliveira",
+    "DataNascimento": "1985-08-20T00:00:00",
+    "CPF": "987.654.321-09",
+    "Sexo": "F",
+    "InicioPena": "2015-06-15T00:00:00",
+    "FimPena": "2021-06-15T00:00:00"
+  },
+  {
+    "Nome": "João Pereira",
+    "DataNascimento": "1975-11-30T00:00:00",
+    "CPF": "159.753.486-20",
+    "Sexo": "M",
+    "InicioPena": "2005-09-10T00:00:00",
+    "FimPena": "2015-09-10T00:00:00"
+  },
+  {
+    "Nome": "Ana Souza",
+    "DataNascimento": "1990-03-10T00:00:00",
+    "CPF": "321.654.987-02",
+    "Sexo": "F",
+    "InicioPena": "2018-01-20T00:00:00",
+    "FimPena": "2023-01-20T00:00:00"
+  },
+  {
+    "Nome": "Paulo Santos",
+    "DataNascimento": "1970-07-07T00:00:00",
+    "CPF": "456.789.123-00",
+    "Sexo": "M",
+    "InicioPena": "2000-04-05T00:00:00",
+    "FimPena": "2010-04-05T00:00:00"
+  }
+]

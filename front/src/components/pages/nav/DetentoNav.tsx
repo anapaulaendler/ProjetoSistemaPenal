@@ -17,6 +17,9 @@ function DetentoNav(){
                  <li>
                    <Link to="/operacoesDetento/listar">Listar Detentos</Link>
                  </li>
+                 <li>
+                   <Link to="/operacoesDetento/listar/inativos">Listar Detentos Inativos</Link>
+                 </li>
                </ul>
              </nav>
            </div>

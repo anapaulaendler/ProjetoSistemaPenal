@@ -1,5 +1,6 @@
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDataContext>();
@@ -49,17 +50,15 @@ app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
 {
     if (ctx.TabelaDetentos.Any())
     {
-        List<Detento> detentos = [];
-        foreach (Detento detento in ctx.TabelaDetentos.ToList())
-        {
-            var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == detento.DetentoId);
-            detento.Atividades = atividades.ToList();
-            detentos.Add(detento);
-        }
+        // List<Detento> detentos = [];
+        // foreach (Detento detento in ctx.TabelaDetentos.ToList())
+        // {
+        //     var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == detento.DetentoId);
+        //     detento.Atividades = atividades.ToList();
+        //     detentos.Add(detento);
+        // }
+        List<Detento> detentos = ctx.TabelaDetentos.Include(x => x.Atividades).ToList();
         return Results.Ok(detentos);
-        /* a forma acima funcionou melhor que a de baixo: 
-        List<Detento> detentos = ctx.TabelaDetentos.ToList();
-        porque, na de cima, a lista de atividades não constava em detento */
     }
     return Results.NotFound();
 });
@@ -69,10 +68,12 @@ app.MapGet("/api/detento/buscar/id:{id}", ([FromRoute] string id, [FromServices]
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
     var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
+
     if (detento == null)
     {
         return Results.NotFound();
     }
+
     detento.Atividades = atividades.ToList();
     return Results.Ok(detento);
 });
@@ -80,10 +81,12 @@ app.MapGet("/api/detento/buscar/id:{id}", ([FromRoute] string id, [FromServices]
 app.MapGet("/api/detento/buscar/cpf:{cpf}", ([FromRoute] string cpf, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.FirstOrDefault(x => x.CPF == cpf);
+
     if (detento == null)
     {
         return Results.NotFound();
     }
+
     var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == detento.DetentoId);
     detento.Atividades = atividades.ToList();
     return Results.Ok(detento);
@@ -420,6 +423,17 @@ app.MapDelete("/api/funcionario/deletar/{id}", ([FromRoute] string id, [FromServ
     return Results.NoContent();
 });
 
+// listar detentos inativos
+app.MapGet("/api/detentoinativo/listar", ([FromServices] AppDataContext ctx) =>
+{
+    if (ctx.TabelaDetentosInativos.Any())
+    {
+        List<DetentoInativo> detentos = ctx.TabelaDetentosInativos.ToList();
+        return Results.Ok(detentos);
+    }
+    return Results.NotFound();
+});
+
 // OUTRAS FUNCIONALIDADES!!
 
 // // deletar detento duplicado
@@ -553,6 +567,19 @@ app.MapDelete("/api/funcionario/deletar/{id}", ([FromRoute] string id, [FromServ
 
 //     return Results.NoContent();
 // });
+
+// criar lista de detentos
+app.MapPost("/api/detentoinativo/cadastrar/lista", ([FromBody] List<DetentoInativo> detentos, [FromServices] AppDataContext ctx) =>
+{
+    if (detentos == null || detentos.Count == 0)
+    {
+        return Results.NotFound("A lista de detentos está vazia ou é inválida");
+    }
+    ctx.TabelaDetentosInativos.AddRange(detentos);
+    ctx.SaveChanges();
+
+    return Results.Created("", detentos.ToList());
+});
 
 // tudo acima foi comentado porque essas funcionalidades foram úteis em testes, mas não devem ficar no código
 

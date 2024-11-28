@@ -10,6 +10,7 @@ import ListarFuncionarios from "./pages/funcionario/ListarFuncionarios";
 import CadastrarFuncionario from "./pages/funcionario/CadastrarFuncionario";
 import BuscarFuncionario from "./pages/funcionario/BuscarFuncionario";
 import EditarFuncionario from "./pages/funcionario/EditarFuncionario";
+import ListarDetentosInativos from "./pages/detento/ListarDetentosInativos";
 function App() {
   return  (
     <BrowserRouter>
@@ -33,6 +34,7 @@ function App() {
           <Route path="/operacoesDetento/buscar" element={<BuscarDetentoCPF />} />
           <Route path="/operacoesDetento/listar" element={<ListarDetentos />} />
           <Route path="/operacoesDetento/editar/:id" element={<EditarDetento />} />
+          <Route path="/operacoesDetento/listar/inativos" element={<ListarDetentosInativos />} />
           {/* FUNCIONARIO */}
           <Route path="/operacoesFuncionario/cadastrar" element={<CadastrarFuncionario />} />
           <Route path="/operacoesFuncionario/buscar" element={<BuscarFuncionario />} />
