@@ -17,13 +17,15 @@ function BuscarDetentoCPF() {
         setCpf(e.target.value);
     }
 
-    function clicar(){
+    function clicar(e:any){
+        e.preventDefault();
+
         if (!cpf) {
             setResposta("Por favor, insira um CPF válido.");
             return;
         }
 
-        fetch("http://localhost:5291/api/detento/buscar/cpf:" + cpf)
+        fetch("http://localhost:5291/api/detento/buscar/cpf:" + formatCPF(cpf))
         .then(resposta => {
         return resposta.json()
         })
@@ -43,7 +45,18 @@ function BuscarDetentoCPF() {
         setResposta("detento não encontrado")
         });
 
-
+        function formatCPF(cpf: string): string {
+            // Remove qualquer caractere que não seja um número
+            const numericCPF = cpf.replace(/\D/g, "");
+            
+            // Verifica se o CPF tem 11 dígitos
+            if (numericCPF.length !== 11) {
+                throw new Error("CPF inválido. Certifique-se de que ele contém 11 dígitos.");
+            }
+            
+            // Aplica a formatação XXX.XXX.XXX-XX
+            return numericCPF.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        }
     }
 
   return (

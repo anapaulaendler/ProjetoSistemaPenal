@@ -8,8 +8,9 @@ function BuscarFuncionario(){
     const [ cpf, setCpf  ] = useState<string>('');
     const [resposta, setResposta] = useState("");
 
-    function encontrarFuncionario(){
-    
+    function encontrarFuncionario(e:any){
+        e.preventDefault();
+   
         
         fetch("http://localhost:5291/api/funcionario/buscar/cpf:" + cpf)
         .then(resposta => {

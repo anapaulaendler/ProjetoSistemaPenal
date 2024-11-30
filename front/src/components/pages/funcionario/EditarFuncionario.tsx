@@ -59,6 +59,7 @@ function EditarFuncionario(){
         }
 
         axios.put("http://localhost:5291/api/funcionario/alterar/" + funcionario?.funcionarioId, funcionarioAlterado)
+        .then(resposta => alert("Funcionario Editado Com sucesso!"))
       }
       }
     return(

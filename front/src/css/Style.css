@@ -183,10 +183,6 @@ select:focus {
   outline: none;
 }
 
-input[type="text"] {
-  text-transform: uppercase; /* Para CPF */
-}
-
 button {
   width: 100%;
   padding: 10px;

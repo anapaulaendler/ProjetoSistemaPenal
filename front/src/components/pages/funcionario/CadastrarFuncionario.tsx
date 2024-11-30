@@ -17,14 +17,15 @@ function CadastrarFuncionario(){
     
     if(cpf.length != 11){
       setResposta("O cpf deve conter 11 dígitos")
-      return setRespostaClasse("")
+      setRespostaClasse("")
+      return true
     }
     fetch("http://localhost:5291/api/funcionario/buscar/cpf:" + cpf)
     .then(resposta => {
       if(resposta.ok){
         setResposta("Funcionário com mesmo CPF encontrado no Sistema!")
         setRespostaClasse("resposta-erro")
-        return true
+        return true 
       }else{
         setResposta("CPF disponível")
         setRespostaClasse("resposta-sucesso")
@@ -35,8 +36,6 @@ function CadastrarFuncionario(){
         console.log(error)
         return true
     })
-
-    return true
   }
 
   function handleSubmit(e : any){
@@ -44,7 +43,7 @@ function CadastrarFuncionario(){
    
 
     if(encontrarFuncionario()){
-      return alert("Funcionário com mesmo CPF encontrado, impossível registrar")
+      return alert("Impossível registrar funcionário")
     }
 
     const funcionario : Funcionario = {
