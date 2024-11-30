@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Atividade } from "../../../interfaces/Atividade";
 import { Detento } from "../../../interfaces/Detento";
 import DetentoNav from "../nav/DetentoNav";
+import axios from "axios";
 
 function CadastrarDetento() {
 
@@ -18,31 +19,17 @@ function CadastrarDetento() {
         e.preventDefault();
 
         const novoDetento : Detento = {
-            nome,
-            dataNascimento,
-            inicioPena: "",
-            fimPena: "",
+            nome: nome,
+            dataNascimento: dataNascimento,
+            inicioPena: inicioPena,
+            fimPena: fimPena,
             atividades: [],
-            cpf: "",
-            sexo: "M"
+            cpf: formatCPF(cpf),
+            sexo: sexo
         };
 
-        fetch("http://localhost:5291/api/detento/cadastrar", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(novoDetento)
-        })
-
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro na requisição: ' + response.statusText);
-            }
-            return response.json();
-        })
-
-        .then(data => {
+        axios.post("http://localhost:5291/api/detento/cadastrar", novoDetento)
+        .then(() => {
             setNome('');
             setDataNascimento('');
             setCpf('');
@@ -51,13 +38,23 @@ function CadastrarDetento() {
             setFimPena('');
             setAtividades([]);
         })
-
         .catch(error => {
             console.error('Erro:', error);
         });
 
     };
-
+    function formatCPF(cpf: string): string {
+      // Remove qualquer caractere que não seja um número
+      const numericCPF = cpf.replace(/\D/g, "");
+      
+      // Verifica se o CPF tem 11 dígitos
+      if (numericCPF.length !== 11) {
+          throw new Error("CPF inválido. Certifique-se de que ele contém 11 dígitos.");
+      }
+      
+      // Aplica a formatação XXX.XXX.XXX-XX
+      return numericCPF.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }
   return (
   <div className="main-content">
     <DetentoNav/>
