@@ -46,6 +46,9 @@ function CadastrarFuncionario(){
       return alert("Impossível registrar funcionário")
     }
 
+    if(respostaClasse == "resposta-erro"){
+      return
+    }
     const funcionario : Funcionario = {
       nome: nome,
       cargo: cargo,

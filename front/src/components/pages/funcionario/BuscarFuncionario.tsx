@@ -46,7 +46,7 @@ function BuscarFuncionario(){
                         <p><strong>Data Nascimento:</strong> {new Date(funcionario.dataNascimento).toLocaleDateString()}</p>
                         <p><strong>CPF: </strong> {funcionario.cpf}</p>
                         <p><strong>Sexo:</strong> {funcionario.sexo}</p>
-                        <p><strong>Tempo de Pena Inicial:</strong> {funcionario.cargo}</p>
+                        <p><strong>Cargo:</strong> {funcionario.cargo}</p>
                     </div>
                 }
             </div>
