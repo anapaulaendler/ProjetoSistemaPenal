@@ -58,7 +58,7 @@ function CadastrarAtividade() {
                 <option value="estudo">Estudo</option>
                 <option value="leitura">Leitura</option>
                 <option value="trabalho">Trabalho</option>
-                <option value="todos">Todos</option>
+                <option value="todas">Todos</option>
               </select> 
             </label>
             <button type="submit">Cadastrar</button>

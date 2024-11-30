@@ -6,9 +6,6 @@ import axios from "axios";
 import DetentoNav from "../nav/DetentoNav";
 
 function ListarAtividadesDetento(){
-  const [respostaClasse, setRespostaClasse] = useState("")
-  const [resposta, setResposta] = useState("")
-
   const [atividades, setAtividades] = useState<Atividade[]>([])
   const [detento, setDetento] = useState<Detento>();
 

@@ -23,7 +23,7 @@ function ListarDetentos() {
 
         function deletar(id: string) {
           axios
-            .delete(`http://localhost:5000/api/detento/deletar/${id}`)
+            .delete(`http://localhost:5291/api/detento/deletar/${id}`)
             .then((resposta) => {
               console.log(resposta.data);
             });

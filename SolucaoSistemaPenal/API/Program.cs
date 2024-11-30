@@ -187,7 +187,10 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
         Atividade leitura = new Leitura
         {
             Tipo = "Leitura",
-            DetentoId = detento.DetentoId
+            DetentoId = detento.DetentoId,
+            Equivalencia = 0.25,
+            AnoAtual = DateTime.Now.Year,
+            Limite = 12
         };
         ctx.TabelaAtividades.Add(leitura);
         ctx.SaveChanges();
@@ -203,7 +206,8 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
         Atividade estudo = new Estudo
         {
             Tipo = "Estudo",
-            DetentoId = detento.DetentoId
+            DetentoId = detento.DetentoId,
+            Equivalencia = 3
         };
         ctx.TabelaAtividades.Add(estudo);
         ctx.SaveChanges();
@@ -220,7 +224,8 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
         Atividade trabalho = new Trabalho
         {
             DetentoId = detento.DetentoId,
-            Tipo = "Trabalho"
+            Tipo = "Trabalho",
+            Equivalencia = 3
         };
         ctx.TabelaAtividades.Add(trabalho);
         ctx.SaveChanges();
@@ -237,8 +242,11 @@ app.MapPost("/api/atividade/detento/cadastrar/{id}/{nomeAtividade}", ([FromRoute
             {
                 DetentoId = detento.DetentoId,
                 Tipo = "Leitura",
-                Equivalencia = 0.25
+                Equivalencia = 0.25,
+                AnoAtual = DateTime.Now.Year,
+                Limite = 12
             });
+
         }
         if (!detento.Atividades.Any(x => x is Estudo))
         {
