@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Detento } from "../../../interfaces/Detento";
 import { Atividade } from "../../../interfaces/Atividade";
 import DetentoNav from "../nav/DetentoNav";
+import { Link } from "react-router-dom";
 
 function BuscarDetentoCPF() {
 
@@ -85,6 +86,12 @@ function BuscarDetentoCPF() {
                 <p><strong>Sexo:</strong> {detento.sexo}</p>
                 <p><strong>Início Pena:</strong> {detento.inicioPena}</p>
                 <p><strong>Fim da Pena:</strong> {detento.fimPena}</p>
+                <p>
+                    <strong>Alterar Atividades:</strong>{" "}
+                    <Link to={`/operacoesDetento/listar/atividades/${detento.detentoId}`}>
+                    Alterar
+                    </Link>
+                </p>
             </div>
         )}
         {atividades.length > 1 && (

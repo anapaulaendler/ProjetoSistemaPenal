@@ -3,6 +3,7 @@ import { Atividade } from "../../../interfaces/Atividade";
 import { Detento } from "../../../interfaces/Detento";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import DetentoNav from "../nav/DetentoNav";
 
 function ListarAtividadesDetento(){
   const [respostaClasse, setRespostaClasse] = useState("")
@@ -31,16 +32,20 @@ function ListarAtividadesDetento(){
     }
   })
 
-  function alterar(e: any) {
+  function alterar(idAtividade: string) {
+
+    console.log("ID enviado para alteração:", idAtividade);
 
     axios
-      .put(`http://localhost:5000/api/atividade/alterar/${id}`)
+      .put(`http://localhost:5291/api/atividade/alterar/${idAtividade}`)
       .then((resposta) => {
         console.log(resposta.data);
       });
   }
 
   return(
+    <div className="main-content">
+        <DetentoNav/>
       <div>
           <h1>Listar de atividades</h1>
               <div>
@@ -75,6 +80,7 @@ function ListarAtividadesDetento(){
                   </table>
               </div>
           </div>
+        </div>
   );
 }
 
