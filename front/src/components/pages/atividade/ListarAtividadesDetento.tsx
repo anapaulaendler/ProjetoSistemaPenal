@@ -3,6 +3,7 @@ import { Atividade } from "../../../interfaces/Atividade";
 import { Detento } from "../../../interfaces/Detento";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import DetentoNav from "../nav/DetentoNav";
 
 function ListarAtividadesDetento(){
   const [respostaClasse, setRespostaClasse] = useState("")
@@ -43,6 +44,8 @@ function ListarAtividadesDetento(){
   }
 
   return(
+    <div className="main-content">
+        <DetentoNav/>
       <div>
           <h1>Listar de atividades</h1>
               <div>
@@ -77,6 +80,7 @@ function ListarAtividadesDetento(){
                   </table>
               </div>
           </div>
+        </div>
   );
 }
 
