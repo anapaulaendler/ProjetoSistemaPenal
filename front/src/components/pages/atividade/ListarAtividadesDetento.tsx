@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Atividade } from "../../../interfaces/Atividade";
 import { Detento } from "../../../interfaces/Detento";
+import { useParams } from "react-router-dom";
 
 function ListarAtividadesDetento(){
   const [respostaClasse, setRespostaClasse] = useState("")
@@ -9,39 +10,38 @@ function ListarAtividadesDetento(){
   const [atividades, setAtividades] = useState<Atividade[]>([])
   const [detento, setDetento] = useState<Detento>();
 
-  function EncontrarDentento(e : any){
-    
-    fetch("http://localhost:5291/api/detento/buscar/cpf:" + e.target.value)
-    .then(resposta => {
-      return resposta.json()
-    })
-    .then(detento => {
-      if(detento == null){
-        setRespostaClasse("resposta-erro")
-        return setResposta("detento não encontrado")
-      }else{
-        setRespostaClasse("resposta-sucesso")
-        setResposta("detento encontrado")
-        return setDetento(detento);
+  const { id } = useParams();
+  
+  useEffect(() => {
+    function EncontrarDentento(e : any){
+      if(id){
+        fetch("http://localhost:5291/api/detento/buscar/id:" + id)
+        .then((resposta) => {
+            return resposta.json();
+        })
+        .then((detento) => {
+          if (detento) {
+            setAtividades(detento.atividades);
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao buscar detento:", error);
+        });
       }
-    })
-    .catch(() => {
-      setRespostaClasse("resposta-erro")
-      setResposta("detento não encontrado")
-    });
-  }
-
-  function BuscarAtividade(){
-    console.log(detento?.atividades)
-    setAtividades(detento?.atividades || [])
-  }
+    }
+  
+    function BuscarAtividade(){
+      console.log(detento?.atividades)
+      setAtividades(detento?.atividades || [])
+    }
+  })
 
   return(
     <div id="form">
       <h1>Listar atividades de Detento</h1>
       <div>
-        <input type="text" placeholder="CPF do Detento" onChange={EncontrarDentento}/>
-        <button onClick={BuscarAtividade}>Buscar</button>
+        {/* <input type="text" placeholder="CPF do Detento" onChange={EncontrarDentento}/>
+        <button onClick={BuscarAtividade}>Buscar</button> */}
         <div className={respostaClasse}>{resposta}</div>
       </div>
       <div>

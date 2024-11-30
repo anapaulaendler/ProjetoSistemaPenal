@@ -63,11 +63,7 @@ function ListarDetentos() {
           <td>{new Date(detento.inicioPena).toLocaleDateString()}</td>
           <td>{new Date(detento.fimPena).toLocaleDateString()}</td>
           <td>
-            <select>
-              {detento.atividades?.map((atividade) => (
-                <option key={atividade.atividadeId}>{atividade.tipo}</option>
-              )) || "N/A"}
-            </select>
+          <Link to={`/operacoesDetento/listar/atividades/${detento.detentoId}`}>Alterar</Link>
           </td>
           <td>
                 <button onClick={() => deletar(detento.detentoId!)}>
