@@ -31,10 +31,12 @@ function ListarAtividadesDetento(){
     }
   })
 
-  function alterar(e: any) {
+  function alterar(idAtividade: string) {
+
+    console.log("ID enviado para alteração:", idAtividade);
 
     axios
-      .put(`http://localhost:5000/api/atividade/alterar/${id}`)
+      .put(`http://localhost:5291/api/atividade/alterar/${idAtividade}`)
       .then((resposta) => {
         console.log(resposta.data);
       });
