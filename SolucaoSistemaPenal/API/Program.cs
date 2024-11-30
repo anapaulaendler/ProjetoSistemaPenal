@@ -67,13 +67,13 @@ app.MapGet("/api/detento/listar", ([FromServices] AppDataContext ctx) =>
 app.MapGet("/api/detento/buscar/id:{id}", ([FromRoute] string id, [FromServices] AppDataContext ctx) =>
 {
     Detento? detento = ctx.TabelaDetentos.Find(id);
-    var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
 
     if (detento == null)
     {
         return Results.NotFound();
     }
 
+    var atividades = ctx.TabelaAtividades.Where(x => x.DetentoId == id);
     detento.Atividades = atividades.ToList();
     return Results.Ok(detento);
 });
